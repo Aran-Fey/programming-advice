@@ -1,7 +1,3 @@
-## Introduction
+This is a collection of random programming advice I wrote.
 
-TODO
-
-## Documentation
-
-The documentation can be found [here](https://Aran-Fey.github.io/programming-advice/index.html).
+Click [here](https://aran-fey.github.io/programming-advice/) to start reading.
