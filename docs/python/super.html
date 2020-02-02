@@ -17,7 +17,13 @@
     <link rel="next" title="Metaclasses" href="metaclasses.html" />
     <link rel="prev" title="Writing maintainable code" href="../general/maintainable-code.html" /> 
   </head><body>
-  
+
+    <div id="sidebar">
+        <div id="sidebar-content">
+                <a class="homepage-link" title="homepage" href="../index.html">Home page</a>
+        </div>
+    </div>
+
 
     <div class="document">
       <div class="documentwrapper">
@@ -149,7 +155,7 @@ As an example, think of enemy units in a tower defense game. Some units might wa
         <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">=</span> <span class="n">health</span>
 
 <span class="c1"># cooperative base classes</span>
-<span class="k">class</span> <span class="nc">GroundUnit</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">GroundUnit</span><span class="p">(</span><span class="n">Unit</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
@@ -192,28 +198,14 @@ As an example, think of enemy units in a tower defense game. Some units might wa
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="../general/maintainable-code.html"
-                        title="previous chapter">Writing maintainable code</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="metaclasses.html"
-                        title="next chapter">Metaclasses</a></p>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
+
       <div class="clearer"></div>
     </div>
+        <div id="bottomnav">
+                <a class="prev-link" title="Writing maintainable code" href="../general/maintainable-code.html">Writing maintainable code</a>
+            <a class="homepage-link" title="homepage" href="../index.html">Index</a>
+                <a class="next-link" title="Metaclasses" href="metaclasses.html">Metaclasses</a>
+        </div>
 
     <div class="footer" role="contentinfo">
     </div>

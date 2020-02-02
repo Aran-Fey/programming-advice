@@ -141,7 +141,7 @@ As an example, think of enemy units in a tower defense game. Some units might wa
             self.health = health
 
     # cooperative base classes
-    class GroundUnit:
+    class GroundUnit(Unit):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
 

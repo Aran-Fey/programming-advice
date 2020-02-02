@@ -7,9 +7,7 @@ I used to answer programming questions on StackOverflow and reddit, but after
 years of doing that I got tired of answering the same questions
 over and over again. So I decided to start writing guides instead.
 
-Some of these guides are aimed at more advanced programmers, but I also have some for people who are relatively new to programming.
-People who can write code that works, but have yet to figure out how to write code that is *good*.
-People who have learned a programming language and don't know where to go from there.
+Some of these guides are aimed at more advanced programmers, but I also have some for people who are relatively new to programming: People who have learned a programming language and don't know where to go from there. People who can write code that works, but have yet to figure out how to write code that is *good*.
 If you're in that situation, you should check out the :ref:`good-code` section.
 
 In any case, I hope you'll find something useful in here.
