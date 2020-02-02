@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Writing readable code &#8212; Aran-Fey&#39;s programming guides</title>
+    <link rel="stylesheet" href="../_static/advice.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Writing efficient code" href="efficient-code.html" />
+    <link rel="prev" title="Aran-Fey’s Programming Guides" href="../index.html" /> 
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="writing-readable-code">
+<h1>Writing readable code<a class="headerlink" href="#writing-readable-code" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic simple">
+<li><p>Readability (meaningful variable names, comments, no huge walls of code, …)</p></li>
+<li><p>Efficiency (runtime/space complexity)</p></li>
+<li><p>Maintainability (proper use of functions/OOP, no global variables, single responsibility principle, …)</p></li>
+<li><p>Documentation, testing</p></li>
+</ol>
+<ol class="arabic simple">
+<li><p>nondescript variable/class/function names</p></li>
+<li><p>lots of duplicated code</p></li>
+<li><p>error handling by returning None/False/an error string</p></li>
+<li><p>no separation between game logic and user interface</p></li>
+<li><p>useless comments</p></li>
+<li><p>hard-coding values</p></li>
+<li><p>global variables/instance attributes instead of function parameters</p></li>
+<li><p>using the same variable for objects of different kinds</p></li>
+<li><p>useless classes (with no state)</p></li>
+</ol>
+<dl>
+<dt>::</dt><dd><dl class="simple">
+<dt>ps = {</dt><dd><p>‘foo’: 5,
+‘bar’: 7</p>
+</dd>
+</dl>
+<p>}</p>
+<dl>
+<dt>def my_func(itms, m):</dt><dd><p>c = 0</p>
+<dl class="simple">
+<dt>for i in itms:</dt><dd><p>c += ps[i] * itms[i]</p>
+</dd>
+</dl>
+<p>return m - c</p>
+</dd>
+</dl>
+<p>import random</p>
+<p># class built only to be inherited by other classes
+class Shared_Attributes:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>def __init__(self):</dt><dd><p>self.health = 100
+self.power = 100
+self.power_type = ‘Mana’
+self.health_potion = 3
+self.power_potion = 3</p>
+</dd>
+<dt>def use_health_potion(self):</dt><dd><dl class="simple">
+<dt>if self.health_potion &gt; 0:</dt><dd><p>self.health_potion -= 1
+self.health += 25
+return f’Health Potion healed 25 hitpoints, you now have {self.health} hitpoints left.’</p>
+</dd>
+<dt>else:</dt><dd><p>return ‘You have no Health Potions left.’</p>
+</dd>
+</dl>
+</dd>
+<dt>def use_power_potion(self):</dt><dd><dl class="simple">
+<dt>if self.power_potion &gt; 0:</dt><dd><p>self.power_potion -= 1
+self.power += 25
+return f’{self.power_type} Potion restored 25 {self.power_type.lower()}, you now have {self.power} {self.power_type.lower()} left.’</p>
+</dd>
+<dt>else:</dt><dd><p>return f’You have no {self.power_type} Potions left.’</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+<dl>
+<dt>class Mage(Shared_Attributes):</dt><dd><dl class="simple">
+<dt>def throw_fireball(self, enemy):</dt><dd><p>dmg = random.randint(20, 30)
+enemy.health -= dmg
+print(f’You deal {dmg} damage.’)</p>
+</dd>
+<dt>def lesser_heal(self):</dt><dd><p>heal = random.randint(20, 30)
+self.health += heal
+print(f’You gain {heal} health.’)</p>
+</dd>
+<dt>def skill_menu(self):</dt><dd><p>pass</p>
+</dd>
+</dl>
+</dd>
+<dt>class Knight(Shared_Attributes):</dt><dd><dl class="simple">
+<dt>def __init__(self):</dt><dd><p>super().__init__()
+self.power_type = ‘Stamina’</p>
+</dd>
+<dt>def heroic_strike(self):</dt><dd><p>dmg = random.randint(25, 30)
+enemy.health -= dmg
+print(f’You deal {dmg} damage.’)</p>
+</dd>
+<dt>def first_aid(self):</dt><dd><p>heal = random.randint(15, 20)
+self.health += heal
+print(f’You gain {heal} health.’)</p>
+</dd>
+</dl>
+</dd>
+<dt>def check_for_win():</dt><dd><dl class="simple">
+<dt>if player_one.health &lt;= 0:</dt><dd><p>print(‘Player Two wins!’)
+return True</p>
+</dd>
+<dt>elif player_two.health &lt;=0:</dt><dd><p>print(‘Player One wins!’)
+return True</p>
+</dd>
+<dt>else:</dt><dd><p>return False</p>
+</dd>
+</dl>
+</dd>
+<dt>def assign_character(player_choice):</dt><dd><dl class="simple">
+<dt>if player_choice == ‘Knight’:</dt><dd><p>return Knight()</p>
+</dd>
+<dt>elif player_choice == ‘Mage’:</dt><dd><p>return Mage()</p>
+</dd>
+<dt>else:</dt><dd><p>return ‘Invalid’</p>
+</dd>
+</dl>
+</dd>
+<dt>if __name__ == ‘__main__’:</dt><dd><p>game_state = input(‘Are you ready to play? (y or n): ‘).lower()</p>
+<dl>
+<dt>while game_state == ‘y’:</dt><dd><p>print(‘Character Choices: Knight, Mage’)
+player_one = assign_character(input(‘Player One, choose your character: ‘))
+player_two = assign_character(input(‘Player Two, choose your character: ‘))</p>
+<dl>
+<dt>while not check_for_win():</dt><dd><p>player_one.skill_menu()
+if check_for_win():</p>
+<blockquote>
+<div><p>break</p>
+</div></blockquote>
+<p>player_two.skill_menu()</p>
+</dd>
+</dl>
+<p>game_state = input(‘Do you want to play again? (y or n): ‘).lower()</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <div class="clearer"></div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+    </div>
+  </body>
+</html>

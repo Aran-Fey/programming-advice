@@ -49,10 +49,12 @@ make_font_color_for_background(bg_color)
 
 bg_color_regular = #252525
 font_color_regular = #ccc
-accent_color = #8f438f
+accent_color = lighten(#8f438f, 10%)
 
 increments = 10%
 
+bg_color_dark4 = darken(bg_color_regular, 4*increments)
+bg_color_dark3 = darken(bg_color_regular, 3*increments)
 bg_color_dark2 = darken(bg_color_regular, 2*increments)
 bg_color_dark = darken(bg_color_regular, increments)
 bg_color_light = lighten(bg_color_regular, increments)
@@ -69,7 +71,7 @@ info_fg = font_color_light
 warning_bg = #c8ba70
 warning_fg = make_font_color_for_background(warning_bg)
         
-border_color = #666
+border_color = accent_color
 
 accent_color2 = darken(accent_color, 15%)
 accent_font_color = make_font_color_for_background(accent_color)
@@ -151,22 +153,36 @@ blockquote
 
 
 code
-pre 
-    background: bg_color_dark2
-    color: font_color_regular
+    color: mix(font_color_regular, accent_color, 75%)
+    // color: lighten(font_color_dark, increments/2)
+    // background: bg_color_dark4
+    
+    font-size: 1.3em
+    
 
 pre 
+    background: bg_color_dark4
+    color: font_color_regular
+    
     border: 1px solid border_color
+    padding: 0.5em
+    
+    overflow: auto
+    
+    font-size: 1.2em
 
 // === END OF GENERIC DARK STYLE ===
 
 // === LAYOUT ===
 
 .body
-    max-width: 50em
+    max-width: 40em
     margin: auto
-    
+
 // === STYLE ===
+
+.toctree-wrapper a.headerlink
+    display: none
 
 h1
 h2
@@ -179,3 +195,6 @@ h5
     &:not(:hover)
         a.headerlink
             display: none
+
+h1
+    margin-bottom: 1.5em

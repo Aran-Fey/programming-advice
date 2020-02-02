@@ -10,20 +10,20 @@ body {
   color: #ccc;
 }
 a {
-  color: #8f438f;
+  color: #a34da3;
 }
 a:hover,
 a:focus {
-  color: #8f438f;
+  color: #a34da3;
   filter: brightness(1.1);
 }
 details > summary {
-  background: #8f438f;
+  background: #a34da3;
   color: #fff;
   padding: 0 0.2em;
 }
 button {
-  background: #8f438f;
+  background: #a34da3;
 }
 button:hover {
   filter: brightness(1.1);
@@ -33,7 +33,7 @@ textarea,
 .ace-github,
 select {
   background: #212121 !important;
-  border: 1px solid #8f438f !important;
+  border: 1px solid #a34da3 !important;
   color: #b8b8b8 !important;
 }
 input[type="text"]:focus,
@@ -58,22 +58,29 @@ select:focus {
   background: #3b3b3b;
 }
 .ace-github .ace_cursor {
-  color: #8f438f;
+  color: #a34da3;
 }
 blockquote {
   border-left: 5px solid #515151;
 }
-code,
-pre {
-  background: #1e1e1e;
-  color: #ccc;
+code {
+  color: #c1acc1;
+  font-size: 1.3em;
 }
 pre {
-  border: 1px solid #666;
+  background: #161616;
+  color: #ccc;
+  border: 1px solid #a34da3;
+  padding: 0.5em;
+  overflow: auto;
+  font-size: 1.2em;
 }
 .body {
-  max-width: 50em;
+  max-width: 40em;
   margin: auto;
+}
+.toctree-wrapper a.headerlink {
+  display: none;
 }
 h1 a.headerlink,
 h2 a.headerlink,
@@ -88,5 +95,8 @@ h3:not(:hover) a.headerlink,
 h4:not(:hover) a.headerlink,
 h5:not(:hover) a.headerlink {
   display: none;
+}
+h1 {
+  margin-bottom: 1.5em;
 }
 

@@ -1,13 +1,36 @@
 *****************************
-Aran-Fey's Programming Advice
+Aran-Fey's Programming Guides
 *****************************
 
-Lorem ipsum
+Hello, and welcome to my collection of programming-related guides.
+I used to answer programming questions on StackOverflow and reddit, but after
+years of doing that I got tired of answering the same questions
+over and over again. So I decided to start writing guides instead.
+
+Some of these guides are aimed at more advanced programmers, but I also have some for people who are relatively new to programming.
+People who can write code that works, but have yet to figure out how to write code that is *good*.
+People who have learned a programming language and don't know where to go from there.
+If you're in that situation, you should check out the :ref:`good-code` section.
+
+In any case, I hope you'll find something useful in here.
 
 |
 
-.. toctree::
-    :maxdepth: 2
-    :caption: Contents:
+Language agnostic advice:
 
-    good-code.rst
+* .. toctree::
+    :caption: Writing good code
+    :name: good-code
+    :maxdepth: 1
+
+    general/readable-code.rst
+    general/efficient-code.rst
+    general/maintainable-code.rst
+
+Advanced Python programming:
+
+.. toctree::
+    :maxdepth: 1
+
+    python/super.rst
+    python/metaclasses.rst

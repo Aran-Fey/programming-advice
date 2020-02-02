@@ -48,6 +48,7 @@ def setup(app):
 extensions = [
     'sphinx.ext.intersphinx'
 ]
+intersphinx_mapping = {'python': ('https://docs.python.org/3', None)}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -103,6 +104,7 @@ html_theme = "advice"
 html_theme_path = [os.path.expanduser('~')+"/Desktop/folder/coding/python/sphinx_utils/sphinx_utils/themes"]
 html_show_copyright = False
 html_show_sphinx = False
+html_title = "Aran-Fey's programming guides"
 
 
 # Theme options are theme-specific and customize the look and feel of a theme
@@ -114,7 +116,7 @@ html_show_sphinx = False
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+# html_static_path = ['_static']
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
