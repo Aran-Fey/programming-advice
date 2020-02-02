@@ -79,6 +79,9 @@ pre {
   max-width: 40em;
   margin: auto;
 }
+.sphinxsidebar {
+  display: none;
+}
 .toctree-wrapper a.headerlink {
   display: none;
 }
