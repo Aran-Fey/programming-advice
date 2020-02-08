@@ -18,6 +18,7 @@ Writing readable code
 7) global variables/instance attributes instead of function parameters
 8) using the same variable for objects of different kinds
 9) useless classes (with no state)
+10) side effects (os.chdir, ...)
 
 
 ::

@@ -54,8 +54,8 @@ But what if a class has more than one parent? Which parent will come first in th
 
 The answer is that python uses an algorithm called `C3 linearization <https://en.wikipedia.org/wiki/C3_linearization>`_ to generate the MRO. Here's a short summary of it:
 
-1. If a class has multiple parents, like ``class Child(Parent1, Parent2)``, the order of the parents relative to each other will stay the same in the MRO - i.e. ``Parent1`` will appear before ``Parent2``.
-2. A child class will appear in the MRO before all of its parent classes.
+* If a class has multiple parents, like ``class Child(Parent1, Parent2)``, the order of the parents relative to each other will stay the same in the MRO - i.e. ``Parent1`` will appear before ``Parent2``.
+* A child class will appear in the MRO before all of its parent classes.
 
 Here's an example of that::
 
@@ -125,7 +125,7 @@ A `mixin <https://en.wikipedia.org/wiki/Mixin>`_ is a class that adds features t
     spot = Dog(noise='whimper')
     thomas = Train(noise='choo choo')
 
-Without ``super`` we would have a problem implementing ``NoiseMixin``'s ``__init__`` method here. ``NoiseMixin.__init__`` would override any other ``__init__``, and because of that, instantiating a ``Dog`` would never call ``Animal.__init__``.
+Without ``super`` we would have a problem implementing ``NoiseMixin``'s ``__init__`` method here: ``NoiseMixin.__init__`` would override any other ``__init__``, and because of that, instantiating a ``Dog`` would never call ``Animal.__init__``.
 
 
 Cooperative multiple inheritance
