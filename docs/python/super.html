@@ -7,6 +7,7 @@
     <title>Understanding python’s super function &#8212; Aran-Fey&#39;s programming guides</title>
     <link rel="stylesheet" href="../_static/advice.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link media="(prefers-color-theme: light)" rel="stylesheet" type="text/css" href="../_static/pygments-light.css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
@@ -20,7 +21,7 @@
 
     <div id="sidebar">
         <div id="sidebar-content">
-                <a class="homepage-link" title="homepage" href="../index.html">Home</a>
+                <a class="homepage-link" title="home page" href="../index.html"><span>Home</span></a>
         </div>
     </div>
 
@@ -33,7 +34,7 @@
   <div class="section" id="understanding-python-s-super-function">
 <h1>Understanding python’s <code class="docutils literal notranslate"><span class="pre">super</span></code> function<a class="headerlink" href="#understanding-python-s-super-function" title="Permalink to this headline">¶</a></h1>
 <p>The <a class="reference external" href="https://docs.python.org/3/library/functions.html#super" title="(in Python v3.8)"><code class="xref py py-func docutils literal notranslate"><span class="pre">super()</span></code></a> function is one of python’s least understood (and most misunderstood) features¸ which is a shame because it can be a very powerful tool if you know how to use it.</p>
-<p>In order to clear up any misunderstandings you might have, I’ll try to explain <code class="docutils literal notranslate"><span class="pre">super</span></code> in as much detail as possible.
+<p>In order to clear up any misunderstandings you might have, I’m going to explain <code class="docutils literal notranslate"><span class="pre">super</span></code> from the ground up.
 First, let’s talk about its purpose: <code class="docutils literal notranslate"><span class="pre">super</span></code> can be used to access attributes or methods of a parent class from within a child class, for example like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Parent</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -90,8 +91,7 @@ First, let’s talk about its purpose: <code class="docutils literal notranslate
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;bar&#39;</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">FooBar</span><span class="p">(</span><span class="n">Foo</span><span class="p">,</span> <span class="n">Bar</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+    <span class="k">pass</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">FooBar</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">)</span>
 <span class="c1"># (&lt;class &#39;__main__.FooBar&#39;&gt;,</span>
@@ -202,9 +202,9 @@ As an example, think of enemy units in a tower defense game. Some units might wa
       <div class="clearer"></div>
     </div>
         <div id="bottomnav">
-                <a class="prev-link" title="Writing maintainable code" href="../general/maintainable-code.html">Writing maintainable code</a>
-            <a class="homepage-link" title="homepage" href="../index.html">Home</a>
-                <a class="next-link" title="Metaclasses" href="metaclasses.html">Metaclasses</a>
+                <a class="prev-link" title="Writing maintainable code" href="../general/maintainable-code.html"><span>Writing maintainable code</span></a>
+            <a class="homepage-link" title="home page" href="../index.html"><span>Home</span></a>
+                <a class="next-link" title="Metaclasses" href="metaclasses.html"><span>Metaclasses</span></a>
         </div>
 
     <div class="footer" role="contentinfo">

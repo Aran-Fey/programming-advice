@@ -7,6 +7,7 @@
     <title>Metaclasses &#8212; Aran-Fey&#39;s programming guides</title>
     <link rel="stylesheet" href="../_static/advice.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link media="(prefers-color-theme: light)" rel="stylesheet" type="text/css" href="../_static/pygments-light.css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
@@ -19,7 +20,7 @@
 
     <div id="sidebar">
         <div id="sidebar-content">
-                <a class="homepage-link" title="homepage" href="../index.html">Home</a>
+                <a class="homepage-link" title="home page" href="../index.html"><span>Home</span></a>
         </div>
     </div>
 
@@ -74,7 +75,7 @@
     <span class="n">x</span> <span class="o">=</span> <span class="mi">5</span>
 </pre></div>
 </div>
-<p>Behind the scenes, this actually just calls <code class="docutils literal notranslate"><span class="pre">type</span></code> with the 3 arguments <code class="docutils literal notranslate"><span class="pre">'Foo'</span></code>, <code class="docutils literal notranslate"><span class="pre">(Bar,)</span></code>, and <code class="docutils literal notranslate"><span class="pre">{'x':</span> <span class="pre">5}</span></code>. It’s equivalent <a class="footnote-reference brackets" href="#f1" id="id1">1</a> to this:</p>
+<p>Behind the scenes, this actually just calls <code class="docutils literal notranslate"><span class="pre">type</span></code> with the 3 arguments <code class="docutils literal notranslate"><span class="pre">'Foo'</span></code>, <code class="docutils literal notranslate"><span class="pre">(Bar,)</span></code>, and <code class="docutils literal notranslate"><span class="pre">{'x':</span> <span class="pre">5}</span></code>. It’s equivalent to this <a class="footnote-reference brackets" href="#f1" id="id1">1</a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Foo</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s1">&#39;Foo&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">Bar</span><span class="p">,),</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">})</span>
 </pre></div>
 </div>
@@ -233,8 +234,8 @@
       <div class="clearer"></div>
     </div>
         <div id="bottomnav">
-                <a class="prev-link" title="Understanding python’s super function" href="super.html">Understanding python’s <code class="docutils literal notranslate"><span class="pre">super</span></code> function</a>
-            <a class="homepage-link" title="homepage" href="../index.html">Home</a>
+                <a class="prev-link" title="Understanding python’s super function" href="super.html"><span>Understanding python’s <code class="docutils literal notranslate"><span class="pre">super</span></code> function</span></a>
+            <a class="homepage-link" title="home page" href="../index.html"><span>Home</span></a>
         </div>
 
     <div class="footer" role="contentinfo">

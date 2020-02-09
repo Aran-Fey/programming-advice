@@ -53,7 +53,7 @@ As you know, the ``class`` statement lets us create classes, like this::
     class Foo(Bar):
         x = 5
 
-Behind the scenes, this actually just calls ``type`` with the 3 arguments ``'Foo'``, ``(Bar,)``, and ``{'x': 5}``. It's equivalent [#f1]_ to this::
+Behind the scenes, this actually just calls ``type`` with the 3 arguments ``'Foo'``, ``(Bar,)``, and ``{'x': 5}``. It's equivalent to this [#f1]_::
 
     Foo = type('Foo', (Bar,), {'x': 5})
 
