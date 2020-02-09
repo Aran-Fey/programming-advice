@@ -41,7 +41,7 @@ Like I said, that's all stuff you already know. But this is where the 1st point 
     >>> type('MyClass', (), {})
     <class '__main__.MyClass'>
 
-Neat, isn't it? Because classes are objects just like everything else, they behave in ways we're already familiar with. The term "metaclass" is something we use to refer to classes like ``type``, i.e. classes that generate other classes. That's the only difference between a regular class and a metaclass: Instantiating a regular class creates a new object, but instantiating a metaclass creates a new class. That's really all there is to it. A simple concept, don't you think?
+Neat, isn't it? Because classes are objects just like everything else, they behave in ways we're already familiar with. The term "metaclass" is something we use to refer to classes like ``type``, i.e. classes that generate other classes. That's the only difference between a regular class and a metaclass: Instantiating a regular class creates a new object, but instantiating a metaclass creates a new class. A simple concept, don't you think?
 
 Using metaclasses
 ============================
@@ -53,16 +53,31 @@ As you know, the ``class`` statement lets us create classes, like this::
     class Foo(Bar):
         x = 5
 
-Behind the scenes, this actually just calls ``type`` with the 3 arguments ``'Foo'``, ``(Bar,)``, and ``{'x': 5}``. It's equivalent to this::
+Behind the scenes, this actually just calls ``type`` with the 3 arguments ``'Foo'``, ``(Bar,)``, and ``{'x': 5}``. It's equivalent [#f1]_ to this::
 
     Foo = type('Foo', (Bar,), {'x': 5})
 
-You can specify a different metaclass, say :class:`abc.ABCMeta`, by passing in a ``metaclass`` keyword argument like so::
+Per default, python figures out the appropriate metaclass automatically with the following algorithm:
 
-    class Foo(Bar, metaclass=abc.ABCMeta):
+1. Loop through all base classes and create a set of all their metaclasses.
+2. In this set of metaclasses, find one that's a subclass of all others. This "most derived metaclass" is used as the metaclass for the new class.
+
+If the default is not what you want, you can specify a different metaclass by passing in a ``metaclass`` keyword argument like so [#f2]_::
+
+    class Foo(metaclass=abc.ABCMeta):
         x = 5
 
-    # Equivalent to Foo = abc.ABCMeta('Foo', (Bar,), {'x': 5})
+    # Equivalent to Foo = abc.ABCMeta('Foo', (), {'x': 5})
+
+Instead of a metaclass, you can also pass in a function that accepts the usual 3 parameters (the name of the class, the tuple of parent classes, and the class dict) and returns a class::
+
+    def class_factory(name, bases, attrs):
+        return abc.ABCMeta(name, bases, attrs)
+
+    class Foo(Bar, metaclass=class_factory):
+        x = 5
+
+    # Equivalent to Foo = class_factory('Foo', (Bar,), {'x': 5})
 
 And if you pass in any other keyword arguments, they'll be forwarded to the metaclass::
 
@@ -95,7 +110,7 @@ Python has one builtin metaclass: ``type``. Every class, metaclass or not, is an
 
 Writing a metaclass is really just like writing a regular class, except you have to inherit from ``type`` and if you write an ``__init__`` or ``__new__`` method you have to remember to add those 3 parameters that every metaclass needs. Everything else works as usual: Special methods like ``__init__`` and ``__str__`` do what they always do, ``super()`` works as it always does, etc. It's good practice to use the name ``cls`` instead of the usual ``self``, though.
 
-One thing you have to be aware of is how attribute lookup works when metaclasses are involved. Firstly, dundermethods implemented in the metaclass only have an effect on its classes, not on instances of the classes::
+One thing you have to be aware of is how attribute lookup works when metaclasses are involved. Firstly, dundermethods implemented in the metaclass only have an effect on its classes, not on instances of those classes::
 
     print(str(DemoClass))  # output: <DemoClass>
 
@@ -115,16 +130,39 @@ And secondly, attributes of the metaclass can be accessed on the metaclass and i
     DemoClass.foo  # works
     DemoClass().foo  # raises AttributeError
 
+Alright, this has been quite academic so far, so let me show you a real-world use case for a metaclass: A `singleton <https://en.wikipedia.org/wiki/Singleton_pattern>`_. Calling a class usually creates a new instance of it, but we want our singleton class to always return the same instance. We can do this by overriding the ``__call__`` method in its metaclass. Here's what that looks like::
+
+    class SingletonMeta(type):
+        def __init__(cls, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+
+            cls._instance = None
+
+        # New instances are created by calling a class,
+        # which means we can customize instance creation
+        # by overriding __call__ in the metaclass.
+        def __call__(cls, *args, **kwargs):
+            # If no instance exists yet, create one
+            if cls._instance is None:
+                cls._instance = super().__call__(*args, **kwargs)
+
+            return cls._instance
+
+    class Singleton(metaclass=SingletonMeta):
+        pass
+
+    print(Singleton() is Singleton())  # True
+
 Now that you know how to write metaclasses, let me explain why you should think twice about doing so.
 
 The problem with metaclasses
 ============================
 
-To begin with, many programmers aren't familiar with metaclasses. Using them in your code will often make it harder to understand and less readable for most people. If possible, you should consider finding another solution. For example, a class decorator can oftentimes be used instead of a metaclass.
+To begin with, many programmers aren't familiar with metaclasses. Using them in your code will often make it harder to understand and less readable for most people. If possible, you should consider finding another solution. For example, a class decorator or the :meth:`__init_subclass__ <object.__init_subclass__>` method can oftentimes be used instead of a metaclass.
 
 Metaclasses can also cause more concrete problems, though: Metaclass conflicts.
 
-A metaclass conflict is what happens when a class inherits from 2 classes with incompatible metaclasses. "Incompatible" means that neither metaclass is a subclass of the other. For example, ``type`` and ``abc.ABCMeta`` are compatible, because ``ABCMeta`` is a subclass of ``type``::
+A metaclass conflict is what happens when you try to create a class and python fails to find a most derived metaclass. This can happen when your class inherits from 2 base classes with incompatible metaclasses. "Incompatible" means that neither metaclass is a subclass of the other. For example, ``type`` and ``abc.ABCMeta`` are compatible, because ``ABCMeta`` is a subclass of ``type``::
 
     import abc
 
@@ -137,7 +175,7 @@ A metaclass conflict is what happens when a class inherits from 2 classes with i
     print(issubclass(abc.ABCMeta, type))  # True
     print(type(AlsoAnAbstractClass))  # <class 'abc.ABCMeta'>
 
-Here, ``AlsoAnAbstractClass`` inherits from ``RegularClass`` (whose metaclass is ``type``) and ``AbstractClass`` (whose metaclass is ``ABCMeta``). Python realizes that ``ABCMeta`` is a subclass of ``type``, and so ``ABCMeta`` becomes the metaclass of ``AlsoAnAbstractClass``.
+Here, ``AlsoAnAbstractClass`` inherits from ``RegularClass`` (whose metaclass is ``type``) and ``AbstractClass`` (whose metaclass is ``ABCMeta``). Python realizes that ``ABCMeta`` is a subclass of ``type``, which means ``ABCMeta`` is the most derived metaclass and so it becomes the metaclass of ``AlsoAnAbstractClass``.
 
 Now an example of incompatible metaclasses::
 
@@ -152,11 +190,16 @@ Now an example of incompatible metaclasses::
     # TypeError: metaclass conflict: the metaclass of a derived class must
     # be a (non-strict) subclass of the metaclasses of all its bases
 
-In this case, python can't choose whether ``ThisDoesntWork`` should be an instance of ``MyMeta`` or ``ABCMeta`` and throws an exception. Unfortunately, the only way to solve this problem is to create a new metaclass that inherits from both ``MyMeta`` and ``ABCMeta``::
+In this case, there is no most derived metaclass because neither ``MyMeta`` nor ``ABCMeta`` is a subclass of the other. The only way to solve this problem is to create a new metaclass that inherits from both ``MyMeta`` and ``ABCMeta``::
 
     class MyAbstractMeta(MyMeta, abc.ABCMeta): pass
 
     class ThisWorks(MyClass, AbstractClass, metaclass=MyAbstractMeta):
         pass
 
-So, remember: Just because you *can* use metaclasses doesn't mean you *should*. Use your newfound knowledge wisely.
+You'll probably run into this more often than you might think, and for many people it's not an easy problem to deal with. So, remember: Just because you *can* use metaclasses doesn't mean you *should*. Use your newfound knowledge wisely.
+
+.. rubric:: Footnotes
+
+.. [#f1] There is a small difference between using the ``class`` statement and calling the metaclass: The ``class`` statement automatically sets your class's ``__module__`` attribute to the module where it's defined in. Calling the metaclass directly will "inherit" the metaclass's ``__module__`` value instead. This can lead to issues like the class not being pickleable.
+.. [#f2] The ``metaclass`` argument behaves a little different from what you might expect. Python doesn't unconditionally use the metaclass you pass in; it simply adds your metaclass to its set of metaclasses and performs its usual algorithm to find the most derived metaclass.
