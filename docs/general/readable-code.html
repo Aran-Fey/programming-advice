@@ -7,12 +7,11 @@
     <title>Writing readable code &#8212; Aran-Fey&#39;s programming guides</title>
     <link rel="stylesheet" href="../_static/advice.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link media="(prefers-color-theme: light)" rel="stylesheet" type="text/css" href="../_static/pygments-light.css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Writing maintainable code" href="maintainable-code.html" />
@@ -494,11 +493,11 @@
 </pre></div>
 </div>
 <p>That’s concise, sure, but it’s also awfully hard to read. Making code shorter is only a good idea if the code remains simple.</p>
-<p>Anyway, there are some simple ways to shorten our code:</p>
+<p>Fortunately for us, there are some simple ways to shorten our code:</p>
 <ul class="simple">
 <li><p>All the <code class="docutils literal notranslate"><span class="pre">play_game</span></code> function does is to call another function 3 times. It’s only 4 lines of code, but 3 of those lines are used for looping and counting to 3. We can do better than that - replacing the <code class="docutils literal notranslate"><span class="pre">while</span></code> loop with a <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">round_num</span> <span class="pre">in</span> <span class="pre">range(3):</span></code> saves 2 lines of code. But then there’s another improvement to make: Since the <code class="docutils literal notranslate"><span class="pre">round_num</span></code> variable is never used for anything, it’s best to rename it to <cite>_</cite>, a name conventionally used for throwaway variables.</p></li>
-<li><p>In <code class="docutils literal notranslate"><span class="pre">play_games_forever</span></code> we compare the <code class="docutils literal notranslate"><span class="pre">play_again</span></code> variable to 4 different values. 2 of those values are actually the same except with different capitalization. So we can shorten this code just by converting <code class="docutils literal notranslate"><span class="pre">play_again</span></code> to lower case.</p></li>
-<li><p>We always used a bunch of <code class="docutils literal notranslate"><span class="pre">or</span></code> clauses to compare a variable against multiple different values (e.g. in <code class="docutils literal notranslate"><span class="pre">input_player_hand</span></code> or <code class="docutils literal notranslate"><span class="pre">play_games_forever</span></code>), but the same thing could be achieved with a membership test. For example, instead of writing <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">==</span> <span class="pre">1</span> <span class="pre">or</span> <span class="pre">x</span> <span class="pre">==</span> <span class="pre">2</span></code>, you can write <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">in</span> <span class="pre">{1,</span> <span class="pre">2}</span></code>.</p></li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">play_games_forever</span></code> we compare the <code class="docutils literal notranslate"><span class="pre">play_again</span></code> variable to 4 different strings. 2 of those strings are actually the same except with different capitalization. So we can shorten this code just by normalizing the case of the user input.</p></li>
+<li><p>We always used a bunch of <code class="docutils literal notranslate"><span class="pre">or</span></code> clauses to compare a variable against multiple different values (e.g. in <code class="docutils literal notranslate"><span class="pre">input_player_hand</span></code> or <code class="docutils literal notranslate"><span class="pre">play_games_forever</span></code>), but the same thing could be achieved by storing all valid values in a container like a list or a set and performing a membership test on that container. For example, instead of writing <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">==</span> <span class="pre">1</span> <span class="pre">or</span> <span class="pre">x</span> <span class="pre">==</span> <span class="pre">2</span></code>, you can write <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">in</span> <span class="pre">{1,</span> <span class="pre">2}</span></code>.</p></li>
 </ul>
 </li>
 </ol>

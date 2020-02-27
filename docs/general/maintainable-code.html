@@ -7,12 +7,11 @@
     <title>Writing maintainable code &#8212; Aran-Fey&#39;s programming guides</title>
     <link rel="stylesheet" href="../_static/advice.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link media="(prefers-color-theme: light)" rel="stylesheet" type="text/css" href="../_static/pygments-light.css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Writing efficient code" href="efficient-code.html" />
@@ -36,6 +35,501 @@
 <blockquote class="epigraph">
 <div><p>A junior dev writes code that takes a senior dev to maintain. A senior dev writes code a junior dev could maintain.</p>
 </div></blockquote>
+<p>Code often goes through changes throughout its life time, for example when you fix bugs or add features. You should always keep this in mind while programming, and try to write code that can easily accommodate changes. The less code you have to change in order to fix a bug or add a new feature, the better. That’s what being maintainable means.</p>
+<p>Like last time, I’ll demonstrate how to achieve maintainability on a piece of poorly written code. It’s a small round-based combat game where the players can choose between 2 classes with unique abilities. Our code looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Character</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_health_potions</span> <span class="o">=</span> <span class="mi">3</span>
+
+    <span class="k">def</span> <span class="nf">get_health_potions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_health_potions</span>
+
+    <span class="k">def</span> <span class="nf">set_health_potions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">potions</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_health_potions</span> <span class="o">=</span> <span class="n">potions</span>
+
+    <span class="k">def</span> <span class="nf">use_health_potion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_health_potions</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_health_potions</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_health_potions</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">+=</span> <span class="mi">25</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Health Potion healed 25 hitpoints, you now </span><span class="se">\</span>
+<span class="s1">                  have </span><span class="si">{self.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You have no Health Potions left.&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Mage</span><span class="p">(</span><span class="n">Character</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">throw_fireball</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enemy</span><span class="p">):</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">health</span> <span class="o">-=</span> <span class="mi">25</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You deal 25 damage, your opponent now has </span><span class="se">\</span>
+<span class="s1">              </span><span class="si">{enemy.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">lesser_heal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">+=</span> <span class="mi">20</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You gain 20 health, you now have </span><span class="si">{self.health}</span><span class="s1"> </span><span class="se">\</span>
+<span class="s1">              hitpoints.&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Knight</span><span class="p">(</span><span class="n">Character</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">heroic_strike</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enemy</span><span class="p">):</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">health</span> <span class="o">-=</span> <span class="mi">30</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You deal 30 damage, your opponent now has </span><span class="se">\</span>
+<span class="s1">              </span><span class="si">{enemy.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">first_aid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">+=</span> <span class="mi">15</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You gain 15 health, you now have </span><span class="si">{self.health}</span><span class="s1"> </span><span class="se">\</span>
+<span class="s1">              hitpoints.&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">check_for_win</span><span class="p">(</span><span class="n">player1</span><span class="p">,</span> <span class="n">player2</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">player1</span><span class="o">.</span><span class="n">health</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Player Two wins!&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">elif</span> <span class="n">player2</span><span class="o">.</span><span class="n">health</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Player One wins!&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+<span class="k">def</span> <span class="nf">assign_char</span><span class="p">(</span><span class="n">player_choice</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">player_choice</span> <span class="o">==</span> <span class="s1">&#39;Knight&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Knight</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">player_choice</span> <span class="o">==</span> <span class="s1">&#39;Mage&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Mage</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;Invalid&#39;</span>
+
+<span class="k">def</span> <span class="nf">action_menu</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="n">enemy</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;1. Use health potion&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;2. Attack&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;3. Heal&#39;</span><span class="p">)</span>
+    <span class="n">choice</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">choice</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">use_health_potion</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="s1">&#39;2&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="n">Mage</span><span class="p">):</span>
+            <span class="n">player</span><span class="o">.</span><span class="n">throw_fireball</span><span class="p">(</span><span class="n">enemy</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">player</span><span class="o">.</span><span class="n">heroic_strike</span><span class="p">(</span><span class="n">enemy</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="s1">&#39;3&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="n">Mage</span><span class="p">):</span>
+            <span class="n">player</span><span class="o">.</span><span class="n">lesser_heal</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">player</span><span class="o">.</span><span class="n">first_aid</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You do nothing.&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">play_game</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Character Choices: Knight, Mage&#39;</span><span class="p">)</span>
+    <span class="n">player1</span> <span class="o">=</span> <span class="n">assign_char</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Player One, choose your character: &#39;</span><span class="p">))</span>
+    <span class="n">player2</span> <span class="o">=</span> <span class="n">assign_char</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Player Two, choose your character: &#39;</span><span class="p">))</span>
+
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">check_for_win</span><span class="p">(</span><span class="n">player1</span><span class="p">,</span> <span class="n">player2</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Player 1&#39;</span><span class="p">)</span>
+        <span class="n">action_menu</span><span class="p">(</span><span class="n">player1</span><span class="p">,</span> <span class="n">player2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">check_for_win</span><span class="p">(</span><span class="n">player1</span><span class="p">,</span> <span class="n">player2</span><span class="p">):</span>
+            <span class="k">break</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Player 2&#39;</span><span class="p">)</span>
+        <span class="n">action_menu</span><span class="p">(</span><span class="n">player2</span><span class="p">,</span> <span class="n">player1</span><span class="p">)</span>
+
+<span class="n">play_game</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In order to figure out why that code is bad, let’s think about how much effort it would take to make some changes to our little game. Here are some ideas for new features, each with a list of changes that it would require:</p>
+<ul>
+<li><p>Adding a 3rd playable class</p>
+<ol class="arabic simple">
+<li><p>Create a new subclass of <code class="docutils literal notranslate"><span class="pre">Shared_Attributes</span></code></p></li>
+<li><p>Add the new class to the <code class="docutils literal notranslate"><span class="pre">assign_char</span></code> function</p></li>
+<li><p>Add the new class to the <code class="docutils literal notranslate"><span class="pre">skill_menu</span></code> function</p></li>
+<li><p>Add the new class to the <code class="docutils literal notranslate"><span class="pre">print</span></code> call in the <code class="docutils literal notranslate"><span class="pre">play_game</span></code> function</p></li>
+</ol>
+<p>Because of the way the <code class="docutils literal notranslate"><span class="pre">skill_menu</span></code> function is implemented, the new class would also have to have exactly 1 offensive skill and 1 healing skill. If we wanted our class to have 2 offensive skills, we’d have to completely rewrite the <code class="docutils literal notranslate"><span class="pre">skill_menu</span></code> function.</p>
+</li>
+<li><p>Adding an AI opponent</p>
+<ol class="arabic simple">
+<li><p>Implement a simple AI</p></li>
+<li><p>Add a menu that lets the player choose between an AI or a human opponent</p></li>
+<li><p>Every time player 2 takes their turn, check if they’re an AI and either call <code class="docutils literal notranslate"><span class="pre">skill_menu</span></code> or let the AI choose what to do.</p></li>
+</ol>
+<p>The biggest problem here would be implementing the AI. Even a stupid AI that picks an action at random would have to know what class it’s playing and what abilities that class has. So every time a new class is added, the AI has to be updated as well.</p>
+</li>
+<li><p>Allowing more than 2 players</p>
+<ol class="arabic simple">
+<li><p>Rewrite the <code class="docutils literal notranslate"><span class="pre">check_for_win</span></code> function</p></li>
+<li><p>Rewrite the character selection in the <code class="docutils literal notranslate"><span class="pre">play_game</span></code> function</p></li>
+<li><p>Rewrite the <code class="docutils literal notranslate"><span class="pre">skill_menu</span></code> menu loop in the <code class="docutils literal notranslate"><span class="pre">play_game</span></code> function</p></li>
+</ol>
+</li>
+</ul>
+<p>As you can see, implementing any of these features would require changes in many different parts of the code. That’s a sign of spagetthi code. Ideally, each feature should be a self-contained unit. The less code you have to rewrite, the less likely you are to mess something up and create bugs. So let’s start improving the code.</p>
+<div class="section" id="improvement-1-don-t-use-java-style-getters-and-setters">
+<h2>Improvement #1: Don’t use Java-style getters and setters<a class="headerlink" href="#improvement-1-don-t-use-java-style-getters-and-setters" title="Permalink to this headline">¶</a></h2>
+<p>Many people who learn python as a secondary language make the mistake to write Java-style accessor methods like these:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_health_potions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_health_potions</span>
+
+<span class="k">def</span> <span class="nf">set_health_potions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">potions</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_health_potions</span> <span class="o">=</span> <span class="n">potions</span>
+</pre></div>
+</div>
+<p>In Java, these serve a purpose: <a class="reference external" href="https://en.wikipedia.org/wiki/Information_hiding">Data Hiding</a>. The idea is that nobody has direct access to the object’s attributes; you can only interact with the attribute through the accessor methods. This gives the class full control over what happens when an attribute is accessed or modified.</p>
+<p>In python, this is not necessary because we have <a class="reference external" href="https://docs.python.org/3/library/functions.html#property" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">property</span></code></a>. The correct way to implement accessors in python is this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@property</span>
+<span class="k">def</span> <span class="nf">health_potions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_health_potions</span>
+
+<span class="nd">@health_potions</span><span class="o">.</span><span class="n">setter</span>
+<span class="k">def</span> <span class="nf">health_potions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">potions</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_health_potions</span> <span class="o">=</span> <span class="n">potions</span>
+</pre></div>
+</div>
+<p>This disguises the accessor functions as normal attribute access. So instead of having to write gross code like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">set_health_potions</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_health_potions</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>we can write pretty code like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">health_potions</span> <span class="o">-=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>The best part is that since it can be used just like a regular attribute, we don’t have to implement accessors unless we actually need them. Because a property looks just like a regular attribute to the outside world, we can turn a regular attribute into a property without breaking anyone’s code. So if you don’t need accessors, don’t write them.</p>
+<p>With that in mind, we can rewrite our <code class="docutils literal notranslate"><span class="pre">Character</span></code> class to this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Character</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">health_potions</span> <span class="o">=</span> <span class="mi">3</span>
+
+    <span class="k">def</span> <span class="nf">use_health_potion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">health_potions</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">health_potions</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">+=</span> <span class="mi">25</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Health Potion healed 25 hitpoints, you now </span><span class="se">\</span>
+<span class="s1">                  have </span><span class="si">{self.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You have no Health Potions left.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="improvement-2-don-t-repeat-yourself">
+<h2>Improvement #2: Don’t repeat yourself<a class="headerlink" href="#improvement-2-don-t-repeat-yourself" title="Permalink to this headline">¶</a></h2>
+<p>We already learned that writing the same code twice is a bad idea, and yet our code still makes that mistake quite a few times. Let’s change that and make our code <a class="reference external" href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a>.</p>
+<div class="section" id="don-t-hard-code-values-use-constants">
+<h3>Don’t hard-code values, use constants<a class="headerlink" href="#don-t-hard-code-values-use-constants" title="Permalink to this headline">¶</a></h3>
+<p>In every single character ability, the amount of damage dealt to the enemy or health restored to your own character is used twice - once to update the character’s health, and once to print a status message:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">throw_fireball</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enemy</span><span class="p">):</span>
+    <span class="n">enemy</span><span class="o">.</span><span class="n">health</span> <span class="o">-=</span> <span class="mi">25</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You deal 25 damage, your opponent now has </span><span class="se">\</span>
+<span class="s1">          </span><span class="si">{enemy.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If we ever want to change this value, we have to change it in two places. That can be avoided by storing the value in a variable:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">throw_fireball</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enemy</span><span class="p">):</span>
+    <span class="n">dmg</span> <span class="o">=</span> <span class="mi">25</span>
+    <span class="n">enemy</span><span class="o">.</span><span class="n">health</span> <span class="o">-=</span> <span class="n">dmg</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You deal </span><span class="si">{dmg}</span><span class="s1"> damage, your opponent now has </span><span class="se">\</span>
+<span class="s1">          </span><span class="si">{enemy.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="don-t-half-ass-your-functions">
+<h3>Don’t half-ass your functions<a class="headerlink" href="#don-t-half-ass-your-functions" title="Permalink to this headline">¶</a></h3>
+<p>Take a look at how the code uses the <code class="docutils literal notranslate"><span class="pre">assign_char</span></code> and <code class="docutils literal notranslate"><span class="pre">action_menu</span></code> functions. Every time one of those functions is called, the code actually does something else first. In case of <code class="docutils literal notranslate"><span class="pre">assign_char</span></code>, we always ask for user input first:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">player1</span> <span class="o">=</span> <span class="n">assign_char</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Player One, choose your character: &#39;</span><span class="p">))</span>
+<span class="n">player2</span> <span class="o">=</span> <span class="n">assign_char</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Player Two, choose your character: &#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>And in case of <code class="docutils literal notranslate"><span class="pre">action_menu</span></code>, we always print a message first:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Player 1&#39;</span><span class="p">)</span>
+<span class="n">action_menu</span><span class="p">(</span><span class="n">player1</span><span class="p">,</span> <span class="n">player2</span><span class="p">)</span>
+
+<span class="o">...</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Player 2&#39;</span><span class="p">)</span>
+<span class="n">action_menu</span><span class="p">(</span><span class="n">player2</span><span class="p">,</span> <span class="n">player1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If we’re always going to do a specific thing before calling a function, then why don’t we make the function do that thing for us instead?</p>
+</div>
+<div class="section" id="use-more-loops">
+<h3>Use more loops<a class="headerlink" href="#use-more-loops" title="Permalink to this headline">¶</a></h3>
+<p>In the <code class="docutils literal notranslate"><span class="pre">play_game</span></code> function, we do similar things for both players: First we ask both players to choose their character, and then we repeatedly let each player perform an action and then check if someone has won the game. We’re always repeating the same thing for both players. Instead of copying every piece of code for each player, we can write a loop that takes care of each player in turn. In order to do that, we’ll get rid of the <code class="docutils literal notranslate"><span class="pre">player1</span></code> and <code class="docutils literal notranslate"><span class="pre">player2</span></code> variables and replace them with a list of players.</p>
+<p>After implementing all of these improvements, the code looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Character</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">health_potions</span> <span class="o">=</span> <span class="mi">3</span>
+
+    <span class="k">def</span> <span class="nf">use_health_potion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">health_potions</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">heal</span> <span class="o">=</span> <span class="mi">25</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">health_potions</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">+=</span> <span class="n">heal</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Health Potion healed </span><span class="si">{heal}</span><span class="s1"> hitpoints, you now </span><span class="se">\</span>
+<span class="s1">                  have </span><span class="si">{self.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You have no Health Potions left.&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Mage</span><span class="p">(</span><span class="n">Character</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">throw_fireball</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enemy</span><span class="p">):</span>
+        <span class="n">dmg</span> <span class="o">=</span> <span class="mi">25</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">health</span> <span class="o">-=</span> <span class="n">dmg</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You deal </span><span class="si">{dmg}</span><span class="s1"> damage, your opponent now has </span><span class="se">\</span>
+<span class="s1">              </span><span class="si">{enemy.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">lesser_heal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">heal</span> <span class="o">=</span> <span class="mi">20</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">+=</span> <span class="n">heal</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You gain </span><span class="si">{heal}</span><span class="s1"> health, you now have </span><span class="si">{self.health}</span><span class="s1"> </span><span class="se">\</span>
+<span class="s1">              hitpoints.&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Knight</span><span class="p">(</span><span class="n">Character</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">heroic_strike</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enemy</span><span class="p">):</span>
+        <span class="n">dmg</span> <span class="o">=</span> <span class="mi">30</span>
+        <span class="n">enemy</span><span class="o">.</span><span class="n">health</span> <span class="o">-=</span> <span class="n">dmg</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You deal </span><span class="si">{dmg}</span><span class="s1"> damage, your opponent now has </span><span class="se">\</span>
+<span class="s1">              </span><span class="si">{enemy.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">first_aid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">heal</span> <span class="o">=</span> <span class="mi">15</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">+=</span> <span class="n">heal</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You gain </span><span class="si">{heal}</span><span class="s1"> health, you now have </span><span class="si">{self.health}</span><span class="s1"> </span><span class="se">\</span>
+<span class="s1">              hitpoints.&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">check_for_win</span><span class="p">(</span><span class="n">player_names</span><span class="p">,</span> <span class="n">player_characters</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">player_characters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">health</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{player_names[1]}</span><span class="s1"> wins!&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">elif</span> <span class="n">player_characters</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">health</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{player_names[0]}</span><span class="s1"> wins!&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+<span class="k">def</span> <span class="nf">assign_char</span><span class="p">(</span><span class="n">player_name</span><span class="p">):</span>
+    <span class="n">player_choice</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{player_name}</span><span class="s1">, choose your character: &#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">player_choice</span> <span class="o">==</span> <span class="s1">&#39;Knight&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Knight</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">player_choice</span> <span class="o">==</span> <span class="s1">&#39;Mage&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Mage</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;Invalid&#39;</span>
+
+<span class="k">def</span> <span class="nf">action_menu</span><span class="p">(</span><span class="n">player_name</span><span class="p">,</span> <span class="n">player</span><span class="p">,</span> <span class="n">enemy</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">player_name</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;1. Use health potion&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;2. Attack&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;3. Heal&#39;</span><span class="p">)</span>
+    <span class="n">choice</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">choice</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+        <span class="n">player</span><span class="o">.</span><span class="n">use_health_potion</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="s1">&#39;2&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="n">Mage</span><span class="p">):</span>
+            <span class="n">player</span><span class="o">.</span><span class="n">throw_fireball</span><span class="p">(</span><span class="n">enemy</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">player</span><span class="o">.</span><span class="n">heroic_strike</span><span class="p">(</span><span class="n">enemy</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="s1">&#39;3&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="n">Mage</span><span class="p">):</span>
+            <span class="n">player</span><span class="o">.</span><span class="n">lesser_heal</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">player</span><span class="o">.</span><span class="n">first_aid</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You do nothing.&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">play_game</span><span class="p">():</span>
+    <span class="n">player_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Player One&#39;</span><span class="p">,</span> <span class="s1">&#39;Player Two&#39;</span><span class="p">]</span>
+    <span class="n">player_characters</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Character Choices: Knight, Mage&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">player_name</span> <span class="ow">in</span> <span class="n">player_names</span><span class="p">:</span>
+        <span class="n">character</span> <span class="o">=</span> <span class="n">assign_char</span><span class="p">(</span><span class="n">player_name</span><span class="p">)</span>
+        <span class="n">player_characters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">character</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># let each player take their turn</span>
+        <span class="k">for</span> <span class="n">player_name</span> <span class="ow">in</span> <span class="n">player_names</span><span class="p">:</span>
+            <span class="c1"># find the player character and the enemy character</span>
+            <span class="k">if</span> <span class="n">player_name</span> <span class="o">==</span> <span class="n">player_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">player</span><span class="p">,</span> <span class="n">enemy</span> <span class="o">=</span> <span class="n">player_characters</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">enemy</span><span class="p">,</span> <span class="n">player</span> <span class="o">=</span> <span class="n">player_characters</span>
+
+            <span class="n">action_menu</span><span class="p">(</span><span class="n">player_name</span><span class="p">,</span> <span class="n">player</span><span class="p">,</span> <span class="n">enemy</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">check_for_win</span><span class="p">(</span><span class="n">player_names</span><span class="p">,</span> <span class="n">player_characters</span><span class="p">):</span>
+                <span class="k">return</span>
+
+<span class="n">play_game</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>But what’s this?! The <code class="docutils literal notranslate"><span class="pre">play_game</span></code> function is suddenly much longer and much more complicated than before! Especially that <code class="docutils literal notranslate"><span class="pre">while</span> <span class="pre">True:</span></code> loop is quite a mess now.</p>
+<p>This is actually a pretty common thing. Trying to make code more maintainable often makes it more complex, and thus less readable. Which is kind of an oxymoron, because how can code that’s hard to read be easy to maintain? Unfortunately, that’s something we have to live with. There isn’t always a perfect solution. It’s up to you to decide if the tradeoffs are worth it. Finding the best solution is what’s really hard about programming.</p>
+<p>For now, we’ll leave the code like this, despite the mess in <code class="docutils literal notranslate"><span class="pre">play_game</span></code>. Some of the upcoming changes will let us make it a little better.</p>
+</div>
+</div>
+<div class="section" id="improvement-2-encapsulation">
+<h2>Improvement #2: Encapsulation<a class="headerlink" href="#improvement-2-encapsulation" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Encapsulation_(computer_programming)">Encapsulation</a> means bundling data together</p>
+</div>
+<div class="section" id="improvement-2-abstraction-and-interfaces">
+<h2>Improvement #2: Abstraction and interfaces<a class="headerlink" href="#improvement-2-abstraction-and-interfaces" title="Permalink to this headline">¶</a></h2>
+<p>One of the reasons why the game’s code is messy is because the <code class="docutils literal notranslate"><span class="pre">Character</span></code> subclasses <code class="docutils literal notranslate"><span class="pre">Mage</span></code> and <code class="docutils literal notranslate"><span class="pre">Knight</span></code> are too different from each other. <code class="docutils literal notranslate"><span class="pre">Mage</span></code> has the two abilities <code class="docutils literal notranslate"><span class="pre">throw_fireball</span></code> and <code class="docutils literal notranslate"><span class="pre">lesser_heal</span></code>, whereas <code class="docutils literal notranslate"><span class="pre">Knight</span></code> has <code class="docutils literal notranslate"><span class="pre">heroic_strike</span></code> and <code class="docutils literal notranslate"><span class="pre">first_aid</span></code>. Because of these differences, the <code class="docutils literal notranslate"><span class="pre">action_menu</span></code> function has to check what kind of character you’re playing to figure out which of these functions it has to call.</p>
+<p>The solution to this problem is to make all <code class="docutils literal notranslate"><span class="pre">Character</span></code> subclasses implement the same <a class="reference external" href="https://en.wikipedia.org/wiki/Interface_(computing)">interface</a>.</p>
+<p>One way to do that is to rename <code class="docutils literal notranslate"><span class="pre">throw_fireball</span></code> and <code class="docutils literal notranslate"><span class="pre">heroic_strike</span></code> to <code class="docutils literal notranslate"><span class="pre">attack</span></code>, and <code class="docutils literal notranslate"><span class="pre">lesser_heal</span></code> and <code class="docutils literal notranslate"><span class="pre">first_aid</span></code> to <code class="docutils literal notranslate"><span class="pre">heal</span></code>. That way both classes would have the same methods, which eliminates the need to check what kind of character you’re playing.</p>
+<p>That’s a good and easy solution. The only problem with it is that it forces each character to have one offensive ability and one healing ability. So if you’re planning to add characters that don’t have a healing ability, you have to approach the problem differently.</p>
+<p>That approach is <a class="reference external" href="https://en.wikipedia.org/wiki/Abstraction_principle_(computer_programming)">abstraction</a>, more specifically <a class="reference external" href="https://en.wikipedia.org/wiki/Generalization">generalization</a>. Currently, each ability is represented by a function. Offensive abilities are functions that require a <code class="docutils literal notranslate"><span class="pre">target</span></code> argument, and healing abilities are functions with no arguments. The problem with this interface is two-fold:</p>
+<ol class="arabic simple">
+<li><p>Not every function in the class represents an ability</p></li>
+<li><p>It’s hard to tell apart offensive abilities and healing abilities</p></li>
+</ol>
+<p>To solve these problems, we’ll stop representing abilities as methods and implement them as instances of an <code class="docutils literal notranslate"><span class="pre">Ability</span></code> class instead. We’ll also create the subclasses <code class="docutils literal notranslate"><span class="pre">TargetAbility</span></code> and <code class="docutils literal notranslate"><span class="pre">UntargetedAbility</span></code> to distinguish offensive abilities from healing abilities. Each character will have a list of abilities that it can use.</p>
+<p>But we can take it even further than that: Just like abilities, health potions are also something the player can <em>use</em>. So we’re going to add an <code class="docutils literal notranslate"><span class="pre">Action</span></code> class that represents any kind of action the player can perform.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Action</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+
+<span class="k">class</span> <span class="nc">UntargetedAction</span><span class="p">(</span><span class="n">Action</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">do</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">character</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+<span class="k">class</span> <span class="nc">TargetedAction</span><span class="p">(</span><span class="n">Action</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">do</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">character</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+<span class="k">class</span> <span class="nc">SelfHeal</span><span class="p">(</span><span class="n">UntargetedAction</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">heal</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">heal</span> <span class="o">=</span> <span class="n">heal</span>
+
+    <span class="k">def</span> <span class="nf">do</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">character</span><span class="p">):</span>
+        <span class="n">character</span><span class="o">.</span><span class="n">health</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">heal</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{self.name}</span><span class="s1"> healed </span><span class="si">{self.heal}</span><span class="s1"> hitpoints, you now have </span><span class="si">{character.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">UseHealthPotion</span><span class="p">(</span><span class="n">SelfHeal</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;Health Potion&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">do</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">character</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">character</span><span class="o">.</span><span class="n">health_potions</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">character</span><span class="o">.</span><span class="n">health_potions</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">do</span><span class="p">(</span><span class="n">character</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You have no </span><span class="si">{self.name}</span><span class="s1">s left.&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">DamageAbility</span><span class="p">(</span><span class="n">TargetedAction</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">damage</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">damage</span> <span class="o">=</span> <span class="n">damage</span>
+
+    <span class="k">def</span> <span class="nf">do</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">character</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+        <span class="n">target</span><span class="o">.</span><span class="n">health</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">damage</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You deal </span><span class="si">{self.damage}</span><span class="s1"> damage, your opponent now has </span><span class="si">{target.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Character</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">health_potions</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actions</span> <span class="o">=</span> <span class="p">[</span><span class="n">UseHealthPotion</span><span class="p">()]</span>
+
+<span class="k">class</span> <span class="nc">Mage</span><span class="p">(</span><span class="n">Character</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">actions</span> <span class="o">+=</span> <span class="p">[</span>
+            <span class="n">DamageAbility</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;Fireball&#39;</span><span class="p">),</span>
+            <span class="n">SelfHeal</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;Lesser Heal&#39;</span><span class="p">)</span>
+        <span class="p">]</span>
+
+<span class="k">class</span> <span class="nc">Knight</span><span class="p">(</span><span class="n">Character</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">actions</span> <span class="o">+=</span> <span class="p">[</span>
+            <span class="n">DamageAbility</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="s1">&#39;Heroic Strike&#39;</span><span class="p">),</span>
+            <span class="n">SelfHeal</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="s1">&#39;First Aid&#39;</span><span class="p">)</span>
+        <span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">check_for_win</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">player_characters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">health</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{player_names[1]}</span><span class="s1"> wins!&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">elif</span> <span class="n">player_characters</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">health</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{player_names[0]}</span><span class="s1"> wins!&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+<span class="k">def</span> <span class="nf">assign_char</span><span class="p">(</span><span class="n">player_name</span><span class="p">):</span>
+    <span class="n">player_choice</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{player_name}</span><span class="s1">, choose your character: &#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">player_choice</span> <span class="o">==</span> <span class="s1">&#39;Knight&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Knight</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">player_choice</span> <span class="o">==</span> <span class="s1">&#39;Mage&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Mage</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;Invalid&#39;</span>
+
+<span class="k">def</span> <span class="nf">action_menu</span><span class="p">(</span><span class="n">player_name</span><span class="p">,</span> <span class="n">player</span><span class="p">,</span> <span class="n">enemy</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">player_name</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">action</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">player</span><span class="o">.</span><span class="n">actions</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{i}</span><span class="s1">. </span><span class="si">{action.name}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">choice</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">choice</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">actions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">IndexError</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You do nothing.&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">TargetedAction</span><span class="p">):</span>
+            <span class="n">action</span><span class="o">.</span><span class="n">do</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="n">enemy</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">action</span><span class="o">.</span><span class="n">do</span><span class="p">(</span><span class="n">player</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">play_game</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">player_names</span><span class="p">,</span> <span class="n">player_characters</span>
+    <span class="n">player_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Player One&#39;</span><span class="p">,</span> <span class="s1">&#39;Player Two&#39;</span><span class="p">]</span>
+    <span class="n">player_characters</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Character Choices: Knight, Mage&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">player_name</span> <span class="ow">in</span> <span class="n">player_names</span><span class="p">:</span>
+        <span class="n">character</span> <span class="o">=</span> <span class="n">assign_char</span><span class="p">(</span><span class="n">player_name</span><span class="p">)</span>
+        <span class="n">player_characters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">character</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># let each player take their turn</span>
+        <span class="k">for</span> <span class="n">player_name</span> <span class="ow">in</span> <span class="n">player_names</span><span class="p">:</span>
+            <span class="c1"># find the player character and the enemy character</span>
+            <span class="k">if</span> <span class="n">player_name</span> <span class="o">==</span> <span class="n">player_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">player</span><span class="p">,</span> <span class="n">enemy</span> <span class="o">=</span> <span class="n">player_characters</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">enemy</span><span class="p">,</span> <span class="n">player</span> <span class="o">=</span> <span class="n">player_characters</span>
+
+            <span class="n">action_menu</span><span class="p">(</span><span class="n">player_name</span><span class="p">,</span> <span class="n">player</span><span class="p">,</span> <span class="n">enemy</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">check_for_win</span><span class="p">():</span>
+                <span class="k">return</span>
+
+<span class="n">play_game</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This has multiple advantages:</p>
+<ul class="simple">
+<li><p>Since each character has a list of actions they can perform, the <code class="docutils literal notranslate"><span class="pre">action_menu</span></code> function will become a lot simpler.</p></li>
+<li><p>Healing abilities and health potions have a lot in common -</p></li>
+</ul>
+</div>
+<div class="section" id="improvement-4-generalize-instead-of-making-assumptions">
+<h2>Improvement #4: Generalize instead of making assumptions<a class="headerlink" href="#improvement-4-generalize-instead-of-making-assumptions" title="Permalink to this headline">¶</a></h2>
+<p>The code for our game was written based on the premise that there are two players fighting against each other. This assumption that there are always exactly two players has manifested in various different parts of the code:</p>
+<ol class="arabic simple">
+<li><p>In the original code, the <code class="docutils literal notranslate"><span class="pre">play_game</span></code> function lets exactly 2 people choose their character, and then it let exactly 2 players take their turns.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">check_for_win</span></code> function checks the health of exactly two players, and if one is dead then it declares the other one the winner.</p></li>
+<li><p>If a player uses an offensive ability, the game automatically selects the other player as the target.</p></li>
+</ol>
+<p>Part of the reason why the loop in <code class="docutils literal notranslate"><span class="pre">play_game</span></code> became so messy is because</p>
+</div>
 </div>
 
 

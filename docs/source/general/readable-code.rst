@@ -500,8 +500,8 @@ At this point we're pretty much done. All that's left are some minor improvement
    Fortunately for us, there are some simple ways to shorten our code:
 
    * All the ``play_game`` function does is to call another function 3 times. It's only 4 lines of code, but 3 of those lines are used for looping and counting to 3. We can do better than that - replacing the ``while`` loop with a ``for round_num in range(3):`` saves 2 lines of code. But then there's another improvement to make: Since the ``round_num`` variable is never used for anything, it's best to rename it to `_`, a name conventionally used for throwaway variables.
-   * In ``play_games_forever`` we compare the ``play_again`` variable to 4 different values. 2 of those values are actually the same except with different capitalization. So we can shorten this code just by converting ``play_again`` to lower case.
-   * We always used a bunch of ``or`` clauses to compare a variable against multiple different values (e.g. in ``input_player_hand`` or ``play_games_forever``), but the same thing could be achieved with a membership test. For example, instead of writing ``x == 1 or x == 2``, you can write ``x in {1, 2}``.
+   * In ``play_games_forever`` we compare the ``play_again`` variable to 4 different strings. 2 of those strings are actually the same except with different capitalization. So we can shorten this code just by normalizing the case of the user input.
+   * We always used a bunch of ``or`` clauses to compare a variable against multiple different values (e.g. in ``input_player_hand`` or ``play_games_forever``), but the same thing could be achieved by storing all valid values in a container like a list or a set and performing a membership test on that container. For example, instead of writing ``x == 1 or x == 2``, you can write ``x in {1, 2}``.
 
 After making these last few changes, our code looks like this::
 

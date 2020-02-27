@@ -1,3 +1,7 @@
+html {
+  font-family: Verdana;
+  font-size: 1.1em;
+}
 body {
   background-color: #252525;
   color: #ccc;
@@ -80,7 +84,7 @@ h3,
 h3 code {
   font-size: 1.3rem;
 }
-@media (min-width: 47em) {
+@media (min-width: 47rem) {
   body {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
@@ -93,13 +97,13 @@ h3 code {
   .document {
     grid-row: 1;
     grid-column: 2;
-    max-width: 40em;
+    max-width: 40rem;
     margin: auto;
   }
   #bottomnav {
     grid-row: 2;
     grid-column: 2;
-    max-width: 40em;
+    max-width: 40rem;
   }
   #sidebar #sidebar-content {
     float: right;
@@ -110,7 +114,7 @@ h3 code {
     top: 1.5em;
   }
 }
-@media not all and (min-width: 47em) {
+@media not all and (min-width: 47rem) {
   body {
     display: grid;
     grid-template-columns: auto;
@@ -168,6 +172,9 @@ li + li {
 }
 .toctree-wrapper a.headerlink {
   display: none;
+}
+blockquote {
+  padding-left: 0.5em;
 }
 .rubric {
   font-size: 1.3em;

@@ -56,7 +56,7 @@ accent_color = #a34da3
     font_color_regular = #000
     accent_color = #714a71
 
-content_width = 40em
+content_width = 40rem
 
 
 increments = 10%
@@ -91,6 +91,10 @@ accent_font_color_disabled = darken(accent_font_color, 3*increments)
 hover_effect()
     filter: brightness(1.1)
 
+
+html
+    font-family: Verdana
+    font-size: 1.1em
 
 body
     background-color: bg_color_regular
@@ -192,7 +196,7 @@ h3
 
 // If there's enough space, the content will be centered
 // and the navigation will be on the left
-default_layout_width = content_width + 7em
+default_layout_width = content_width + 7rem
 
 @media (min-width: default_layout_width)
     body
@@ -298,6 +302,11 @@ li + li
 // section permalinks
 .toctree-wrapper a.headerlink
     display: none
+
+
+// blockquotes
+blockquote
+    padding-left: 0.5em
 
 
 // rubrics, usually used for footnotes
