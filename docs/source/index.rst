@@ -22,14 +22,20 @@ Novice
       :name: good-code
       :maxdepth: 1
 
-      general/readable-code.rst
-      general/maintainable-code.rst
-      general/efficient-code.rst
+      readable-code.rst
+      maintainable-code.rst
+      efficient-code.rst
+
+.. toctree::
+    :maxdepth: 1
+
+    super.rst
+    metaclasses.rst
 
 Expert
 
 .. toctree::
     :maxdepth: 1
 
-    python/super.rst
-    python/metaclasses.rst
+    super.rst
+    metaclasses.rst
