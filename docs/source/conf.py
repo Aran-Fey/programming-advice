@@ -79,7 +79,7 @@ html_theme = "advice"
 html_theme_path = [HOME / "Desktop/folder/coding/python/sphinx_utils/sphinx_utils/themes"]
 html_show_copyright = False
 html_show_sphinx = False
-html_title = "Aran-Fey's programming guides"
+html_title = "Aran-Fey's (python) programming guides"
 # This css file can be generated with the command
 #   pygmentize -S STYLE_NAME -f html > _static/pygments-light.css
 # html_css_files = [('pygments-light.css', {'media': '(prefers-color-theme: light)'})]

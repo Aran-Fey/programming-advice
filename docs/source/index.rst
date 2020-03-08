@@ -29,8 +29,7 @@ Novice
 .. toctree::
     :maxdepth: 1
 
-    super.rst
-    metaclasses.rst
+    beginner-project-structure.rst
 
 Expert
 
