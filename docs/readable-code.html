@@ -4,23 +4,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Writing readable code &#8212; Aran-Fey&#39;s programming guides</title>
-    <link rel="stylesheet" href="../_static/advice.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <title>Writing readable code &#8212; Aran-Fey&#39;s (python) programming guides</title>
+    <link rel="stylesheet" href="_static/advice.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Writing maintainable code" href="maintainable-code.html" />
-    <link rel="prev" title="Aran-Fey’s Programming Guides" href="../index.html" /> 
+    <link rel="prev" title="Aran-Fey&#39;s (Python) Programming Guides" href="index.html" /> 
   </head><body>
 
     <div id="sidebar">
         <div id="sidebar-content">
-                <a class="homepage-link" title="home page" href="../index.html"><span>Home</span></a>
+                <a class="homepage-link" title="home page" href="index.html"><span>Home</span></a>
         </div>
     </div>
 
@@ -36,10 +36,10 @@
 <div><p>Any fool can write code that a computer can understand. Good programmers write code that humans can understand.</p>
 <p class="attribution">—Martin Fowler</p>
 </div></blockquote>
-<p>Being easy to understand is one of the most important qualities of good code. Unfortunately, this is something that takes beginners a long time to figure out. This is because they never have to read complicated code - the only code they read are short snippets from tutorials and their own code. Reading your own code is easy, especially when it only takes a few days or maybe a week to write. But when you’ve worked on a program for months or even years and it has thousands of lines of code, being able to understand the code you wrote becomes exponentially more difficult and important.</p>
+<p>Being easy to understand is one of the most important qualities of good code. Unfortunately, this is something that takes beginners a long time to figure out. This is because they never have to read complicated code - the only code they read are short snippets from tutorials and their own code. Reading your own code is easy, especially when it only takes a few days or maybe a week to write. But when you've worked on a program for months or even years and it has thousands of lines of code, being able to understand the code you wrote becomes exponentially more difficult and important.</p>
 <p>Beginners write code for computers. Experienced devs write code for humans.</p>
-<p>See, computers need very specific instructions to understand what we want them to do. Instructions like “set this variable to 0” or “add 1 to this variable”. But for a human it’s hard to understand what that long list of detailed instructions actually <em>does</em>. We humans don’t want to concern ourselves with details, we want to understand the big picture. All those detailed instructions that tell the computer <em>how</em> to do its job are irrelevant to us. We just want to know <em>what</em> the code is doing.</p>
-<p>In order to help you understand just how important writing readable code is, let’s perform a little experiment. I’m going to show you a really bad piece of python code and you’ll try to figure out what it does. There’s nothing complicated about it, it uses simple syntax that even a beginner can understand. Here we go, give it your best shot:</p>
+<p>See, computers need very specific instructions to understand what we want them to do. Instructions like &quot;set this variable to 0&quot; or &quot;add 1 to this variable&quot;. But for a human it's hard to understand what that long list of detailed instructions actually <em>does</em>. We humans don't want to concern ourselves with details, we want to understand the big picture. All those detailed instructions that tell the computer <em>how</em> to do its job are irrelevant to us. We just want to know <em>what</em> the code is doing.</p>
+<p>In order to help you understand just how important writing readable code is, let's perform a little experiment. I'm going to show you a really bad piece of python code and you'll try to figure out what it does. There's nothing complicated about it, it uses simple syntax that even a beginner can understand. Here we go, give it your best shot:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_dict</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;Bandage&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
     <span class="s1">&#39;Health Potion&#39;</span><span class="p">:</span> <span class="mi">7</span>
@@ -54,8 +54,8 @@
     <span class="k">return</span> <span class="n">m</span> <span class="o">-</span> <span class="n">count</span>
 </pre></div>
 </div>
-<p>How did it go? Could you figure out what the <code class="docutils literal notranslate"><span class="pre">my_func</span></code> function does? Was it easy? How much time did you spend on it? It’s only 11 lines of code, so you must’ve figured it out pretty quickly, right?</p>
-<p>Now, for comparison, let’s try that again with the same piece of code, except this time all the variables have more meaningful names. Round two:</p>
+<p>How did it go? Could you figure out what the <code class="docutils literal notranslate"><span class="pre">my_func</span></code> function does? Was it easy? How much time did you spend on it? It's only 11 lines of code, so you must've figured it out pretty quickly, right?</p>
+<p>Now, for comparison, let's try that again with the same piece of code, except this time all the variables have more meaningful names. Round two:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ITEM_PRICES</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;Bandage&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
     <span class="s1">&#39;Health Potion&#39;</span><span class="p">:</span> <span class="mi">7</span>
@@ -70,13 +70,13 @@
     <span class="k">return</span> <span class="n">money</span> <span class="o">-</span> <span class="n">total_price</span>
 </pre></div>
 </div>
-<p>How did you do this time? Do you have a better idea of the function’s purpose? How long did it take you to figure it out?</p>
-<p>This one was a lot easier, wasn’t it?</p>
-<p>I hope this little experiment made it clear just how big the difference between good and bad code is. Even if it’s just 11 lines of simple code, an easy improvement like using better variable names can have a huge impact.</p>
+<p>How did you do this time? Do you have a better idea of the function's purpose? How long did it take you to figure it out?</p>
+<p>This one was a lot easier, wasn't it?</p>
+<p>I hope this little experiment made it clear just how big the difference between good and bad code is. Even if it's just 11 lines of simple code, an easy improvement like using better variable names can have a huge impact.</p>
 <div class="section" id="common-mistakes-and-how-to-fix-them">
 <h2>Common mistakes and how to fix them<a class="headerlink" href="#common-mistakes-and-how-to-fix-them" title="Permalink to this headline">¶</a></h2>
-<p>In this section we’ll take a bad piece of code and gradually improve it. The program we’ll be using is a simple Rock-Paper-Scissors game, a common beginner project. The game asks each player to choose a hand and displays the winner. After 3 rounds, the game ends and asks the player if they want to play again.</p>
-<p>We’ll start with this code:</p>
+<p>In this section we'll take a bad piece of code and gradually improve it. The program we'll be using is a simple Rock-Paper-Scissors game, a common beginner project. The game asks each player to choose a hand and displays the winner. After 3 rounds, the game ends and asks the player if they want to play again.</p>
+<p>We'll start with this code:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">Outcome</span><span class="p">():</span>
     <span class="c1"># check all combinations</span>
     <span class="k">if</span> <span class="n">c1</span> <span class="o">==</span> <span class="n">c2</span><span class="p">:</span>
@@ -116,24 +116,24 @@
       <span class="k">break</span>
 </pre></div>
 </div>
-<p>This code works; you can try it if you want. But it’s not <em>good</em> code, so let’s change that.</p>
+<p>This code works; you can try it if you want. But it's not <em>good</em> code, so let's change that.</p>
 <div class="section" id="improvement-1-consistent-formatting-and-pep-8">
 <h3>Improvement #1: Consistent formatting and PEP 8<a class="headerlink" href="#improvement-1-consistent-formatting-and-pep-8" title="Permalink to this headline">¶</a></h3>
-<p>If you take a closer look at the code, you’ll notice how inconsistent its formatting is:</p>
+<p>If you take a closer look at the code, you'll notice how inconsistent its formatting is:</p>
 <ul class="simple">
-<li><p>Sometimes there are spaces around operators (like in <code class="docutils literal notranslate"><span class="pre">c2</span> <span class="pre">==</span> <span class="pre">'Rock'</span></code>), sometimes there aren’t (<code class="docutils literal notranslate"><span class="pre">c2=='Paper'</span></code>), and sometimes there’s one (<code class="docutils literal notranslate"><span class="pre">c1</span> <span class="pre">=='Scissors'</span></code>).</p></li>
-<li><p>Sometimes there’s a space after function names (<code class="docutils literal notranslate"><span class="pre">print</span> <span class="pre">('Player</span> <span class="pre">2</span> <span class="pre">wins!')</span></code>) and other times there’s not (<code class="docutils literal notranslate"><span class="pre">Outcome()</span></code>).</p></li>
-<li><p>Sometimes indents are 4 spaces wide and other times they’re only 2.</p></li>
+<li><p>Sometimes there are spaces around operators (like in <code class="docutils literal notranslate"><span class="pre">c2</span> <span class="pre">==</span> <span class="pre">'Rock'</span></code>), sometimes there aren't (<code class="docutils literal notranslate"><span class="pre">c2=='Paper'</span></code>), and sometimes there's one (<code class="docutils literal notranslate"><span class="pre">c1</span> <span class="pre">=='Scissors'</span></code>).</p></li>
+<li><p>Sometimes there's a space after function names (<code class="docutils literal notranslate"><span class="pre">print</span> <span class="pre">('Player</span> <span class="pre">2</span> <span class="pre">wins!')</span></code>) and other times there's not (<code class="docutils literal notranslate"><span class="pre">Outcome()</span></code>).</p></li>
+<li><p>Sometimes indents are 4 spaces wide and other times they're only 2.</p></li>
 </ul>
-<p>In addition to that, there’s a problem with some of the function and variable names. According to <span class="target" id="index-0"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0008"><strong>PEP 8</strong></a>, python’s official style guide, variable names should follow this pattern:</p>
+<p>In addition to that, there's a problem with some of the function and variable names. According to <span class="target" id="index-0"></span><a class="pep reference external" href="https://www.python.org/dev/peps/pep-0008"><strong>PEP 8</strong></a>, python's official style guide, variable names should follow this pattern:</p>
 <ul class="simple">
 <li><p>Classes should be named in <code class="docutils literal notranslate"><span class="pre">CamelCase</span></code>.</p></li>
 <li><p>Functions and regular variables should be named in <code class="docutils literal notranslate"><span class="pre">snake_case</span></code>.</p></li>
 <li><p>Constants (i.e. variables that should never be reassigned) should be named in <code class="docutils literal notranslate"><span class="pre">UPPERCASE</span></code>.</p></li>
 </ul>
-<p>If you follow these naming conventions, even someone who knows nothing about your code can instantly tell if a name is referring to a class, a function, a regular variable or a constant. (Even though functions and variables use the same naming scheme, it’s easy to tell them apart because functions are usually followed by parentheses.)</p>
-<p>Unfortunately, our code doesn’t follow these conventions: The <code class="docutils literal notranslate"><span class="pre">Outcome</span></code> function is named in <code class="docutils literal notranslate"><span class="pre">CamelCase</span></code> like a class, as is the <code class="docutils literal notranslate"><span class="pre">Game</span></code> variable.</p>
-<p>Let’s fix all of that by applying official PEP 8 styling:</p>
+<p>If you follow these naming conventions, even someone who knows nothing about your code can instantly tell if a name is referring to a class, a function, a regular variable or a constant. (Even though functions and variables use the same naming scheme, it's easy to tell them apart because functions are usually followed by parentheses.)</p>
+<p>Unfortunately, our code doesn't follow these conventions: The <code class="docutils literal notranslate"><span class="pre">Outcome</span></code> function is named in <code class="docutils literal notranslate"><span class="pre">CamelCase</span></code> like a class, as is the <code class="docutils literal notranslate"><span class="pre">Game</span></code> variable.</p>
+<p>Let's fix all of that by applying official PEP 8 styling:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">outcome</span><span class="p">():</span>
     <span class="c1"># check all combinations</span>
     <span class="k">if</span> <span class="n">c1</span> <span class="o">==</span> <span class="n">c2</span><span class="p">:</span>
@@ -177,12 +177,12 @@
 </div>
 <div class="section" id="improvement-2-more-expressive-variable-names">
 <h3>Improvement #2: More expressive variable names<a class="headerlink" href="#improvement-2-more-expressive-variable-names" title="Permalink to this headline">¶</a></h3>
-<p>Not a single variable in this code is named well. Let’s look at a few:</p>
+<p>Not a single variable in this code is named well. Let's look at a few:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: “n” for “number”. Great name, right? No, terrible name. This variable is used to count how many rounds were played so the game can stop after 3 rounds. So a better name for it would be <code class="docutils literal notranslate"><span class="pre">round_num</span></code> or something similar.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">c1</span></code> and <code class="docutils literal notranslate"><span class="pre">c2</span></code>: <em>Obviously</em> these are short for “choice 1” and “choice 2” and store each of the 2 players’ inputs. Except it’s not obvious at all. Let’s rename these to <code class="docutils literal notranslate"><span class="pre">player1_hand</span></code> and <code class="docutils literal notranslate"><span class="pre">player2_hand</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">outcome</span></code>: This function prints the outcome of the game, so it’s named <code class="docutils literal notranslate"><span class="pre">outcome</span></code>. That’s not a bad thought process, but the name is not good enough. It doesn’t tell the reader that the function <em>prints</em> the outcome, so many people will assume that it <em>returns</em> the outcome. Let’s be extra clear and rename this function to <code class="docutils literal notranslate"><span class="pre">print_winner</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">game</span></code>: If you see a variable with the name <code class="docutils literal notranslate"><span class="pre">game</span></code>, what do you think its value could be? A number? A string? If it’s hard to imagine what that variable’s purpose could be, that’s a sign of a bad variable name. We’ll change this to <code class="docutils literal notranslate"><span class="pre">play_again</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: &quot;n&quot; for &quot;number&quot;. Great name, right? No, terrible name. This variable is used to count how many rounds were played so the game can stop after 3 rounds. So a better name for it would be <code class="docutils literal notranslate"><span class="pre">round_num</span></code> or something similar.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">c1</span></code> and <code class="docutils literal notranslate"><span class="pre">c2</span></code>: <em>Obviously</em> these are short for &quot;choice 1&quot; and &quot;choice 2&quot; and store each of the 2 players' inputs. Except it's not obvious at all. Let's rename these to <code class="docutils literal notranslate"><span class="pre">player1_hand</span></code> and <code class="docutils literal notranslate"><span class="pre">player2_hand</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">outcome</span></code>: This function prints the outcome of the game, so it's named <code class="docutils literal notranslate"><span class="pre">outcome</span></code>. That's not a bad thought process, but the name is not good enough. It doesn't tell the reader that the function <em>prints</em> the outcome, so many people will assume that it <em>returns</em> the outcome. Let's be extra clear and rename this function to <code class="docutils literal notranslate"><span class="pre">print_winner</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">game</span></code>: If you see a variable with the name <code class="docutils literal notranslate"><span class="pre">game</span></code>, what do you think its value could be? A number? A string? If it's hard to imagine what that variable's purpose could be, that's a sign of a bad variable name. We'll change this to <code class="docutils literal notranslate"><span class="pre">play_again</span></code>.</p></li>
 </ul>
 <p>Our code now looks like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_winner</span><span class="p">():</span>
@@ -204,14 +204,18 @@
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
             <span class="c1"># ask for user input</span>
             <span class="n">player1_hand</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Player 1: Rock, Paper, or Scissors? &quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">player1_hand</span> <span class="o">==</span> <span class="s1">&#39;Rock&#39;</span> <span class="ow">or</span> <span class="n">player1_hand</span> <span class="o">==</span> <span class="s1">&#39;Paper&#39;</span> <span class="ow">or</span> <span class="n">player1_hand</span> <span class="o">==</span> <span class="s1">&#39;Scissors&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">player1_hand</span> <span class="o">==</span> <span class="s1">&#39;Rock&#39;</span> <span class="ow">or</span>
+                <span class="n">player1_hand</span> <span class="o">==</span> <span class="s1">&#39;Paper&#39;</span> <span class="ow">or</span>
+                <span class="n">player1_hand</span> <span class="o">==</span> <span class="s1">&#39;Scissors&#39;</span><span class="p">):</span>
                 <span class="k">break</span>  <span class="c1"># check passed</span>
 
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid input&quot;</span><span class="p">)</span>
 
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">player2_hand</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Player 2: Rock, Paper, or Scissors? &quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">player2_hand</span> <span class="o">==</span> <span class="s1">&#39;Rock&#39;</span> <span class="ow">or</span> <span class="n">player2_hand</span> <span class="o">==</span> <span class="s1">&#39;Paper&#39;</span> <span class="ow">or</span> <span class="n">player2_hand</span> <span class="o">==</span> <span class="s1">&#39;Scissors&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">player2_hand</span> <span class="o">==</span> <span class="s1">&#39;Rock&#39;</span> <span class="ow">or</span>
+                <span class="n">player2_hand</span> <span class="o">==</span> <span class="s1">&#39;Paper&#39;</span> <span class="ow">or</span>
+                <span class="n">player2_hand</span> <span class="o">==</span> <span class="s1">&#39;Scissors&#39;</span><span class="p">):</span>
                 <span class="k">break</span>
 
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid input&quot;</span><span class="p">)</span>
@@ -220,7 +224,8 @@
         <span class="n">print_winner</span><span class="p">()</span>  <span class="c1"># call print_winner function</span>
 
     <span class="n">play_again</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Would you like to play again? &quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;n&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;N&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;No&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;n&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;N&#39;</span> <span class="ow">or</span>
+        <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;No&#39;</span><span class="p">):</span>
         <span class="k">break</span>
 </pre></div>
 </div>
@@ -228,9 +233,9 @@
 </div>
 <div class="section" id="improvement-3-eliminate-duplicate-code">
 <h3>Improvement #3: Eliminate duplicate code<a class="headerlink" href="#improvement-3-eliminate-duplicate-code" title="Permalink to this headline">¶</a></h3>
-<p>If you take a look at the code that asks both players to input Rock, Paper, or Scissors, you’ll notice that it contains two very similar <code class="docutils literal notranslate"><span class="pre">while</span> <span class="pre">True:</span></code> loops. The only difference between the two loops is the name of the player (“Player 1” vs “Player 2”) and the variable where they store the user input (<code class="docutils literal notranslate"><span class="pre">player1_hand</span></code> vs <code class="docutils literal notranslate"><span class="pre">player2_hand</span></code>).</p>
-<p>Writing the same (or very similar) code more than once is almost never a good idea. If you ever have to make changes to this code, you have to make the same change twice. It makes your code harder to read, too. People might assume that there’s a significant difference between the two loops, because why would you write two loops that do the same thing? They’ll expect the 2nd loop to be different and try to find that difference, only to realize that both loops are actually equivalent. Your code creates certain expectations in the person reading it, and the more often those expectations turn out to be wrong, the more effort it takes for that person to understand your code.</p>
-<p>So let’s do everyone a favor and get rid of the duplicated code. One of the best ways to eliminate duplicate code is to use functions. Instead of writing the code twice, we’ll wrap it in a function and call the function twice.</p>
+<p>If you take a look at the code that asks both players to input Rock, Paper, or Scissors, you'll notice that it contains two very similar <code class="docutils literal notranslate"><span class="pre">while</span> <span class="pre">True:</span></code> loops. The only difference between the two loops is the name of the player (&quot;Player 1&quot; vs &quot;Player 2&quot;) and the variable where they store the user input (<code class="docutils literal notranslate"><span class="pre">player1_hand</span></code> vs <code class="docutils literal notranslate"><span class="pre">player2_hand</span></code>).</p>
+<p>Writing the same (or very similar) code more than once is almost never a good idea. If you ever have to make changes to this code, you have to make the same change twice. It makes your code harder to read, too. People might assume that there's a significant difference between the two loops, because why would you write two loops that do the same thing? They'll expect the 2nd loop to be different and try to find that difference, only to realize that both loops are actually equivalent. Your code creates certain expectations in the person reading it, and the more often those expectations turn out to be wrong, the more effort it takes for that person to understand your code.</p>
+<p>So let's do everyone a favor and get rid of the duplicated code. One of the best ways to eliminate duplicate code is to use functions. Instead of writing the code twice, we'll wrap it in a function and call the function twice.</p>
 <p>This is our code now:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">input_player_hand</span><span class="p">(</span><span class="n">player_name</span><span class="p">):</span>
     <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
@@ -264,7 +269,8 @@
         <span class="n">print_winner</span><span class="p">()</span>  <span class="c1"># call print_winner function</span>
 
     <span class="n">play_again</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Would you like to play again? &quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;n&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;N&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;No&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;n&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;N&#39;</span> <span class="ow">or</span>
+        <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;No&#39;</span><span class="p">):</span>
         <span class="k">break</span>
 </pre></div>
 </div>
@@ -272,9 +278,9 @@
 </div>
 <div class="section" id="improvement-4-replace-global-variables-with-function-parameters">
 <h3>Improvement #4: Replace global variables with function parameters<a class="headerlink" href="#improvement-4-replace-global-variables-with-function-parameters" title="Permalink to this headline">¶</a></h3>
-<p>Unlike the <code class="docutils literal notranslate"><span class="pre">print_winner</span></code> function, the <code class="docutils literal notranslate"><span class="pre">input_player_hand</span></code> we just added accepts a parameter. Why is that? Is it because <code class="docutils literal notranslate"><span class="pre">print_winner</span></code> doesn’t need input? That can’t be it, because <code class="docutils literal notranslate"><span class="pre">print_winner</span></code> needs <code class="docutils literal notranslate"><span class="pre">player1_hand</span></code> and <code class="docutils literal notranslate"><span class="pre">player2_hand</span></code> as input. Maybe it uses global variables because those two variables already exist, whereas there is no global <code class="docutils literal notranslate"><span class="pre">player_name</span></code> variable that <code class="docutils literal notranslate"><span class="pre">input_player_name</span></code> could use. That makes sense, right?</p>
-<p>Well, it does make sense, but using global variables as input for a function is still a bad idea. The problem with using global variables in a function is that it’s hard to see which global variables the function depends on. If someone wants to find out how to pass input to the <code class="docutils literal notranslate"><span class="pre">print_winner</span></code> function, they have to read the whole function and look for global variables. That’s the only way to find out that it accepts input through <code class="docutils literal notranslate"><span class="pre">player1_hand</span></code> and <code class="docutils literal notranslate"><span class="pre">player2_hand</span></code>. Compared to that, figuring out how to pass input to the <code class="docutils literal notranslate"><span class="pre">input_player_hand</span></code> function is trivial - you can immediately see that it needs a <code class="docutils literal notranslate"><span class="pre">player_name</span></code> argument.</p>
-<p>Readable code is code that clearly communicates its purpose to the reader. Function parameters do that. Global variables don’t. So let’s get rid of them.</p>
+<p>Unlike the <code class="docutils literal notranslate"><span class="pre">print_winner</span></code> function, the <code class="docutils literal notranslate"><span class="pre">input_player_hand</span></code> we just added accepts a parameter. Why is that? Is it because <code class="docutils literal notranslate"><span class="pre">print_winner</span></code> doesn't need input? That can't be it, because <code class="docutils literal notranslate"><span class="pre">print_winner</span></code> needs <code class="docutils literal notranslate"><span class="pre">player1_hand</span></code> and <code class="docutils literal notranslate"><span class="pre">player2_hand</span></code> as input. Maybe it uses global variables because those two variables already exist, whereas there is no global <code class="docutils literal notranslate"><span class="pre">player_name</span></code> variable that <code class="docutils literal notranslate"><span class="pre">input_player_name</span></code> could use. That makes sense, right?</p>
+<p>Well, it does make sense, but using global variables as input for a function is still a bad idea. The problem with using global variables in a function is that it's hard to see which global variables the function depends on. If someone wants to find out how to pass input to the <code class="docutils literal notranslate"><span class="pre">print_winner</span></code> function, they have to read the whole function and look for global variables. That's the only way to find out that it accepts input through <code class="docutils literal notranslate"><span class="pre">player1_hand</span></code> and <code class="docutils literal notranslate"><span class="pre">player2_hand</span></code>. Compared to that, figuring out how to pass input to the <code class="docutils literal notranslate"><span class="pre">input_player_hand</span></code> function is trivial - you can immediately see that it needs a <code class="docutils literal notranslate"><span class="pre">player_name</span></code> argument.</p>
+<p>Readable code is code that clearly communicates its purpose to the reader. Function parameters do that. Global variables don't. So let's get rid of them.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">input_player_hand</span><span class="p">(</span><span class="n">player_name</span><span class="p">):</span>
     <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
         <span class="c1"># ask for user input</span>
@@ -307,7 +313,8 @@
         <span class="n">print_winner</span><span class="p">(</span><span class="n">player1_hand</span><span class="p">,</span> <span class="n">player2_hand</span><span class="p">)</span>  <span class="c1"># call print_winner function</span>
 
     <span class="n">play_again</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Would you like to play again? &quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;n&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;N&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;No&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;n&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;N&#39;</span> <span class="ow">or</span>
+        <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;No&#39;</span><span class="p">):</span>
         <span class="k">break</span>
 </pre></div>
 </div>
@@ -319,10 +326,10 @@
 <ol class="arabic simple">
 <li><p>The code in a function can be easily reused by calling the function.</p></li>
 <li><p>Functions have names, which help us humans understand what the code in the function does.</p></li>
-<li><p>Short code is easier to understand than long code, so splitting the program into shorter functions makes it easier to understand.</p></li>
+<li><p>Short code is easier to understand than long code, so splitting the program into shorter functions makes it easier to comprehend.</p></li>
 </ol>
 <p>This 3rd point is a very important one. Humans have short attention spans. Reading 50 lines of code and remembering all the stuff that happens - for example, keeping track of all the variables and their values - is <em>hard</em>. Reading 5 blocks with 10 lines each tends to be much easier, as long as each of those 5 blocks has a clear purpose. And a short block with a clear purpose is exactly what a function should be.</p>
-<p>So how can we split our program into functions that are short and easy to understand? Well, let’s think about the flow of our game. In order, this is everything that happens:</p>
+<p>So how can we split our program into functions that are short and easy to understand? Well, let's think about the flow of our game. In order, this is everything that happens:</p>
 <ol class="arabic simple">
 <li><p>Each player chooses a hand.</p></li>
 <li><p>The winner of the round is displayed.</p></li>
@@ -376,37 +383,38 @@
         <span class="n">play_game</span><span class="p">()</span>
 
         <span class="n">play_again</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Would you like to play again? &quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;n&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;N&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;No&#39;</span><span class="p">:</span>
-            <span class="k">break</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;n&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;N&#39;</span> <span class="ow">or</span>
+            <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;No&#39;</span><span class="p">):</span>
+            <span class="n">breakak</span>
 
 <span class="n">play_games_forever</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>That’s a lot more organized than before. The code we started with was a mess with a whopping 5 levels of indentation, but now we’re down to 3. It’s as <a class="reference external" href="https://www.python.org/dev/peps/pep-0020/">the Zen of Python</a> says: Flat is better than nested.</p>
+<p>That's a lot more organized than before. The code we started with was a mess with a whopping 5 levels of indentation, but now we're down to 3. It's as <a class="reference external" href="https://www.python.org/dev/peps/pep-0020/">the Zen of Python</a> says: Flat is better than nested.</p>
 </div>
 <div class="section" id="improvement-6-write-useful-comments">
 <h3>Improvement #6: Write useful comments<a class="headerlink" href="#improvement-6-write-useful-comments" title="Permalink to this headline">¶</a></h3>
-<p>Let’s take a look at the comments in the code and think about whether they add any useful information.</p>
+<p>Let's take a look at the comments in the code and think about whether they add any useful information.</p>
 <ol class="arabic">
 <li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># ask for user input</span>
 <span class="n">hand</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="n">player_name</span> <span class="o">+</span> <span class="s2">&quot;: Rock, Paper, or Scissors? &quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Considering that there’s an <code class="docutils literal notranslate"><span class="pre">input()</span></code> call in the very next line, this comment seems rather pointless. We can see that the code is asking for user input here, we don’t need a comment to tell us that.</p>
+<p>Considering that there's an <code class="docutils literal notranslate"><span class="pre">input()</span></code> call in the very next line, this comment seems rather pointless. We can see that the code is asking for user input here, we don't need a comment to tell us that.</p>
 </li>
 <li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_winner</span><span class="p">(</span><span class="n">player1_hand</span><span class="p">,</span> <span class="n">player2_hand</span><span class="p">):</span>
     <span class="c1"># check all combinations</span>
 </pre></div>
 </div>
-<p>Well yeah, determining the winner is done by comparing the two players’ hands. This comment hardly conveys any new information.</p>
+<p>Well yeah, determining the winner is done by comparing the two players' hands. This comment hardly conveys any new information.</p>
 </li>
 <li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">print_winner</span><span class="p">(</span><span class="n">player1_hand</span><span class="p">,</span> <span class="n">player2_hand</span><span class="p">)</span>  <span class="c1"># call print_winner function</span>
 </pre></div>
 </div>
-<p>This one’s even more useless than the others. We can <em>see</em> that function call, thank you very much.</p>
+<p>This one's even more useless than the others. We can <em>see</em> that function call, thank you very much.</p>
 </li>
 </ol>
-<p>None of these comments make the code easier to understand. They only state the obvious. Good comments should explain <em>what</em> the code is doing or <em>why</em> it’s doing what it’s doing. Our Rock-Paper-Scissors code is actually so simple that it doesn’t need any comments at all. So instead of writing comments, we’re going to add <a class="reference external" href="https://www.python.org/dev/peps/pep-0257/#what-is-a-docstring">docstrings</a> to all our functions. Docstrings are pretty similar to comments: They explain what the code is doing in a way that’s easy for humans to understand.</p>
+<p>None of these comments make the code easier to understand. They only state the obvious. Good comments should explain <em>what</em> the code is doing or <em>why</em> it's doing what it's doing. Our Rock-Paper-Scissors code is actually so simple that it doesn't need any comments at all. So instead of writing comments, we're going to add <a class="reference external" href="https://www.python.org/dev/peps/pep-0257/#what-is-a-docstring">docstrings</a> to all our functions. Docstrings are pretty similar to comments: They explain what the code is doing in a way that's easy for humans to understand.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">input_player_hand</span><span class="p">(</span><span class="n">player_name</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Asks the player to input &quot;Rock&quot;, &quot;Paper&quot;, or &quot;Scissors&quot;.</span>
@@ -469,7 +477,8 @@
         <span class="n">play_game</span><span class="p">()</span>
 
         <span class="n">play_again</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Would you like to play again? &quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;n&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;N&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;No&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;n&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;N&#39;</span> <span class="ow">or</span>
+            <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;No&#39;</span><span class="p">):</span>
             <span class="k">break</span>
 
 <span class="n">play_games_forever</span><span class="p">()</span>
@@ -478,10 +487,10 @@
 </div>
 <div class="section" id="improvement-7-finishing-touches">
 <h3>Improvement #7: Finishing touches<a class="headerlink" href="#improvement-7-finishing-touches" title="Permalink to this headline">¶</a></h3>
-<p>At this point we’re pretty much done. All that’s left are some minor improvements. Remember, readable code has to clearly communicate its purpose to the reader. This often works best if you’re concise; being too wordy can be detrimental. There are still a few places in the code where we could communicate our intentions more clearly.</p>
+<p>At this point we're pretty much done. All that's left are some minor improvements. Remember, readable code has to clearly communicate its purpose to the reader. This often works best if you're concise; being too wordy can be detrimental. There are still a few places in the code where we could communicate our intentions more clearly.</p>
 <ol class="arabic">
-<li><p><strong>Don’t write</strong> <code class="docutils literal notranslate"><span class="pre">elif</span></code> <strong>when you mean</strong> <code class="docutils literal notranslate"><span class="pre">else</span></code>: In the <code class="docutils literal notranslate"><span class="pre">print_winner</span></code> function, there are 3 possible outcomes: A tie, player 1 wins, or player 2 wins. So if it’s not a tie and player 1 didn’t win, then the winner must be player 2. And yet, our code goes to the trouble of comparing both players’ hands before it prints “Player 2 wins!” instead of just using an <code class="docutils literal notranslate"><span class="pre">else:</span></code>.</p></li>
-<li><p><strong>Be concise</strong>: Like I said before, good code should avoid being too lengthy. Don’t misunderstand, though: I’m not saying that you should make your code as short as possible. The goal is to end up with simple code, not to overwhelm the reader with information because too many things are happening at the same time. Many people end up overdoing it and compress code like this:</p>
+<li><p><strong>Don't write</strong> <code class="docutils literal notranslate"><span class="pre">elif</span></code> <strong>when you mean</strong> <code class="docutils literal notranslate"><span class="pre">else</span></code>: In the <code class="docutils literal notranslate"><span class="pre">print_winner</span></code> function, there are 3 possible outcomes: A tie, player 1 wins, or player 2 wins. So if it's not a tie and player 1 didn't win, then the winner must be player 2. And yet, our code goes to the trouble of comparing both players' hands before it prints &quot;Player 2 wins!&quot; instead of just using an <code class="docutils literal notranslate"><span class="pre">else:</span></code>.</p></li>
+<li><p><strong>Be concise</strong>: Like I said before, good code should avoid being too lengthy. Don't misunderstand, though: I'm not saying that you should make your code as short as possible. The goal is to end up with simple code, not to overwhelm the reader with information because too many things are happening at the same time. Many people end up overdoing it and compress code like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">max_len</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">list1</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">list2</span><span class="p">))</span>
 <span class="n">padded_list1</span> <span class="o">=</span> <span class="n">list1</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">max_len</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">list1</span><span class="p">))</span>
 <span class="n">padded_list2</span> <span class="o">=</span> <span class="n">list2</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">max_len</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">list2</span><span class="p">))</span>
@@ -492,10 +501,10 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">list1</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">list2</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">list1</span><span class="p">)),</span> <span class="n">list2</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">list1</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">list2</span><span class="p">)))]</span>
 </pre></div>
 </div>
-<p>That’s concise, sure, but it’s also awfully hard to read. Making code shorter is only a good idea if the code remains simple.</p>
+<p>That's concise, sure, but it's also awfully hard to read. Making code shorter is only a good idea if the code remains simple.</p>
 <p>Fortunately for us, there are some simple ways to shorten our code:</p>
 <ul class="simple">
-<li><p>All the <code class="docutils literal notranslate"><span class="pre">play_game</span></code> function does is to call another function 3 times. It’s only 4 lines of code, but 3 of those lines are used for looping and counting to 3. We can do better than that - replacing the <code class="docutils literal notranslate"><span class="pre">while</span></code> loop with a <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">round_num</span> <span class="pre">in</span> <span class="pre">range(3):</span></code> saves 2 lines of code. But then there’s another improvement to make: Since the <code class="docutils literal notranslate"><span class="pre">round_num</span></code> variable is never used for anything, it’s best to rename it to <cite>_</cite>, a name conventionally used for throwaway variables.</p></li>
+<li><p>All the <code class="docutils literal notranslate"><span class="pre">play_game</span></code> function does is to call another function 3 times. It's only 4 lines of code, but 3 of those lines are used for looping and counting to 3. We can do better than that - replacing the <code class="docutils literal notranslate"><span class="pre">while</span></code> loop with a <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">round_num</span> <span class="pre">in</span> <span class="pre">range(3):</span></code> saves 2 lines of code. But then there's another improvement to make: Since the <code class="docutils literal notranslate"><span class="pre">round_num</span></code> variable is never used for anything, it's best to rename it to <code class="docutils literal notranslate"><span class="pre">_</span></code>, a name conventionally used for throwaway variables.</p></li>
 <li><p>In <code class="docutils literal notranslate"><span class="pre">play_games_forever</span></code> we compare the <code class="docutils literal notranslate"><span class="pre">play_again</span></code> variable to 4 different strings. 2 of those strings are actually the same except with different capitalization. So we can shorten this code just by normalizing the case of the user input.</p></li>
 <li><p>We always used a bunch of <code class="docutils literal notranslate"><span class="pre">or</span></code> clauses to compare a variable against multiple different values (e.g. in <code class="docutils literal notranslate"><span class="pre">input_player_hand</span></code> or <code class="docutils literal notranslate"><span class="pre">play_games_forever</span></code>), but the same thing could be achieved by storing all valid values in a container like a list or a set and performing a membership test on that container. For example, instead of writing <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">==</span> <span class="pre">1</span> <span class="pre">or</span> <span class="pre">x</span> <span class="pre">==</span> <span class="pre">2</span></code>, you can write <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">in</span> <span class="pre">{1,</span> <span class="pre">2}</span></code>.</p></li>
 </ul>
@@ -578,7 +587,7 @@
       <div class="clearer"></div>
     </div>
         <div id="bottomnav">
-            <a class="homepage-link" title="home page" href="../index.html"><span>Home</span></a>
+            <a class="homepage-link" title="home page" href="index.html"><span>Home</span></a>
                 <a class="next-link" title="Writing maintainable code" href="maintainable-code.html"><span>Writing maintainable code</span></a>
         </div>
 

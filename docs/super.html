@@ -4,23 +4,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Understanding python’s super function &#8212; Aran-Fey&#39;s programming guides</title>
-    <link rel="stylesheet" href="../_static/advice.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <title>Understanding python&#39;s super function &#8212; Aran-Fey&#39;s (python) programming guides</title>
+    <link rel="stylesheet" href="_static/advice.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Metaclasses" href="metaclasses.html" />
-    <link rel="prev" title="Writing efficient code" href="../general/efficient-code.html" /> 
+    <link rel="prev" title="Project Structure for beginners" href="beginner-project-structure.html" /> 
   </head><body>
 
     <div id="sidebar">
         <div id="sidebar-content">
-                <a class="homepage-link" title="home page" href="../index.html"><span>Home</span></a>
+                <a class="homepage-link" title="home page" href="index.html"><span>Home</span></a>
         </div>
     </div>
 
@@ -31,10 +31,10 @@
           <div class="body" role="main">
             
   <div class="section" id="understanding-python-s-super-function">
-<h1>Understanding python’s <code class="docutils literal notranslate"><span class="pre">super</span></code> function<a class="headerlink" href="#understanding-python-s-super-function" title="Permalink to this headline">¶</a></h1>
-<p>The <a class="reference external" href="https://docs.python.org/3/library/functions.html#super" title="(in Python v3.8)"><code class="xref py py-func docutils literal notranslate"><span class="pre">super()</span></code></a> function is one of python’s least understood (and most misunderstood) features¸ which is a shame because it can be a very powerful tool if you know how to use it.</p>
-<p>In order to clear up any misunderstandings you might have, I’m going to explain <code class="docutils literal notranslate"><span class="pre">super</span></code> from the ground up.
-First, let’s talk about its purpose: <code class="docutils literal notranslate"><span class="pre">super</span></code> can be used to access attributes or methods of a parent class from within a child class, for example like this:</p>
+<h1>Understanding python's <code class="docutils literal notranslate"><span class="pre">super</span></code> function<a class="headerlink" href="#understanding-python-s-super-function" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference external" href="https://docs.python.org/3/library/functions.html#super" title="(in Python v3.8)"><code class="xref py py-func docutils literal notranslate"><span class="pre">super()</span></code></a> function is one of python's least understood (and most misunderstood) features, which is a shame because it can be a very powerful tool if you know how to use it.</p>
+<p>In order to clear up any misunderstandings you might have, I'm going to explain <code class="docutils literal notranslate"><span class="pre">super</span></code> from the ground up.
+First, let's talk about its purpose: <code class="docutils literal notranslate"><span class="pre">super</span></code> can be used to access attributes or methods of a parent class from within a child class, for example like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Parent</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
@@ -47,18 +47,18 @@ First, let’s talk about its purpose: <code class="docutils literal notranslate
         <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">1</span>
 </pre></div>
 </div>
-<p>Here we used <code class="docutils literal notranslate"><span class="pre">super</span></code> to call the parent class’s constructor, like any good child class should do.</p>
-<p>But it’s not really correct to say that <code class="docutils literal notranslate"><span class="pre">super</span></code> lets you access attributes of your <em>parent</em> class. It’s a bit more complicated than that. The truth is that <code class="docutils literal notranslate"><span class="pre">super</span></code> operates on a class’s <a class="reference external" href="https://docs.python.org/3/glossary.html#term-method-resolution-order">Method Resolution Order</a> (MRO for short). The MRO is a list of classes that dictates the order in which python searches those classes for attributes and methods. For example, the MRO of <code class="docutils literal notranslate"><span class="pre">Child</span></code> looks like this:</p>
+<p>Here we used <code class="docutils literal notranslate"><span class="pre">super</span></code> to call the parent class's constructor, like any good child class should do.</p>
+<p>But it's not really correct to say that <code class="docutils literal notranslate"><span class="pre">super</span></code> lets you access attributes of your <em>parent</em> class. It's a bit more complicated than that. The truth is that <code class="docutils literal notranslate"><span class="pre">super</span></code> operates on a class's <a class="reference external" href="https://docs.python.org/3/glossary.html#term-method-resolution-order">Method Resolution Order</a> (MRO for short). The MRO is a list of classes that dictates the order in which python searches those classes for attributes and methods. For example, the MRO of <code class="docutils literal notranslate"><span class="pre">Child</span></code> looks like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Child</span><span class="o">.</span><span class="vm">__mro__</span>
 <span class="go">(&lt;class &#39;__main__.Child&#39;&gt;, &lt;class &#39;__main__.Parent&#39;&gt;, &lt;class &#39;object&#39;&gt;)</span>
 </pre></div>
 </div>
-<p>This means that whenever you access an attribute of <code class="docutils literal notranslate"><span class="pre">Child</span></code>, python first looks for that attribute in <code class="docutils literal notranslate"><span class="pre">Child</span></code>’s namespace, then - if it can’t find the attribute there - <code class="docutils literal notranslate"><span class="pre">Parent</span></code>’s namespace, and finally <code class="docutils literal notranslate"><span class="pre">object</span></code>’s namespace.</p>
-<p><code class="docutils literal notranslate"><span class="pre">super</span></code> does the same thing, except it skips some of the classes in the MRO. When we call <code class="docutils literal notranslate"><span class="pre">super()</span></code> with no arguments like we did earlier, it’s actually a shorthand for <code class="docutils literal notranslate"><span class="pre">super(__class__,</span> <span class="pre">self)</span></code> (where <code class="docutils literal notranslate"><span class="pre">__class__</span></code> is the class the method is defined in). So in the example above, <code class="docutils literal notranslate"><span class="pre">super()</span></code> is equivalent to <code class="docutils literal notranslate"><span class="pre">super(Child,</span> <span class="pre">self)</span></code>. This <code class="docutils literal notranslate"><span class="pre">super(Child,</span> <span class="pre">self).__init__()</span></code> skips looking for <code class="docutils literal notranslate"><span class="pre">__init__</span></code> in <code class="docutils literal notranslate"><span class="pre">Child</span></code>’s namespace and only starts its search at <code class="docutils literal notranslate"><span class="pre">Parent</span></code>. That’s where it finds <code class="docutils literal notranslate"><span class="pre">Parent.__init__</span></code> and calls it, automagically passing in <code class="docutils literal notranslate"><span class="pre">self</span></code> as the first argument so you don’t have to.</p>
-<p>Now, this is where it gets interesting. You probably assumed that <code class="docutils literal notranslate"><span class="pre">super(Class,</span> <span class="pre">instance)</span></code> operates on the MRO of <code class="docutils literal notranslate"><span class="pre">Class</span></code>, right? Well, you’re in for a surprise - it actually operates on the MRO of <code class="docutils literal notranslate"><span class="pre">type(instance)</span></code>! Because of the way the MRO works in python, this can lead to some surprises if multiple inheritance is involved.</p>
+<p>This means that whenever you access an attribute of <code class="docutils literal notranslate"><span class="pre">Child</span></code>, python first looks for that attribute in <code class="docutils literal notranslate"><span class="pre">Child</span></code>'s namespace, then - if it can't find the attribute there - <code class="docutils literal notranslate"><span class="pre">Parent</span></code>'s namespace, and finally <code class="docutils literal notranslate"><span class="pre">object</span></code>'s namespace.</p>
+<p><code class="docutils literal notranslate"><span class="pre">super</span></code> does the same thing, except it skips some of the classes in the MRO. When we call <code class="docutils literal notranslate"><span class="pre">super()</span></code> with no arguments like we did earlier, it's actually a shorthand for <code class="docutils literal notranslate"><span class="pre">super(__class__,</span> <span class="pre">self)</span></code> (where <code class="docutils literal notranslate"><span class="pre">__class__</span></code> is the class the method is defined in). So in the example above, <code class="docutils literal notranslate"><span class="pre">super()</span></code> is equivalent to <code class="docutils literal notranslate"><span class="pre">super(Child,</span> <span class="pre">self)</span></code>. This <code class="docutils literal notranslate"><span class="pre">super(Child,</span> <span class="pre">self).__init__()</span></code> skips looking for <code class="docutils literal notranslate"><span class="pre">__init__</span></code> in <code class="docutils literal notranslate"><span class="pre">Child</span></code>'s namespace and only starts its search at <code class="docutils literal notranslate"><span class="pre">Parent</span></code>. That's where it finds <code class="docutils literal notranslate"><span class="pre">Parent.__init__</span></code> and calls it, automagically passing in <code class="docutils literal notranslate"><span class="pre">self</span></code> as the first argument so you don't have to.</p>
+<p>Now, this is where it gets interesting. You probably assumed that <code class="docutils literal notranslate"><span class="pre">super(Class,</span> <span class="pre">instance)</span></code> operates on the MRO of <code class="docutils literal notranslate"><span class="pre">Class</span></code>, right? Well, you're in for a surprise - it actually operates on the MRO of <code class="docutils literal notranslate"><span class="pre">type(instance)</span></code>! Because of the way the MRO works in python, this can lead to some surprises if multiple inheritance is involved.</p>
 <div class="section" id="the-mro-and-multiple-inheritance">
 <h2>The MRO and Multiple Inheritance<a class="headerlink" href="#the-mro-and-multiple-inheritance" title="Permalink to this headline">¶</a></h2>
-<p>We’ve already learned that the MRO is a list of classes that dictates how python searches for class attributes and methods. This is easy to understand if the class has only one parent class - in that case the MRO is simply the parent’s MRO with the child class inserted at the front:</p>
+<p>We've already learned that the MRO is a list of classes that dictates how python searches for class attributes and methods. This is easy to understand if the class has only one parent class - in that case the MRO is simply the parent's MRO with the child class inserted at the front:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Parent</span><span class="p">:</span>
     <span class="k">pass</span>
 
@@ -72,13 +72,13 @@ First, let’s talk about its purpose: <code class="docutils literal notranslate
 <span class="c1"># (&lt;class &#39;__main__.Child&#39;&gt;, &lt;class &#39;__main__.Parent&#39;&gt;, &lt;class &#39;object&#39;&gt;)</span>
 </pre></div>
 </div>
-<p>But what if a class has more than one parent? Which parent will come first in the MRO? And what about the parents’ parents?</p>
-<p>The answer is that python uses an algorithm called <a class="reference external" href="https://en.wikipedia.org/wiki/C3_linearization">C3 linearization</a> to generate the MRO. Here’s a short summary of it:</p>
+<p>But what if a class has more than one parent? Which parent will come first in the MRO? And what about the parents' parents?</p>
+<p>The answer is that python uses an algorithm called <a class="reference external" href="https://en.wikipedia.org/wiki/C3_linearization">C3 linearization</a> to generate the MRO. Here's a short summary of it:</p>
 <ul class="simple">
 <li><p>If a class has multiple parents, like <code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">Child(Parent1,</span> <span class="pre">Parent2)</span></code>, the order of the parents relative to each other will stay the same in the MRO - i.e. <code class="docutils literal notranslate"><span class="pre">Parent1</span></code> will appear before <code class="docutils literal notranslate"><span class="pre">Parent2</span></code>.</p></li>
 <li><p>A child class will appear in the MRO before all of its parent classes.</p></li>
 </ul>
-<p>Here’s an example of that:</p>
+<p>Here's an example of that:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Foo</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span>
@@ -100,19 +100,19 @@ First, let’s talk about its purpose: <code class="docutils literal notranslate
 </pre></div>
 </div>
 <p>You can see that <code class="docutils literal notranslate"><span class="pre">FooBar</span></code> appears first in the MRO, before its parents. <code class="docutils literal notranslate"><span class="pre">Foo</span></code> appears before <code class="docutils literal notranslate"><span class="pre">Bar</span></code>, because <code class="docutils literal notranslate"><span class="pre">FooBar</span></code> listed <code class="docutils literal notranslate"><span class="pre">Foo</span></code> as its first parent and <code class="docutils literal notranslate"><span class="pre">Bar</span></code> as its 2nd parent. And last but not least, both <code class="docutils literal notranslate"><span class="pre">Foo</span></code> and <code class="docutils literal notranslate"><span class="pre">Bar</span></code> appear before <code class="docutils literal notranslate"><span class="pre">object</span></code>, because both are subclasses of <code class="docutils literal notranslate"><span class="pre">object</span></code>.</p>
-<p>Compare this with the MRO of <code class="docutils literal notranslate"><span class="pre">Foo</span></code>: Even though <code class="docutils literal notranslate"><span class="pre">Foo</span></code>’s MRO is <code class="docutils literal notranslate"><span class="pre">(&lt;class</span> <span class="pre">'__main__.Foo'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'object'&gt;)</span></code>, in <code class="docutils literal notranslate"><span class="pre">FooBar</span></code>’s MRO <code class="docutils literal notranslate"><span class="pre">Bar</span></code> appears <em>between</em> <code class="docutils literal notranslate"><span class="pre">Foo</span></code> and <code class="docutils literal notranslate"><span class="pre">object</span></code>! And because <code class="docutils literal notranslate"><span class="pre">super</span></code> operates on the MRO of the instance, the <code class="docutils literal notranslate"><span class="pre">super().__init__()</span></code> in <code class="docutils literal notranslate"><span class="pre">Foo</span></code> will behave differently depending on whether <code class="docutils literal notranslate"><span class="pre">self</span></code> is an instance of <code class="docutils literal notranslate"><span class="pre">Foo</span></code> or <code class="docutils literal notranslate"><span class="pre">FooBar</span></code>:</p>
+<p>Compare this with the MRO of <code class="docutils literal notranslate"><span class="pre">Foo</span></code>: Even though <code class="docutils literal notranslate"><span class="pre">Foo</span></code>'s MRO is <code class="docutils literal notranslate"><span class="pre">(&lt;class</span> <span class="pre">'__main__.Foo'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'object'&gt;)</span></code>, in <code class="docutils literal notranslate"><span class="pre">FooBar</span></code>'s MRO <code class="docutils literal notranslate"><span class="pre">Bar</span></code> appears <em>between</em> <code class="docutils literal notranslate"><span class="pre">Foo</span></code> and <code class="docutils literal notranslate"><span class="pre">object</span></code>! And because <code class="docutils literal notranslate"><span class="pre">super</span></code> operates on the MRO of the instance, the <code class="docutils literal notranslate"><span class="pre">super().__init__()</span></code> in <code class="docutils literal notranslate"><span class="pre">Foo</span></code> will behave differently depending on whether <code class="docutils literal notranslate"><span class="pre">self</span></code> is an instance of <code class="docutils literal notranslate"><span class="pre">Foo</span></code> or <code class="docutils literal notranslate"><span class="pre">FooBar</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Foo</span><span class="p">()</span>  <span class="c1"># output: foo</span>
 <span class="n">FooBar</span><span class="p">()</span>  <span class="c1"># output: foo bar</span>
 </pre></div>
 </div>
 <p>Remember, <code class="docutils literal notranslate"><span class="pre">super(Foo,</span> <span class="pre">self)</span></code> looks at the MRO of <code class="docutils literal notranslate"><span class="pre">type(self)</span></code> and skips everything up to <code class="docutils literal notranslate"><span class="pre">Foo</span></code>. When <code class="docutils literal notranslate"><span class="pre">self</span></code> is an instance of <code class="docutils literal notranslate"><span class="pre">Foo</span></code>, the <code class="docutils literal notranslate"><span class="pre">super().__init__()</span></code> in <code class="docutils literal notranslate"><span class="pre">Foo</span></code> calls <code class="docutils literal notranslate"><span class="pre">object.__init__</span></code>. But when <code class="docutils literal notranslate"><span class="pre">self</span></code> is an instance of <code class="docutils literal notranslate"><span class="pre">FooBar</span></code>, it calls <code class="docutils literal notranslate"><span class="pre">Bar.__init__</span></code>.</p>
-<p>That’s the cool thing about <code class="docutils literal notranslate"><span class="pre">super</span></code>: It can do different things depending on the type of the instance. But you’re probably wondering: What is that useful for?</p>
+<p>That's the cool thing about <code class="docutils literal notranslate"><span class="pre">super</span></code>: It can do different things depending on the type of the instance. But you're probably wondering: What is that useful for?</p>
 </div>
 <div class="section" id="applications-of-super">
 <h2>Applications of <code class="docutils literal notranslate"><span class="pre">super</span></code><a class="headerlink" href="#applications-of-super" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="mixins">
 <h3>Mixins<a class="headerlink" href="#mixins" title="Permalink to this headline">¶</a></h3>
-<p>A <a class="reference external" href="https://en.wikipedia.org/wiki/Mixin">mixin</a> is a class that adds features to your class if you inherit from it. Here’s an example where we use a mixin to create all kinds of things that can produce sounds:</p>
+<p>A <a class="reference external" href="https://en.wikipedia.org/wiki/Mixin">mixin</a> is a class that adds features to your class if you inherit from it. Here's an example where we use a mixin to create all kinds of things that can produce sounds:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">NoiseMixin</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">noise</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -141,11 +141,11 @@ First, let’s talk about its purpose: <code class="docutils literal notranslate
 <span class="n">thomas</span> <span class="o">=</span> <span class="n">Train</span><span class="p">(</span><span class="n">noise</span><span class="o">=</span><span class="s1">&#39;choo choo&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Without <code class="docutils literal notranslate"><span class="pre">super</span></code> we would have a problem implementing <code class="docutils literal notranslate"><span class="pre">NoiseMixin</span></code>’s <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method here: <code class="docutils literal notranslate"><span class="pre">NoiseMixin.__init__</span></code> would override any other <code class="docutils literal notranslate"><span class="pre">__init__</span></code>, and because of that, instantiating a <code class="docutils literal notranslate"><span class="pre">Dog</span></code> would never call <code class="docutils literal notranslate"><span class="pre">Animal.__init__</span></code>.</p>
+<p>Without <code class="docutils literal notranslate"><span class="pre">super</span></code> we would have a problem implementing <code class="docutils literal notranslate"><span class="pre">NoiseMixin</span></code>'s <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method here: <code class="docutils literal notranslate"><span class="pre">NoiseMixin.__init__</span></code> would override any other <code class="docutils literal notranslate"><span class="pre">__init__</span></code>, and because of that, instantiating a <code class="docutils literal notranslate"><span class="pre">Dog</span></code> would never call <code class="docutils literal notranslate"><span class="pre">Animal.__init__</span></code>.</p>
 </div>
 <div class="section" id="cooperative-multiple-inheritance">
 <h3>Cooperative multiple inheritance<a class="headerlink" href="#cooperative-multiple-inheritance" title="Permalink to this headline">¶</a></h3>
-<p>In cooperative multiple inheritance you write a few classes that each implement a small set of features, and then inherit from those classes to create various different combinations of features. It’s kind of like a bunch of mixins that all work together.
+<p>In cooperative multiple inheritance you write a few classes that each implement a small set of features, and then inherit from those classes to create various different combinations of features. It's kind of like a bunch of mixins that all work together.
 As an example, think of enemy units in a tower defense game. Some units might walk on the ground while others fly. Some units might use ranged weapons while others use melee weapons. In your code, you could write a class for each type of unit and then combine them however you need to:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># abstract base class for all units</span>
 <span class="k">class</span> <span class="nc">Unit</span><span class="p">:</span>
@@ -201,8 +201,8 @@ As an example, think of enemy units in a tower defense game. Some units might wa
       <div class="clearer"></div>
     </div>
         <div id="bottomnav">
-                <a class="prev-link" title="Writing efficient code" href="../general/efficient-code.html"><span>Writing efficient code</span></a>
-            <a class="homepage-link" title="home page" href="../index.html"><span>Home</span></a>
+                <a class="prev-link" title="Project Structure for beginners" href="beginner-project-structure.html"><span>Project Structure for beginners</span></a>
+            <a class="homepage-link" title="home page" href="index.html"><span>Home</span></a>
                 <a class="next-link" title="Metaclasses" href="metaclasses.html"><span>Metaclasses</span></a>
         </div>
 

@@ -74,11 +74,22 @@ Inside of ``package_name`` you can also use `relative imports <https://docs.pyth
 
 And just to make this extra clear: You should never import any of the executable files. Everything you want to import should be somewhere in ``package_name``.
 
-Configuring your IDE
-====================
+Running the code
+~~~~~~~~~~~~~~~~~~~~
 
-Unfortunately some IDEs don't support this setup out of the box. You'll be able to successfully run your code from the command line or even by double-clicking a ``.py`` file, but if you're using an IDE it might get in the way and break things. (I'm looking at you, PyCharm.)
+All you need to do to run your code is start one of the executable files with the python interpreter. This can be done from the command line or from inside your IDE. Some IDEs (like PyCharm) have fancy "configurations" for executing stuff, but those sometimes get in the way, because this setup doesn't require any configuration. You tell python which file to run and it just *works*. So if your IDE is giving you trouble, ignore the convoluted configurations and look for a "Run this file" button.
 
+..
+    There are various ways of doing this:
+
+    * From the command line
+        * Windows: ``py -3 path\to\executable_file.py``
+        * Linux: ``python3 path/to/executable_file.py``
+    * By double-clicking
+
+        In order for this to work, some setup is required:
+
+        * Windows: 
 
 
 Common mistakes

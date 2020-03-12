@@ -6,11 +6,14 @@ body {
   background-color: #252525;
   color: #ccc;
 }
-a {
+a,
+a code {
   color: #a34da3;
 }
 a:hover,
-a:focus {
+a code:hover,
+a:focus,
+a code:focus {
   color: #a34da3;
   filter: brightness(1.1);
 }
@@ -160,6 +163,7 @@ h3 code {
   grid-row: 1;
   grid-column: 3;
   justify-self: end;
+  text-align: right;
 }
 li p:first-child {
   margin-top: 0;
@@ -170,11 +174,35 @@ li p:last-child {
 li + li {
   margin-top: 0.3em;
 }
+.body p {
+  line-height: 1.3em;
+}
 .toctree-wrapper a.headerlink {
   display: none;
 }
 blockquote {
   padding-left: 0.5em;
+}
+.admonition {
+  border: thin solid;
+  padding: 0.5em;
+}
+.admonition .admonition-title {
+  margin-top: 0;
+  display: inline;
+}
+.admonition .admonition-title::after {
+  content: ":";
+}
+.admonition .admonition-title + p {
+  display: inline;
+}
+.admonition *:last-child {
+  margin-bottom: 0;
+}
+.admonition.note {
+  border-color: #62629b;
+  background: rgba(98,98,155,0.2);
 }
 .rubric {
   font-size: 1.3em;

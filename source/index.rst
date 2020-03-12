@@ -1,6 +1,6 @@
-*****************************
-Aran-Fey's Programming Guides
-*****************************
+**************************************
+Aran-Fey's (Python) Programming Guides
+**************************************
 
 Hello, and welcome to my collection of programming-related guides.
 I used to answer programming questions on StackOverflow, but after

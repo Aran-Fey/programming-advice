@@ -192,14 +192,18 @@ Our code now looks like this::
             while True:
                 # ask for user input
                 player1_hand = input("Player 1: Rock, Paper, or Scissors? ")
-                if player1_hand == 'Rock' or player1_hand == 'Paper' or player1_hand == 'Scissors':
+                if (player1_hand == 'Rock' or
+                    player1_hand == 'Paper' or
+                    player1_hand == 'Scissors'):
                     break  # check passed
 
                 print("Invalid input")
 
             while True:
                 player2_hand = input("Player 2: Rock, Paper, or Scissors? ")
-                if player2_hand == 'Rock' or player2_hand == 'Paper' or player2_hand == 'Scissors':
+                if (player2_hand == 'Rock' or
+                    player2_hand == 'Paper' or
+                    player2_hand == 'Scissors'):
                     break
 
                 print("Invalid input")
@@ -208,7 +212,8 @@ Our code now looks like this::
             print_winner()  # call print_winner function
 
         play_again = input("Would you like to play again? ")
-        if play_again == 'n' or play_again == 'N' or play_again == 'no' or play_again == 'No':
+        if (play_again == 'n' or play_again == 'N' or
+            play_again == 'no' or play_again == 'No'):
             break
 
 Slowly but surely our code is improving.
@@ -256,7 +261,8 @@ This is our code now::
             print_winner()  # call print_winner function
 
         play_again = input("Would you like to play again? ")
-        if play_again == 'n' or play_again == 'N' or play_again == 'no' or play_again == 'No':
+        if (play_again == 'n' or play_again == 'N' or
+            play_again == 'no' or play_again == 'No'):
             break
 
 Look at that difference! The code is so much shorter and cleaner!
@@ -304,7 +310,8 @@ Readable code is code that clearly communicates its purpose to the reader. Funct
             print_winner(player1_hand, player2_hand)  # call print_winner function
 
         play_again = input("Would you like to play again? ")
-        if play_again == 'n' or play_again == 'N' or play_again == 'no' or play_again == 'No':
+        if (play_again == 'n' or play_again == 'N' or
+            play_again == 'no' or play_again == 'No'):
             break
 
 A tiny, yet huge improvement. Global variables often lead to spagetthi code, especially in larger programs.
@@ -316,7 +323,7 @@ As it turns out, functions have lots of good qualities:
 
 1. The code in a function can be easily reused by calling the function.
 2. Functions have names, which help us humans understand what the code in the function does.
-3. Short code is easier to understand than long code, so splitting the program into shorter functions makes it easier to understand.
+3. Short code is easier to understand than long code, so splitting the program into shorter functions makes it easier to comprehend.
 
 This 3rd point is a very important one. Humans have short attention spans. Reading 50 lines of code and remembering all the stuff that happens - for example, keeping track of all the variables and their values - is *hard*. Reading 5 blocks with 10 lines each tends to be much easier, as long as each of those 5 blocks has a clear purpose. And a short block with a clear purpose is exactly what a function should be.
 
@@ -375,8 +382,9 @@ Sounds like a plan. Here we go::
             play_game()
 
             play_again = input("Would you like to play again? ")
-            if play_again == 'n' or play_again == 'N' or play_again == 'no' or play_again == 'No':
-                break
+            if (play_again == 'n' or play_again == 'N' or
+                play_again == 'no' or play_again == 'No'):
+                breakak
 
     play_games_forever()
 
@@ -472,7 +480,8 @@ None of these comments make the code easier to understand. They only state the o
             play_game()
 
             play_again = input("Would you like to play again? ")
-            if play_again == 'n' or play_again == 'N' or play_again == 'no' or play_again == 'No':
+            if (play_again == 'n' or play_again == 'N' or
+                play_again == 'no' or play_again == 'No'):
                 break
 
     play_games_forever()
@@ -499,7 +508,7 @@ At this point we're pretty much done. All that's left are some minor improvement
    
    Fortunately for us, there are some simple ways to shorten our code:
 
-   * All the ``play_game`` function does is to call another function 3 times. It's only 4 lines of code, but 3 of those lines are used for looping and counting to 3. We can do better than that - replacing the ``while`` loop with a ``for round_num in range(3):`` saves 2 lines of code. But then there's another improvement to make: Since the ``round_num`` variable is never used for anything, it's best to rename it to `_`, a name conventionally used for throwaway variables.
+   * All the ``play_game`` function does is to call another function 3 times. It's only 4 lines of code, but 3 of those lines are used for looping and counting to 3. We can do better than that - replacing the ``while`` loop with a ``for round_num in range(3):`` saves 2 lines of code. But then there's another improvement to make: Since the ``round_num`` variable is never used for anything, it's best to rename it to ``_``, a name conventionally used for throwaway variables.
    * In ``play_games_forever`` we compare the ``play_again`` variable to 4 different strings. 2 of those strings are actually the same except with different capitalization. So we can shorten this code just by normalizing the case of the user input.
    * We always used a bunch of ``or`` clauses to compare a variable against multiple different values (e.g. in ``input_player_hand`` or ``play_games_forever``), but the same thing could be achieved by storing all valid values in a container like a list or a set and performing a membership test on that container. For example, instead of writing ``x == 1 or x == 2``, you can write ``x in {1, 2}``.
 

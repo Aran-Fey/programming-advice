@@ -3,7 +3,7 @@
 Understanding python's ``super`` function
 *****************************************
 
-The :func:`super` function is one of python's least understood (and most misunderstood) features¸ which is a shame because it can be a very powerful tool if you know how to use it.
+The :func:`super` function is one of python's least understood (and most misunderstood) features, which is a shame because it can be a very powerful tool if you know how to use it.
 
 In order to clear up any misunderstandings you might have, I'm going to explain ``super`` from the ground up.
 First, let's talk about its purpose: ``super`` can be used to access attributes or methods of a parent class from within a child class, for example like this::

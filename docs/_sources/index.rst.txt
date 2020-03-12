@@ -1,6 +1,6 @@
-*****************************
-Aran-Fey's Programming Guides
-*****************************
+**************************************
+Aran-Fey's (Python) Programming Guides
+**************************************
 
 Hello, and welcome to my collection of programming-related guides.
 I used to answer programming questions on StackOverflow, but after
@@ -22,14 +22,19 @@ Novice
       :name: good-code
       :maxdepth: 1
 
-      general/readable-code.rst
-      general/maintainable-code.rst
-      general/efficient-code.rst
+      readable-code.rst
+      maintainable-code.rst
+      efficient-code.rst
+
+.. toctree::
+    :maxdepth: 1
+
+    beginner-project-structure.rst
 
 Expert
 
 .. toctree::
     :maxdepth: 1
 
-    python/super.rst
-    python/metaclasses.rst
+    super.rst
+    metaclasses.rst

@@ -4,22 +4,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Metaclasses &#8212; Aran-Fey&#39;s programming guides</title>
-    <link rel="stylesheet" href="../_static/advice.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Understanding python’s super function" href="super.html" /> 
+    <title>Metaclasses &#8212; Aran-Fey&#39;s (python) programming guides</title>
+    <link rel="stylesheet" href="_static/advice.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Understanding python&#39;s super function" href="super.html" /> 
   </head><body>
 
     <div id="sidebar">
         <div id="sidebar-content">
-                <a class="homepage-link" title="home page" href="../index.html"><span>Home</span></a>
+                <a class="homepage-link" title="home page" href="index.html"><span>Home</span></a>
         </div>
     </div>
 
@@ -31,18 +31,18 @@
             
   <div class="section" id="metaclasses">
 <h1>Metaclasses<a class="headerlink" href="#metaclasses" title="Permalink to this headline">¶</a></h1>
-<p>Let me start by admitting that metaclasses are not useful very often. You can be a fine python programmer without ever using metaclasses. But at the same time, they’re a very interesting concept and actually not too difficult to understand.</p>
+<p>Let me start by admitting that metaclasses are not useful very often. You can be a fine python programmer without ever using metaclasses. But at the same time, they're a very interesting concept and actually not too difficult to understand.</p>
 <p>So with that out of the way: What are metaclasses?</p>
 <p>The answer is: A metaclass is a class whose instances are classes. Or, to put it differently: The class of a class is a metaclass.</p>
-<p>That’s confusing, I know. But let me explain. It’s a really simple concept, I swear.</p>
+<p>That's confusing, I know. But let me explain. It's a really simple concept, I swear.</p>
 <div class="section" id="metaclasses-are-just-oop">
 <h2>Metaclasses are just OOP<a class="headerlink" href="#metaclasses-are-just-oop" title="Permalink to this headline">¶</a></h2>
-<p>One of the things that make python so great is its consistency. What I mean by that is that it has relatively few core concepts, and many parts of the language are built on those concepts. Metaclasses are one example of this - they’re the natural consequence of these two core principles:</p>
+<p>One of the things that make python so great is its consistency. What I mean by that is that it has relatively few core concepts, and many parts of the language are built on those concepts. Metaclasses are one example of this - they're the natural consequence of these two core principles:</p>
 <ol class="arabic simple">
 <li><p>Everything in python is an object.</p></li>
 <li><p>Every object is an instance of a class.</p></li>
 </ol>
-<p>The 2nd point is a fundamental part of <a class="reference external" href="https://en.wikipedia.org/wiki/Object-oriented_programming">Object-Oriented Programming</a> (OOP for short) and something you should already be familiar with. But for demonstration purposes, here’s a small example of OOP:</p>
+<p>The 2nd point is a fundamental part of <a class="reference external" href="https://en.wikipedia.org/wiki/Object-oriented_programming">Object-Oriented Programming</a> (OOP for short) and something you should already be familiar with. But for demonstration purposes, here's a small example of OOP:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># [&#39;a&#39;, &#39;b&#39;] is an instance of the list class</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">])</span>
 <span class="go">&lt;class &#39;list&#39;&gt;</span>
@@ -51,7 +51,7 @@
 <span class="go">[&#39;a&#39;, &#39;b&#39;]</span>
 </pre></div>
 </div>
-<p>Like I said, that’s all stuff you already know. But this is where the 1st point comes in: <em>Everything</em> in python is an object. That includes classes! The same things we just did with lists can also be done with classes:</p>
+<p>Like I said, that's all stuff you already know. But this is where the 1st point comes in: <em>Everything</em> in python is an object. That includes classes! The same things we just did with lists can also be done with classes:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># list is an instance of the type class</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
 <span class="go">&lt;class &#39;type&#39;&gt;</span>
@@ -64,24 +64,24 @@
 <span class="go">&lt;class &#39;__main__.MyClass&#39;&gt;</span>
 </pre></div>
 </div>
-<p>Neat, isn’t it? Because classes are objects just like everything else, they behave in ways we’re already familiar with. The term “metaclass” is something we use to refer to classes like <code class="docutils literal notranslate"><span class="pre">type</span></code>, i.e. classes that generate other classes. That’s the only difference between a regular class and a metaclass: Instantiating a regular class creates a new object, but instantiating a metaclass creates a new class. A simple concept, don’t you think?</p>
+<p>Neat, isn't it? Because classes are objects just like everything else, they behave in ways we're already familiar with. The term &quot;metaclass&quot; is something we use to refer to classes like <code class="docutils literal notranslate"><span class="pre">type</span></code>, i.e. classes that generate other classes. That's the only difference between a regular class and a metaclass: Instantiating a regular class creates a new object, but instantiating a metaclass creates a new class. A simple concept, don't you think?</p>
 </div>
 <div class="section" id="using-metaclasses">
 <h2>Using metaclasses<a class="headerlink" href="#using-metaclasses" title="Permalink to this headline">¶</a></h2>
-<p>I already showed you one way of using metaclasses: Calling a metaclass with 3 arguments creates a new class. But there’s another way: The <code class="docutils literal notranslate"><span class="pre">class</span></code> statement.</p>
+<p>I already showed you one way of using metaclasses: Calling a metaclass with 3 arguments creates a new class. But there's another way: The <code class="docutils literal notranslate"><span class="pre">class</span></code> statement.</p>
 <p>As you know, the <code class="docutils literal notranslate"><span class="pre">class</span></code> statement lets us create classes, like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">Bar</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="mi">5</span>
 </pre></div>
 </div>
-<p>Behind the scenes, this actually just calls <code class="docutils literal notranslate"><span class="pre">type</span></code> with the 3 arguments <code class="docutils literal notranslate"><span class="pre">'Foo'</span></code>, <code class="docutils literal notranslate"><span class="pre">(Bar,)</span></code>, and <code class="docutils literal notranslate"><span class="pre">{'x':</span> <span class="pre">5}</span></code>. It’s equivalent to this <a class="footnote-reference brackets" href="#f1" id="id1">1</a>:</p>
+<p>Behind the scenes, this actually just calls <code class="docutils literal notranslate"><span class="pre">type</span></code> with the 3 arguments <code class="docutils literal notranslate"><span class="pre">'Foo'</span></code>, <code class="docutils literal notranslate"><span class="pre">(Bar,)</span></code>, and <code class="docutils literal notranslate"><span class="pre">{'x':</span> <span class="pre">5}</span></code>. It's equivalent to this <a class="footnote-reference brackets" href="#f1" id="id1">1</a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Foo</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s1">&#39;Foo&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">Bar</span><span class="p">,),</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">})</span>
 </pre></div>
 </div>
 <p>Per default, python figures out the appropriate metaclass automatically with the following algorithm:</p>
 <ol class="arabic simple">
 <li><p>Loop through all base classes and create a set of all their metaclasses.</p></li>
-<li><p>In this set of metaclasses, find one that’s a subclass of all others. This “most derived metaclass” is used as the metaclass for the new class.</p></li>
+<li><p>In this set of metaclasses, find one that's a subclass of all others. This &quot;most derived metaclass&quot; is used as the metaclass for the new class.</p></li>
 </ol>
 <p>If the default is not what you want, you can specify a different metaclass by passing in a <code class="docutils literal notranslate"><span class="pre">metaclass</span></code> keyword argument like so <a class="footnote-reference brackets" href="#f2" id="id2">2</a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">):</span>
@@ -100,18 +100,18 @@
 <span class="c1"># Equivalent to Foo = class_factory(&#39;Foo&#39;, (Bar,), {&#39;x&#39;: 5})</span>
 </pre></div>
 </div>
-<p>And if you pass in any other keyword arguments, they’ll be forwarded to the metaclass:</p>
+<p>And if you pass in any other keyword arguments, they'll be forwarded to the metaclass:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">Bar</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">MyMeta</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="mi">5</span>
 
 <span class="c1"># Equivalent to Foo = MyMeta(&#39;Foo&#39;, (Bar,), {&#39;x&#39;: 5}, bar=True)</span>
 </pre></div>
 </div>
-<p>As far as I know, there is no metaclass in python’s standard library that accepts these kinds of keyword arguments, but they can be useful if you write your own metaclass.</p>
+<p>As far as I know, there is no metaclass in python's standard library that accepts these kinds of keyword arguments, but they can be useful if you write your own metaclass.</p>
 </div>
 <div class="section" id="writing-custom-metaclasses">
 <h2>Writing custom metaclasses<a class="headerlink" href="#writing-custom-metaclasses" title="Permalink to this headline">¶</a></h2>
-<p>Python has one builtin metaclass: <code class="docutils literal notranslate"><span class="pre">type</span></code>. Every class, metaclass or not, is an instance of <code class="docutils literal notranslate"><span class="pre">type</span></code>. In order to write your own metaclass, all you have to do is subclass <code class="docutils literal notranslate"><span class="pre">type</span></code>. That’s how OOP works, after all. For example, here’s a metaclass that adds a class attribute to each class and also implements a nicer <code class="docutils literal notranslate"><span class="pre">__str__</span></code> than the usual <code class="docutils literal notranslate"><span class="pre">&lt;class</span> <span class="pre">'Foo'&gt;</span></code>:</p>
+<p>Python has one builtin metaclass: <code class="docutils literal notranslate"><span class="pre">type</span></code>. Every class, metaclass or not, is an instance of <code class="docutils literal notranslate"><span class="pre">type</span></code>. In order to write your own metaclass, all you have to do is subclass <code class="docutils literal notranslate"><span class="pre">type</span></code>. That's how OOP works, after all. For example, here's a metaclass that adds a class attribute to each class and also implements a nicer <code class="docutils literal notranslate"><span class="pre">__str__</span></code> than the usual <code class="docutils literal notranslate"><span class="pre">&lt;class</span> <span class="pre">'Foo'&gt;</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">DemoMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attrs</span><span class="p">)</span>
@@ -128,7 +128,7 @@
 <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">DemoClass</span><span class="p">))</span>  <span class="c1"># output: &lt;DemoClass&gt;</span>
 </pre></div>
 </div>
-<p>Writing a metaclass is really just like writing a regular class, except you have to inherit from <code class="docutils literal notranslate"><span class="pre">type</span></code> and if you write an <code class="docutils literal notranslate"><span class="pre">__init__</span></code> or <code class="docutils literal notranslate"><span class="pre">__new__</span></code> method you have to remember to add those 3 parameters that every metaclass needs. Everything else works as usual: Special methods like <code class="docutils literal notranslate"><span class="pre">__init__</span></code> and <code class="docutils literal notranslate"><span class="pre">__str__</span></code> do what they always do, <code class="docutils literal notranslate"><span class="pre">super()</span></code> works as it always does, etc. It’s good practice to use the name <code class="docutils literal notranslate"><span class="pre">cls</span></code> instead of the usual <code class="docutils literal notranslate"><span class="pre">self</span></code>, though.</p>
+<p>Writing a metaclass is really just like writing a regular class, except you have to inherit from <code class="docutils literal notranslate"><span class="pre">type</span></code> and if you write an <code class="docutils literal notranslate"><span class="pre">__init__</span></code> or <code class="docutils literal notranslate"><span class="pre">__new__</span></code> method you have to remember to add those 3 parameters that every metaclass needs. Everything else works as usual: Special methods like <code class="docutils literal notranslate"><span class="pre">__init__</span></code> and <code class="docutils literal notranslate"><span class="pre">__str__</span></code> do what they always do, <code class="docutils literal notranslate"><span class="pre">super()</span></code> works as it always does, etc. It's good practice to use the name <code class="docutils literal notranslate"><span class="pre">cls</span></code> instead of the usual <code class="docutils literal notranslate"><span class="pre">self</span></code>, though.</p>
 <p>One thing you have to be aware of is how attribute lookup works when metaclasses are involved. Firstly, dundermethods implemented in the metaclass only have an effect on its classes, not on instances of those classes:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">DemoClass</span><span class="p">))</span>  <span class="c1"># output: &lt;DemoClass&gt;</span>
 
@@ -149,7 +149,7 @@
 <span class="n">DemoClass</span><span class="p">()</span><span class="o">.</span><span class="n">foo</span>  <span class="c1"># raises AttributeError</span>
 </pre></div>
 </div>
-<p>Alright, this has been quite academic so far, so let me show you a real-world use case for a metaclass: A <a class="reference external" href="https://en.wikipedia.org/wiki/Singleton_pattern">singleton</a>. Calling a class usually creates a new instance of it, but we want our singleton class to always return the same instance. We can do this by overriding the <code class="docutils literal notranslate"><span class="pre">__call__</span></code> method in its metaclass. Here’s what that looks like:</p>
+<p>Alright, this has been quite academic so far, so let me show you a real-world use case for a metaclass: A <a class="reference external" href="https://en.wikipedia.org/wiki/Singleton_pattern">singleton</a>. Calling a class usually creates a new instance of it, but we want our singleton class to always return the same instance. We can do this by overriding the <code class="docutils literal notranslate"><span class="pre">__call__</span></code> method in its metaclass. Here's what that looks like:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SingletonMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -176,9 +176,9 @@
 </div>
 <div class="section" id="the-problem-with-metaclasses">
 <h2>The problem with metaclasses<a class="headerlink" href="#the-problem-with-metaclasses" title="Permalink to this headline">¶</a></h2>
-<p>To begin with, many programmers aren’t familiar with metaclasses. Using them in your code will often make it harder to understand and less readable for most people. If possible, you should consider finding another solution. For example, a class decorator or the <a class="reference external" href="https://docs.python.org/3/reference/datamodel.html#object.__init_subclass__" title="(in Python v3.8)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__init_subclass__</span></code></a> method can oftentimes be used instead of a metaclass.</p>
+<p>To begin with, many programmers aren't familiar with metaclasses. Using them in your code will often make it harder to understand and less readable for most people. If possible, you should consider finding another solution. For example, a class decorator or the <a class="reference external" href="https://docs.python.org/3/reference/datamodel.html#object.__init_subclass__" title="(in Python v3.8)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__init_subclass__</span></code></a> method can oftentimes be used instead of a metaclass.</p>
 <p>Metaclasses can also cause more concrete problems, though: Metaclass conflicts.</p>
-<p>A metaclass conflict is what happens when you try to create a class and python fails to find a most derived metaclass. This can happen when your class inherits from 2 base classes with incompatible metaclasses. “Incompatible” means that neither metaclass is a subclass of the other. For example, <code class="docutils literal notranslate"><span class="pre">type</span></code> and <code class="docutils literal notranslate"><span class="pre">abc.ABCMeta</span></code> are compatible, because <code class="docutils literal notranslate"><span class="pre">ABCMeta</span></code> is a subclass of <code class="docutils literal notranslate"><span class="pre">type</span></code>:</p>
+<p>A metaclass conflict is what happens when you try to create a class and python fails to find a most derived metaclass. This can happen when your class inherits from 2 base classes with incompatible metaclasses. &quot;Incompatible&quot; means that neither metaclass is a subclass of the other. For example, <code class="docutils literal notranslate"><span class="pre">type</span></code> and <code class="docutils literal notranslate"><span class="pre">abc.ABCMeta</span></code> are compatible, because <code class="docutils literal notranslate"><span class="pre">ABCMeta</span></code> is a subclass of <code class="docutils literal notranslate"><span class="pre">type</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">abc</span>
 
 <span class="k">class</span> <span class="nc">RegularClass</span><span class="p">:</span> <span class="k">pass</span>
@@ -212,14 +212,14 @@
     <span class="k">pass</span>
 </pre></div>
 </div>
-<p>You’ll probably run into this more often than you might think, and for many people it’s not an easy problem to deal with. So, remember: Just because you <em>can</em> use metaclasses doesn’t mean you <em>should</em>. Use your newfound knowledge wisely.</p>
+<p>You'll probably run into this more often than you might think, and for many people it's not an easy problem to deal with. So, remember: Just because you <em>can</em> use metaclasses doesn't mean you <em>should</em>. Use your newfound knowledge wisely.</p>
 <p class="rubric">Footnotes</p>
 <dl class="footnote brackets">
 <dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>There is a small difference between using the <code class="docutils literal notranslate"><span class="pre">class</span></code> statement and calling the metaclass: The <code class="docutils literal notranslate"><span class="pre">class</span></code> statement automatically sets your class’s <code class="docutils literal notranslate"><span class="pre">__module__</span></code> attribute to the module where it’s defined in. Calling the metaclass directly will “inherit” the metaclass’s <code class="docutils literal notranslate"><span class="pre">__module__</span></code> value instead. This can lead to issues like the class not being pickleable.</p>
+<dd><p>There is a small difference between using the <code class="docutils literal notranslate"><span class="pre">class</span></code> statement and calling the metaclass: The <code class="docutils literal notranslate"><span class="pre">class</span></code> statement automatically sets your class's <code class="docutils literal notranslate"><span class="pre">__module__</span></code> attribute to the module where it's defined in. Calling the metaclass directly will &quot;inherit&quot; the metaclass's <code class="docutils literal notranslate"><span class="pre">__module__</span></code> value instead. This can lead to issues like the class not being pickleable.</p>
 </dd>
 <dt class="label" id="f2"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
-<dd><p>The <code class="docutils literal notranslate"><span class="pre">metaclass</span></code> argument behaves a little different from what you might expect. Python doesn’t unconditionally use the metaclass you pass in; it simply adds your metaclass to its set of metaclasses and performs its usual algorithm to find the most derived metaclass.</p>
+<dd><p>The <code class="docutils literal notranslate"><span class="pre">metaclass</span></code> argument behaves a little different from what you might expect. Python doesn't unconditionally use the metaclass you pass in; it simply adds your metaclass to its set of metaclasses and performs its usual algorithm to find the most derived metaclass.</p>
 </dd>
 </dl>
 </div>
@@ -233,8 +233,8 @@
       <div class="clearer"></div>
     </div>
         <div id="bottomnav">
-                <a class="prev-link" title="Understanding python’s super function" href="super.html"><span>Understanding python’s <code class="docutils literal notranslate"><span class="pre">super</span></code> function</span></a>
-            <a class="homepage-link" title="home page" href="../index.html"><span>Home</span></a>
+                <a class="prev-link" title="Understanding python&#39;s super function" href="super.html"><span>Understanding python's <code class="docutils literal notranslate"><span class="pre">super</span></code> function</span></a>
+            <a class="homepage-link" title="home page" href="index.html"><span>Home</span></a>
         </div>
 
     <div class="footer" role="contentinfo">

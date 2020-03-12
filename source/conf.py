@@ -73,6 +73,8 @@ exclude_patterns = []
 todo_include_todos = False
 
 
+smartquotes = False
+
 # -- Options for HTML output ----------------------------------------------
 
 html_theme = "advice"

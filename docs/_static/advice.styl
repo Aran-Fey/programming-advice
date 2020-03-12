@@ -101,11 +101,14 @@ body
     color: font_color_regular
 
 a
-    color: accent_color
-a:hover
-a:focus
-    color: accent_color
-    hover_effect()
+    &
+    & code
+        color: accent_color
+        
+        &:hover
+        &:focus
+            color: accent_color
+            hover_effect()
 
 details > summary
     background: accent_color
@@ -284,6 +287,7 @@ default_layout_width = content_width + 7rem
         grid-column: 3
         
         justify-self: end
+        text-align: right
 
 // === END OF SITE LAYOUT ===
 
@@ -297,7 +301,12 @@ li
 
 li + li
     margin-top: 0.3em
-    
+
+
+// increase spacing between lines
+.body p
+    line-height: 1.3em
+
 
 // section permalinks
 .toctree-wrapper a.headerlink
@@ -307,6 +316,32 @@ li + li
 // blockquotes
 blockquote
     padding-left: 0.5em
+
+
+// notes, warnings, etc
+admonition(color)
+    border-color: color
+    background: alpha(color, 20%)
+
+.admonition
+    border: thin solid
+    padding: 0.5em
+    
+    .admonition-title
+        margin-top: 0
+        
+        &::after
+            content: ":"
+        
+        display: inline
+        & + p
+            display: inline
+    
+    & *:last-child
+        margin-bottom: 0
+    
+    &.note
+        admonition(#62629b)
 
 
 // rubrics, usually used for footnotes
