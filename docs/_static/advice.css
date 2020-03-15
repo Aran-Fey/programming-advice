@@ -1,19 +1,12 @@
-html {
-  font-family: Verdana;
-  font-size: 1.1em;
-}
 body {
   background-color: #252525;
   color: #ccc;
 }
-a,
-a code {
+a {
   color: #a34da3;
 }
 a:hover,
-a code:hover,
-a:focus,
-a code:focus {
+a:focus {
   color: #a34da3;
   filter: brightness(1.1);
 }
@@ -87,7 +80,7 @@ h3,
 h3 code {
   font-size: 1.3rem;
 }
-@media (min-width: 47rem) {
+@media (min-width: 47em) {
   body {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
@@ -100,13 +93,13 @@ h3 code {
   .document {
     grid-row: 1;
     grid-column: 2;
-    max-width: 40rem;
+    max-width: 40em;
     margin: auto;
   }
   #bottomnav {
     grid-row: 2;
     grid-column: 2;
-    max-width: 40rem;
+    max-width: 40em;
   }
   #sidebar #sidebar-content {
     float: right;
@@ -117,7 +110,7 @@ h3 code {
     top: 1.5em;
   }
 }
-@media not all and (min-width: 47rem) {
+@media not all and (min-width: 47em) {
   body {
     display: grid;
     grid-template-columns: auto;
@@ -163,7 +156,6 @@ h3 code {
   grid-row: 1;
   grid-column: 3;
   justify-self: end;
-  text-align: right;
 }
 li p:first-child {
   margin-top: 0;
@@ -174,35 +166,8 @@ li p:last-child {
 li + li {
   margin-top: 0.3em;
 }
-.body p {
-  line-height: 1.3em;
-}
 .toctree-wrapper a.headerlink {
   display: none;
-}
-blockquote {
-  padding-left: 0.5em;
-}
-.admonition {
-  border: thin solid;
-  padding: 0.5em;
-}
-.admonition .admonition-title {
-  margin-top: 0;
-  display: inline;
-}
-.admonition .admonition-title::after {
-  content: ":";
-}
-.admonition .admonition-title + p {
-  display: inline;
-}
-.admonition *:last-child {
-  margin-bottom: 0;
-}
-.admonition.note {
-  border-color: #62629b;
-  background: rgba(98,98,155,0.2);
 }
 .rubric {
   font-size: 1.3em;

@@ -7,11 +7,11 @@
     <title>Writing maintainable code &#8212; Aran-Fey&#39;s (python) programming guides</title>
     <link rel="stylesheet" href="_static/advice.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Writing efficient code" href="efficient-code.html" />
@@ -52,32 +52,32 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_health_potions</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_health_potions</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_health_potions</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">+=</span> <span class="mi">25</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Health Potion healed 25 hitpoints, you now </span><span class="se">\</span>
-<span class="s1">                  have </span><span class="si">{self.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Health Potion healed 25 hitpoints, you now &#39;</span>
+                  <span class="sa">f</span><span class="s1">&#39;have </span><span class="si">{self.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You have no Health Potions left.&#39;</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">Mage</span><span class="p">(</span><span class="n">Character</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">throw_fireball</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enemy</span><span class="p">):</span>
         <span class="n">enemy</span><span class="o">.</span><span class="n">health</span> <span class="o">-=</span> <span class="mi">25</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You deal 25 damage, your opponent now has </span><span class="se">\</span>
-<span class="s1">              </span><span class="si">{enemy.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You deal 25 damage, your opponent now has &#39;</span>
+              <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{enemy.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">lesser_heal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">+=</span> <span class="mi">20</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You gain 20 health, you now have </span><span class="si">{self.health}</span><span class="s1"> </span><span class="se">\</span>
-<span class="s1">              hitpoints.&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You gain 20 health, you now have </span><span class="si">{self.health}</span><span class="s1"> &#39;</span>
+              <span class="sa">f</span><span class="s1">&#39;hitpoints.&#39;</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">Knight</span><span class="p">(</span><span class="n">Character</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">heroic_strike</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enemy</span><span class="p">):</span>
         <span class="n">enemy</span><span class="o">.</span><span class="n">health</span> <span class="o">-=</span> <span class="mi">30</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You deal 30 damage, your opponent now has </span><span class="se">\</span>
-<span class="s1">              </span><span class="si">{enemy.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You deal 30 damage, your opponent now has &#39;</span>
+              <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{enemy.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">first_aid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">+=</span> <span class="mi">15</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You gain 15 health, you now have </span><span class="si">{self.health}</span><span class="s1"> </span><span class="se">\</span>
-<span class="s1">              hitpoints.&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You gain 15 health, you now have </span><span class="si">{self.health}</span><span class="s1"> &#39;</span>
+              <span class="sa">f</span><span class="s1">&#39;hitpoints.&#39;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">check_for_win</span><span class="p">(</span><span class="n">player1</span><span class="p">,</span> <span class="n">player2</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">player1</span><span class="o">.</span><span class="n">health</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
@@ -139,9 +139,9 @@
 <ul>
 <li><p>Adding a 3rd playable class</p>
 <ol class="arabic simple">
-<li><p>Create a new subclass of <code class="docutils literal notranslate"><span class="pre">Shared_Attributes</span></code></p></li>
+<li><p>Create a new subclass of <code class="docutils literal notranslate"><span class="pre">Character</span></code></p></li>
 <li><p>Add the new class to the <code class="docutils literal notranslate"><span class="pre">assign_char</span></code> function</p></li>
-<li><p>Add the new class to the <code class="docutils literal notranslate"><span class="pre">skill_menu</span></code> function</p></li>
+<li><p>Add the new class to the <code class="docutils literal notranslate"><span class="pre">action_menu</span></code> function</p></li>
 <li><p>Add the new class to the <code class="docutils literal notranslate"><span class="pre">print</span></code> call in the <code class="docutils literal notranslate"><span class="pre">play_game</span></code> function</p></li>
 </ol>
 <p>Because of the way the <code class="docutils literal notranslate"><span class="pre">skill_menu</span></code> function is implemented, the new class would also have to have exactly 1 offensive skill and 1 healing skill. If we wanted our class to have 2 offensive skills, we'd have to completely rewrite the <code class="docutils literal notranslate"><span class="pre">skill_menu</span></code> function.</p>
@@ -162,7 +162,7 @@
 </ol>
 </li>
 </ul>
-<p>As you can see, implementing any of these features would require changes in many different parts of the code. That's a sign of spagetthi code. Ideally, each feature should be a self-contained unit. The less code you have to rewrite, the less likely you are to mess something up and create bugs. So let's start improving the code.</p>
+<p>As you can see, implementing any of these features would require changes in multiple parts of the code. That's a sign of spagetthi code. Ideally, each feature should be a self-contained unit. The less code you have to rewrite, the less likely you are to mess something up and create bugs. So let's start improving the code.</p>
 <div class="section" id="improvement-1-don-t-use-java-style-getters-and-setters">
 <h2>Improvement #1: Don't use Java-style getters and setters<a class="headerlink" href="#improvement-1-don-t-use-java-style-getters-and-setters" title="Permalink to this headline">¶</a></h2>
 <p>Many people who learn python as a secondary language make the mistake to write Java-style accessor methods like these:</p>
@@ -203,8 +203,8 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">health_potions</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">health_potions</span> <span class="o">-=</span> <span class="mi">1</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">+=</span> <span class="mi">25</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Health Potion healed 25 hitpoints, you now </span><span class="se">\</span>
-<span class="s1">                  have </span><span class="si">{self.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Health Potion healed 25 hitpoints, you now &#39;</span>
+                  <span class="sa">f</span><span class="s1">&#39;have </span><span class="si">{self.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You have no Health Potions left.&#39;</span><span class="p">)</span>
 </pre></div>
@@ -218,16 +218,16 @@
 <p>In every single character ability, the amount of damage dealt to the enemy or health restored to your own character is used twice - once to update the character's health, and once to print a status message:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">throw_fireball</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enemy</span><span class="p">):</span>
     <span class="n">enemy</span><span class="o">.</span><span class="n">health</span> <span class="o">-=</span> <span class="mi">25</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You deal 25 damage, your opponent now has </span><span class="se">\</span>
-<span class="s1">          </span><span class="si">{enemy.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You deal 25 damage, your opponent now has &#39;</span>
+          <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{enemy.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>If we ever want to change this value, we have to change it in two places. That can be avoided by storing the value in a variable:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">throw_fireball</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enemy</span><span class="p">):</span>
     <span class="n">dmg</span> <span class="o">=</span> <span class="mi">25</span>
     <span class="n">enemy</span><span class="o">.</span><span class="n">health</span> <span class="o">-=</span> <span class="n">dmg</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You deal </span><span class="si">{dmg}</span><span class="s1"> damage, your opponent now has </span><span class="se">\</span>
-<span class="s1">          </span><span class="si">{enemy.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You deal </span><span class="si">{dmg}</span><span class="s1"> damage, your opponent now has &#39;</span>
+          <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{enemy.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -264,8 +264,8 @@
             <span class="n">heal</span> <span class="o">=</span> <span class="mi">25</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">health_potions</span> <span class="o">-=</span> <span class="mi">1</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">+=</span> <span class="n">heal</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Health Potion healed </span><span class="si">{heal}</span><span class="s1"> hitpoints, you now </span><span class="se">\</span>
-<span class="s1">                  have </span><span class="si">{self.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Health Potion healed </span><span class="si">{heal}</span><span class="s1"> hitpoints, you now &#39;</span>
+                  <span class="sa">f</span><span class="s1">&#39;have </span><span class="si">{self.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You have no Health Potions left.&#39;</span><span class="p">)</span>
 
@@ -273,27 +273,27 @@
     <span class="k">def</span> <span class="nf">throw_fireball</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enemy</span><span class="p">):</span>
         <span class="n">dmg</span> <span class="o">=</span> <span class="mi">25</span>
         <span class="n">enemy</span><span class="o">.</span><span class="n">health</span> <span class="o">-=</span> <span class="n">dmg</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You deal </span><span class="si">{dmg}</span><span class="s1"> damage, your opponent now has </span><span class="se">\</span>
-<span class="s1">              </span><span class="si">{enemy.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You deal </span><span class="si">{dmg}</span><span class="s1"> damage, your opponent now has &#39;</span>
+              <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{enemy.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">lesser_heal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">heal</span> <span class="o">=</span> <span class="mi">20</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">+=</span> <span class="n">heal</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You gain </span><span class="si">{heal}</span><span class="s1"> health, you now have </span><span class="si">{self.health}</span><span class="s1"> </span><span class="se">\</span>
-<span class="s1">              hitpoints.&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You gain </span><span class="si">{heal}</span><span class="s1"> health, you now have </span><span class="si">{self.health}</span><span class="s1"> &#39;</span>
+              <span class="sa">f</span><span class="s1">&#39;hitpoints.&#39;</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">Knight</span><span class="p">(</span><span class="n">Character</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">heroic_strike</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enemy</span><span class="p">):</span>
         <span class="n">dmg</span> <span class="o">=</span> <span class="mi">30</span>
         <span class="n">enemy</span><span class="o">.</span><span class="n">health</span> <span class="o">-=</span> <span class="n">dmg</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You deal </span><span class="si">{dmg}</span><span class="s1"> damage, your opponent now has </span><span class="se">\</span>
-<span class="s1">              </span><span class="si">{enemy.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You deal </span><span class="si">{dmg}</span><span class="s1"> damage, your opponent now has &#39;</span>
+              <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{enemy.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">first_aid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">heal</span> <span class="o">=</span> <span class="mi">15</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">health</span> <span class="o">+=</span> <span class="n">heal</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You gain </span><span class="si">{heal}</span><span class="s1"> health, you now have </span><span class="si">{self.health}</span><span class="s1"> </span><span class="se">\</span>
-<span class="s1">              hitpoints.&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You gain </span><span class="si">{heal}</span><span class="s1"> health, you now have </span><span class="si">{self.health}</span><span class="s1"> &#39;</span>
+              <span class="sa">f</span><span class="s1">&#39;hitpoints.&#39;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">check_for_win</span><span class="p">(</span><span class="n">player_names</span><span class="p">,</span> <span class="n">player_characters</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">player_characters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">health</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
@@ -383,8 +383,8 @@
 <li><p>Not every function in the class represents an ability</p></li>
 <li><p>It's hard to tell apart offensive abilities and healing abilities</p></li>
 </ol>
-<p>To solve these problems, we'll stop representing abilities as methods and implement them as instances of an <code class="docutils literal notranslate"><span class="pre">Ability</span></code> class instead. We'll also create the subclasses <code class="docutils literal notranslate"><span class="pre">TargetAbility</span></code> and <code class="docutils literal notranslate"><span class="pre">UntargetedAbility</span></code> to distinguish offensive abilities from healing abilities. Each character will have a list of abilities that it can use.</p>
-<p>But we can take it even further than that: Just like abilities, health potions are also something the player can <em>use</em>. So we're going to add an <code class="docutils literal notranslate"><span class="pre">Action</span></code> class that represents any kind of action the player can perform.</p>
+<p>To solve these problems, we'll stop representing abilities as methods and implement them as instances of an <code class="docutils literal notranslate"><span class="pre">Ability</span></code> class instead. We'll also create the subclasses <code class="docutils literal notranslate"><span class="pre">TargetedAbility</span></code> and <code class="docutils literal notranslate"><span class="pre">UntargetedAbility</span></code> to distinguish offensive abilities from healing abilities. Each character will have a list of abilities that it can use.</p>
+<p>But we can take it even further than that: Just like abilities, health potions are also something the player can <em>use</em>. So we're going to add an <code class="docutils literal notranslate"><span class="pre">Action</span></code> class that represents any kind of action the player can perform. The <code class="docutils literal notranslate"><span class="pre">UntargetedAction</span></code> subclass will have a <code class="docutils literal notranslate"><span class="pre">do(character)</span></code> method, which takes the character that's performing the action as input. The <code class="docutils literal notranslate"><span class="pre">TargetedAction</span></code> subclass's <code class="docutils literal notranslate"><span class="pre">do</span></code> method will additionally require a <code class="docutils literal notranslate"><span class="pre">target</span></code> argument.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Action</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
@@ -397,16 +397,17 @@
     <span class="k">def</span> <span class="nf">do</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">character</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
-<span class="k">class</span> <span class="nc">SelfHeal</span><span class="p">(</span><span class="n">UntargetedAction</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">SelfHealAction</span><span class="p">(</span><span class="n">UntargetedAction</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">heal</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">heal</span> <span class="o">=</span> <span class="n">heal</span>
 
     <span class="k">def</span> <span class="nf">do</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">character</span><span class="p">):</span>
         <span class="n">character</span><span class="o">.</span><span class="n">health</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">heal</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{self.name}</span><span class="s1"> healed </span><span class="si">{self.heal}</span><span class="s1"> hitpoints, you now have </span><span class="si">{character.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{self.name}</span><span class="s1"> healed </span><span class="si">{self.heal}</span><span class="s1"> hitpoints, you now &#39;</span>
+              <span class="sa">f</span><span class="s1">&#39;have </span><span class="si">{character.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
 
-<span class="k">class</span> <span class="nc">UseHealthPotion</span><span class="p">(</span><span class="n">SelfHeal</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">UseHealthPotion</span><span class="p">(</span><span class="n">SelfHealAction</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;Health Potion&#39;</span><span class="p">)</span>
 
@@ -424,7 +425,8 @@
 
     <span class="k">def</span> <span class="nf">do</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">character</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
         <span class="n">target</span><span class="o">.</span><span class="n">health</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">damage</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You deal </span><span class="si">{self.damage}</span><span class="s1"> damage, your opponent now has </span><span class="si">{target.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;You deal </span><span class="si">{self.damage}</span><span class="s1"> damage, your opponent now &#39;</span>
+              <span class="sa">f</span><span class="s1">&#39;has </span><span class="si">{target.health}</span><span class="s1"> hitpoints.&#39;</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">Character</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -438,7 +440,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">actions</span> <span class="o">+=</span> <span class="p">[</span>
             <span class="n">DamageAbility</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;Fireball&#39;</span><span class="p">),</span>
-            <span class="n">SelfHeal</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;Lesser Heal&#39;</span><span class="p">)</span>
+            <span class="n">SelfHealAction</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;Lesser Heal&#39;</span><span class="p">)</span>
         <span class="p">]</span>
 
 <span class="k">class</span> <span class="nc">Knight</span><span class="p">(</span><span class="n">Character</span><span class="p">):</span>
@@ -447,7 +449,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">actions</span> <span class="o">+=</span> <span class="p">[</span>
             <span class="n">DamageAbility</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="s1">&#39;Heroic Strike&#39;</span><span class="p">),</span>
-            <span class="n">SelfHeal</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="s1">&#39;First Aid&#39;</span><span class="p">)</span>
+            <span class="n">SelfHealAction</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="s1">&#39;First Aid&#39;</span><span class="p">)</span>
         <span class="p">]</span>
 
 <span class="k">def</span> <span class="nf">check_for_win</span><span class="p">():</span>
@@ -516,8 +518,8 @@
 </div>
 <p>This has multiple advantages:</p>
 <ul class="simple">
-<li><p>Since each character has a list of actions they can perform, the <code class="docutils literal notranslate"><span class="pre">action_menu</span></code> function will become a lot simpler.</p></li>
-<li><p>Healing abilities and health potions have a lot in common -</p></li>
+<li><p>Since each character has a list of actions they can perform, the <code class="docutils literal notranslate"><span class="pre">action_menu</span></code> function has become a lot simpler.</p></li>
+<li><p>Healing abilities and health potions have a lot in common - the only difference is that using a health potion removes it from the player's inventory. The code that's responsible for restoring health is now implemented in <code class="docutils literal notranslate"><span class="pre">SelfHealAction</span></code> and used by both healing abilities as well as health potions.</p></li>
 </ul>
 </div>
 <div class="section" id="improvement-4-generalize-instead-of-making-assumptions">

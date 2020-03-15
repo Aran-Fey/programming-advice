@@ -5,8 +5,8 @@
 SPHINXOPTS   ?= -a -E
 SPHINXBUILD  ?= sphinx-build
 PAPER        ?=
-BUILDDIR      = ../docs
-SOURCEDIR     = .
+BUILDDIR      = docs
+SOURCEDIR     = source
 
 # Internal variables.
 PAPEROPT_a4     = -D latex_elements.papersize=a4

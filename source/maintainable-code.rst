@@ -32,32 +32,32 @@ Like last time, I'll demonstrate how to achieve maintainability on a piece of po
             if self.get_health_potions() > 0:
                 self.set_health_potions(self.get_health_potions() - 1)
                 self.health += 25
-                print(f'Health Potion healed 25 hitpoints, you now \
-                      have {self.health} hitpoints.')
+                print(f'Health Potion healed 25 hitpoints, you now '
+                      f'have {self.health} hitpoints.')
             else:
                 print('You have no Health Potions left.')
 
     class Mage(Character):
         def throw_fireball(self, enemy):
             enemy.health -= 25
-            print(f'You deal 25 damage, your opponent now has \
-                  {enemy.health} hitpoints.')
+            print(f'You deal 25 damage, your opponent now has '
+                  f'{enemy.health} hitpoints.')
 
         def lesser_heal(self):
             self.health += 20
-            print(f'You gain 20 health, you now have {self.health} \
-                  hitpoints.')
+            print(f'You gain 20 health, you now have {self.health} '
+                  f'hitpoints.')
 
     class Knight(Character):
         def heroic_strike(self, enemy):
             enemy.health -= 30
-            print(f'You deal 30 damage, your opponent now has \
-                  {enemy.health} hitpoints.')
+            print(f'You deal 30 damage, your opponent now has '
+                  f'{enemy.health} hitpoints.')
 
         def first_aid(self):
             self.health += 15
-            print(f'You gain 15 health, you now have {self.health} \
-                  hitpoints.')
+            print(f'You gain 15 health, you now have {self.health} '
+                  f'hitpoints.')
 
     def check_for_win(player1, player2):
         if player1.health <= 0:
@@ -118,9 +118,9 @@ In order to figure out why that code is bad, let's think about how much effort i
 
 * Adding a 3rd playable class
 
-  1. Create a new subclass of ``Shared_Attributes``
+  1. Create a new subclass of ``Character``
   2. Add the new class to the ``assign_char`` function
-  3. Add the new class to the ``skill_menu`` function
+  3. Add the new class to the ``action_menu`` function
   4. Add the new class to the ``print`` call in the ``play_game`` function
 
   Because of the way the ``skill_menu`` function is implemented, the new class would also have to have exactly 1 offensive skill and 1 healing skill. If we wanted our class to have 2 offensive skills, we'd have to completely rewrite the ``skill_menu`` function.
@@ -139,7 +139,7 @@ In order to figure out why that code is bad, let's think about how much effort i
   2. Rewrite the character selection in the ``play_game`` function
   3. Rewrite the ``skill_menu`` menu loop in the ``play_game`` function
 
-As you can see, implementing any of these features would require changes in many different parts of the code. That's a sign of spagetthi code. Ideally, each feature should be a self-contained unit. The less code you have to rewrite, the less likely you are to mess something up and create bugs. So let's start improving the code.
+As you can see, implementing any of these features would require changes in multiple parts of the code. That's a sign of spagetthi code. Ideally, each feature should be a self-contained unit. The less code you have to rewrite, the less likely you are to mess something up and create bugs. So let's start improving the code.
 
 Improvement #1: Don't use Java-style getters and setters
 ========================================================
@@ -185,8 +185,8 @@ With that in mind, we can rewrite our ``Character`` class to this::
             if self.health_potions > 0:
                 self.health_potions -= 1
                 self.health += 25
-                print(f'Health Potion healed 25 hitpoints, you now \
-                      have {self.health} hitpoints.')
+                print(f'Health Potion healed 25 hitpoints, you now '
+                      f'have {self.health} hitpoints.')
             else:
                 print('You have no Health Potions left.')
 
@@ -202,16 +202,16 @@ In every single character ability, the amount of damage dealt to the enemy or he
 
     def throw_fireball(self, enemy):
         enemy.health -= 25
-        print(f'You deal 25 damage, your opponent now has \
-              {enemy.health} hitpoints.')
+        print(f'You deal 25 damage, your opponent now has '
+              f'{enemy.health} hitpoints.')
 
 If we ever want to change this value, we have to change it in two places. That can be avoided by storing the value in a variable::
 
     def throw_fireball(self, enemy):
         dmg = 25
         enemy.health -= dmg
-        print(f'You deal {dmg} damage, your opponent now has \
-              {enemy.health} hitpoints.')
+        print(f'You deal {dmg} damage, your opponent now has '
+              f'{enemy.health} hitpoints.')
 
 Don't half-ass your functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -250,8 +250,8 @@ After implementing all of these improvements, the code looks like this::
                 heal = 25
                 self.health_potions -= 1
                 self.health += heal
-                print(f'Health Potion healed {heal} hitpoints, you now \
-                      have {self.health} hitpoints.')
+                print(f'Health Potion healed {heal} hitpoints, you now '
+                      f'have {self.health} hitpoints.')
             else:
                 print('You have no Health Potions left.')
 
@@ -259,27 +259,27 @@ After implementing all of these improvements, the code looks like this::
         def throw_fireball(self, enemy):
             dmg = 25
             enemy.health -= dmg
-            print(f'You deal {dmg} damage, your opponent now has \
-                  {enemy.health} hitpoints.')
+            print(f'You deal {dmg} damage, your opponent now has '
+                  f'{enemy.health} hitpoints.')
 
         def lesser_heal(self):
             heal = 20
             self.health += heal
-            print(f'You gain {heal} health, you now have {self.health} \
-                  hitpoints.')
+            print(f'You gain {heal} health, you now have {self.health} '
+                  f'hitpoints.')
 
     class Knight(Character):
         def heroic_strike(self, enemy):
             dmg = 30
             enemy.health -= dmg
-            print(f'You deal {dmg} damage, your opponent now has \
-                  {enemy.health} hitpoints.')
+            print(f'You deal {dmg} damage, your opponent now has '
+                  f'{enemy.health} hitpoints.')
 
         def first_aid(self):
             heal = 15
             self.health += heal
-            print(f'You gain {heal} health, you now have {self.health} \
-                  hitpoints.')
+            print(f'You gain {heal} health, you now have {self.health} '
+                  f'hitpoints.')
 
     def check_for_win(player_names, player_characters):
         if player_characters[0].health <= 0:
@@ -357,6 +357,11 @@ For now, we'll leave the code like this, despite the mess in ``play_game``. Some
 ..
     In this particular case though, we can actually do something about the mess in ``play_game``.
 
+Improvement #3: Error handling with exceptions
+========================================================
+
+
+
 Improvement #2: Encapsulation
 ========================================================
 
@@ -378,9 +383,9 @@ That approach is `abstraction <https://en.wikipedia.org/wiki/Abstraction_princip
 1. Not every function in the class represents an ability
 2. It's hard to tell apart offensive abilities and healing abilities
 
-To solve these problems, we'll stop representing abilities as methods and implement them as instances of an ``Ability`` class instead. We'll also create the subclasses ``TargetAbility`` and ``UntargetedAbility`` to distinguish offensive abilities from healing abilities. Each character will have a list of abilities that it can use.
+To solve these problems, we'll stop representing abilities as methods and implement them as instances of an ``Ability`` class instead. We'll also create the subclasses ``TargetedAbility`` and ``UntargetedAbility`` to distinguish offensive abilities from healing abilities. Each character will have a list of abilities that it can use.
 
-But we can take it even further than that: Just like abilities, health potions are also something the player can *use*. So we're going to add an ``Action`` class that represents any kind of action the player can perform.
+But we can take it even further than that: Just like abilities, health potions are also something the player can *use*. So we're going to add an ``Action`` class that represents any kind of action the player can perform. The ``UntargetedAction`` subclass will have a ``do(character)`` method, which takes the character that's performing the action as input. The ``TargetedAction`` subclass's ``do`` method will additionally require a ``target`` argument.
 
 ::
 
@@ -396,16 +401,17 @@ But we can take it even further than that: Just like abilities, health potions a
         def do(self, character, target):
             raise NotImplementedError
 
-    class SelfHeal(UntargetedAction):
+    class SelfHealAction(UntargetedAction):
         def __init__(self, heal, *args, **kwargs):
             super().__init__(*args, **kwargs)
             self.heal = heal
 
         def do(self, character):
             character.health += self.heal
-            print(f'{self.name} healed {self.heal} hitpoints, you now have {character.health} hitpoints.')
+            print(f'{self.name} healed {self.heal} hitpoints, you now '
+                  f'have {character.health} hitpoints.')
 
-    class UseHealthPotion(SelfHeal):
+    class UseHealthPotion(SelfHealAction):
         def __init__(self):
             super().__init__(25, 'Health Potion')
 
@@ -423,7 +429,8 @@ But we can take it even further than that: Just like abilities, health potions a
 
         def do(self, character, target):
             target.health -= self.damage
-            print(f'You deal {self.damage} damage, your opponent now has {target.health} hitpoints.')
+            print(f'You deal {self.damage} damage, your opponent now '
+                  f'has {target.health} hitpoints.')
 
     class Character:
         def __init__(self):
@@ -437,7 +444,7 @@ But we can take it even further than that: Just like abilities, health potions a
 
             self.actions += [
                 DamageAbility(25, 'Fireball'),
-                SelfHeal(20, 'Lesser Heal')
+                SelfHealAction(20, 'Lesser Heal')
             ]
 
     class Knight(Character):
@@ -446,7 +453,7 @@ But we can take it even further than that: Just like abilities, health potions a
 
             self.actions += [
                 DamageAbility(30, 'Heroic Strike'),
-                SelfHeal(15, 'First Aid')
+                SelfHealAction(15, 'First Aid')
             ]
 
     def check_for_win():
@@ -512,11 +519,10 @@ But we can take it even further than that: Just like abilities, health potions a
 
     play_game()
 
-
 This has multiple advantages:
 
-* Since each character has a list of actions they can perform, the ``action_menu`` function will become a lot simpler.
-* Healing abilities and health potions have a lot in common -
+* Since each character has a list of actions they can perform, the ``action_menu`` function has become a lot simpler.
+* Healing abilities and health potions have a lot in common - the only difference is that using a health potion removes it from the player's inventory. The code that's responsible for restoring health is now implemented in ``SelfHealAction`` and used by both healing abilities as well as health potions.
 
 
 Improvement #4: Generalize instead of making assumptions

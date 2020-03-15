@@ -9,7 +9,7 @@ Writing readable code
 
    -- Martin Fowler
 
-Being easy to understand is one of the most important qualities of good code. Unfortunately, this is something that takes beginners a long time to figure out. This is because they never have to read complicated code - the only code they read are short snippets from tutorials and their own code. Reading your own code is easy, especially when it only takes a few days or maybe a week to write. But when you've worked on a program for months or even years and it has thousands of lines of code, being able to understand the code you wrote becomes exponentially more difficult and important.
+Being easy to understand is one of the most important qualities of good code. Unfortunately, this is something that takes beginners a long time to figure out. This is because they never have to read complicated code - the only code they read are short snippets from tutorials and their own code. Reading your own code is easy, especially when it only takes a few days or maybe a week to write. But when you've worked on a program for months or even years and it has thousands of lines of code, being able to understand the code you wrote a long time ago becomes exponentially more difficult and important, especially if you're working in a team.
 
 Beginners write code for computers. Experienced devs write code for humans.
 
@@ -307,7 +307,8 @@ Readable code is code that clearly communicates its purpose to the reader. Funct
             player2_hand = input_player_hand('Player 2')
 
             round_num += 1  # increment round counter by 1
-            print_winner(player1_hand, player2_hand)  # call print_winner function
+            # call print_winner function
+            print_winner(player1_hand, player2_hand)
 
         play_again = input("Would you like to play again? ")
         if (play_again == 'n' or play_again == 'N' or
@@ -367,8 +368,9 @@ Sounds like a plan. Here we go::
     def play_round():
         player1_hand = input_player_hand('Player 1')
         player2_hand = input_player_hand('Player 2')
-
-        print_winner(player1_hand, player2_hand)  # call print_winner function
+        
+        # call print_winner function
+        print_winner(player1_hand, player2_hand)
 
     def play_game():
         round_num = 0
@@ -409,8 +411,9 @@ Let's take a look at the comments in the code and think about whether they add a
           
    Well yeah, determining the winner is done by comparing the two players' hands. This comment hardly conveys any new information.
 3. ::
-
-      print_winner(player1_hand, player2_hand)  # call print_winner function
+        
+      # call print_winner function
+      print_winner(player1_hand, player2_hand)
     
    This one's even more useless than the others. We can *see* that function call, thank you very much.
 
@@ -493,7 +496,7 @@ Improvement #7: Finishing touches
 At this point we're pretty much done. All that's left are some minor improvements. Remember, readable code has to clearly communicate its purpose to the reader. This often works best if you're concise; being too wordy can be detrimental. There are still a few places in the code where we could communicate our intentions more clearly.
 
 1. **Don't write** ``elif`` **when you mean** ``else``: In the ``print_winner`` function, there are 3 possible outcomes: A tie, player 1 wins, or player 2 wins. So if it's not a tie and player 1 didn't win, then the winner must be player 2. And yet, our code goes to the trouble of comparing both players' hands before it prints "Player 2 wins!" instead of just using an ``else:``.
-2. **Be concise**: Like I said before, good code should avoid being too lengthy. Don't misunderstand, though: I'm not saying that you should make your code as short as possible. The goal is to end up with simple code, not to overwhelm the reader with information because too many things are happening at the same time. Many people end up overdoing it and compress code like this::
+2. **Be concise**: Like I said before, good code should avoid being too lengthy. Don't misunderstand, though: I'm not saying that you should make your code as short as possible. The goal is to end up with simple code, not to overwhelm the reader with information because the code is doing too many things at the same time. Many people end up overdoing it and compress code like this::
   
        max_len = max(len(list1), len(list2))
        padded_list1 = list1 + [1] * (max_len - len(list1))
@@ -508,7 +511,7 @@ At this point we're pretty much done. All that's left are some minor improvement
    
    Fortunately for us, there are some simple ways to shorten our code:
 
-   * All the ``play_game`` function does is to call another function 3 times. It's only 4 lines of code, but 3 of those lines are used for looping and counting to 3. We can do better than that - replacing the ``while`` loop with a ``for round_num in range(3):`` saves 2 lines of code. But then there's another improvement to make: Since the ``round_num`` variable is never used for anything, it's best to rename it to ``_``, a name conventionally used for throwaway variables.
+   * All the ``play_game`` function does is to call another function 3 times. It's only 4 lines of code, but 3 of those lines are used for looping and counting to 3. We can do better than that - replacing the ``while`` loop with a ``for round_num in range(3):`` saves 2 lines of code. But then there's another improvement to make: Since the ``round_num`` variable is never used for anything, it's best to rename it to ``_`` (underscore), a name conventionally used for throwaway variables.
    * In ``play_games_forever`` we compare the ``play_again`` variable to 4 different strings. 2 of those strings are actually the same except with different capitalization. So we can shorten this code just by normalizing the case of the user input.
    * We always used a bunch of ``or`` clauses to compare a variable against multiple different values (e.g. in ``input_player_hand`` or ``play_games_forever``), but the same thing could be achieved by storing all valid values in a container like a list or a set and performing a membership test on that container. For example, instead of writing ``x == 1 or x == 2``, you can write ``x in {1, 2}``.
 
@@ -577,3 +580,29 @@ After making these last few changes, our code looks like this::
     play_games_forever()
 
 And just like that, we transformed messy spagetthi code into beautiful python.
+
+Unfortunately I couldn't cram everything I wanted to address into this small Rock-Paper-Scissors game, so here's one more tip:
+
+Improvement #8: Name your values
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+We've already used functions to give chunks of code a name, but values are another thing that benefits from having a name. This is mostly relevant when you're working with data structures, like lists or dicts. Instead of repeatedly accessing an element by its index or key like this::
+
+    def find_book_by_isbn(isbn):
+        for book_id in books_by_id_dict:
+            if books_by_id_dict[book_id]['ISBN'] == isbn:
+                return books_by_id_dict[book_id]
+
+You should assign it to a variable like this::
+
+    def find_book_by_isbn(isbn):
+        for book_id in books_by_id_dict:
+            book = books_by_id_dict[book_id]
+            
+            if book['ISBN'] == isbn:
+                return book
+
+Conclusion
+==========
+
+There are many ways to improve the readability of your code. Individually, each is only a minor improvement - but they add up quickly. Keeping your code readable while you're trying to be productive and write code that just gets the job done is probably going to be difficult at first. You're going to get sloppy. That's normal, it happens to everyone. As always, the key to mastering writing readable code is practice. A lot of it. In fact, writing readable code is so difficult that not a single person will *ever* master it. Just keep going at it, and you'll never stop getting better at it.

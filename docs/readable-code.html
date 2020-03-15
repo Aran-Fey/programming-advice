@@ -7,11 +7,11 @@
     <title>Writing readable code &#8212; Aran-Fey&#39;s (python) programming guides</title>
     <link rel="stylesheet" href="_static/advice.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Writing maintainable code" href="maintainable-code.html" />
@@ -36,7 +36,7 @@
 <div><p>Any fool can write code that a computer can understand. Good programmers write code that humans can understand.</p>
 <p class="attribution">—Martin Fowler</p>
 </div></blockquote>
-<p>Being easy to understand is one of the most important qualities of good code. Unfortunately, this is something that takes beginners a long time to figure out. This is because they never have to read complicated code - the only code they read are short snippets from tutorials and their own code. Reading your own code is easy, especially when it only takes a few days or maybe a week to write. But when you've worked on a program for months or even years and it has thousands of lines of code, being able to understand the code you wrote becomes exponentially more difficult and important.</p>
+<p>Being easy to understand is one of the most important qualities of good code. Unfortunately, this is something that takes beginners a long time to figure out. This is because they never have to read complicated code - the only code they read are short snippets from tutorials and their own code. Reading your own code is easy, especially when it only takes a few days or maybe a week to write. But when you've worked on a program for months or even years and it has thousands of lines of code, being able to understand the code you wrote a long time ago becomes exponentially more difficult and important, especially if you're working in a team.</p>
 <p>Beginners write code for computers. Experienced devs write code for humans.</p>
 <p>See, computers need very specific instructions to understand what we want them to do. Instructions like &quot;set this variable to 0&quot; or &quot;add 1 to this variable&quot;. But for a human it's hard to understand what that long list of detailed instructions actually <em>does</em>. We humans don't want to concern ourselves with details, we want to understand the big picture. All those detailed instructions that tell the computer <em>how</em> to do its job are irrelevant to us. We just want to know <em>what</em> the code is doing.</p>
 <p>In order to help you understand just how important writing readable code is, let's perform a little experiment. I'm going to show you a really bad piece of python code and you'll try to figure out what it does. There's nothing complicated about it, it uses simple syntax that even a beginner can understand. Here we go, give it your best shot:</p>
@@ -310,7 +310,8 @@
         <span class="n">player2_hand</span> <span class="o">=</span> <span class="n">input_player_hand</span><span class="p">(</span><span class="s1">&#39;Player 2&#39;</span><span class="p">)</span>
 
         <span class="n">round_num</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># increment round counter by 1</span>
-        <span class="n">print_winner</span><span class="p">(</span><span class="n">player1_hand</span><span class="p">,</span> <span class="n">player2_hand</span><span class="p">)</span>  <span class="c1"># call print_winner function</span>
+        <span class="c1"># call print_winner function</span>
+        <span class="n">print_winner</span><span class="p">(</span><span class="n">player1_hand</span><span class="p">,</span> <span class="n">player2_hand</span><span class="p">)</span>
 
     <span class="n">play_again</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Would you like to play again? &quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;n&#39;</span> <span class="ow">or</span> <span class="n">play_again</span> <span class="o">==</span> <span class="s1">&#39;N&#39;</span> <span class="ow">or</span>
@@ -369,7 +370,8 @@
     <span class="n">player1_hand</span> <span class="o">=</span> <span class="n">input_player_hand</span><span class="p">(</span><span class="s1">&#39;Player 1&#39;</span><span class="p">)</span>
     <span class="n">player2_hand</span> <span class="o">=</span> <span class="n">input_player_hand</span><span class="p">(</span><span class="s1">&#39;Player 2&#39;</span><span class="p">)</span>
 
-    <span class="n">print_winner</span><span class="p">(</span><span class="n">player1_hand</span><span class="p">,</span> <span class="n">player2_hand</span><span class="p">)</span>  <span class="c1"># call print_winner function</span>
+    <span class="c1"># call print_winner function</span>
+    <span class="n">print_winner</span><span class="p">(</span><span class="n">player1_hand</span><span class="p">,</span> <span class="n">player2_hand</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">play_game</span><span class="p">():</span>
     <span class="n">round_num</span> <span class="o">=</span> <span class="mi">0</span>
@@ -408,7 +410,8 @@
 </div>
 <p>Well yeah, determining the winner is done by comparing the two players' hands. This comment hardly conveys any new information.</p>
 </li>
-<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">print_winner</span><span class="p">(</span><span class="n">player1_hand</span><span class="p">,</span> <span class="n">player2_hand</span><span class="p">)</span>  <span class="c1"># call print_winner function</span>
+<li><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># call print_winner function</span>
+<span class="n">print_winner</span><span class="p">(</span><span class="n">player1_hand</span><span class="p">,</span> <span class="n">player2_hand</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This one's even more useless than the others. We can <em>see</em> that function call, thank you very much.</p>
@@ -490,7 +493,7 @@
 <p>At this point we're pretty much done. All that's left are some minor improvements. Remember, readable code has to clearly communicate its purpose to the reader. This often works best if you're concise; being too wordy can be detrimental. There are still a few places in the code where we could communicate our intentions more clearly.</p>
 <ol class="arabic">
 <li><p><strong>Don't write</strong> <code class="docutils literal notranslate"><span class="pre">elif</span></code> <strong>when you mean</strong> <code class="docutils literal notranslate"><span class="pre">else</span></code>: In the <code class="docutils literal notranslate"><span class="pre">print_winner</span></code> function, there are 3 possible outcomes: A tie, player 1 wins, or player 2 wins. So if it's not a tie and player 1 didn't win, then the winner must be player 2. And yet, our code goes to the trouble of comparing both players' hands before it prints &quot;Player 2 wins!&quot; instead of just using an <code class="docutils literal notranslate"><span class="pre">else:</span></code>.</p></li>
-<li><p><strong>Be concise</strong>: Like I said before, good code should avoid being too lengthy. Don't misunderstand, though: I'm not saying that you should make your code as short as possible. The goal is to end up with simple code, not to overwhelm the reader with information because too many things are happening at the same time. Many people end up overdoing it and compress code like this:</p>
+<li><p><strong>Be concise</strong>: Like I said before, good code should avoid being too lengthy. Don't misunderstand, though: I'm not saying that you should make your code as short as possible. The goal is to end up with simple code, not to overwhelm the reader with information because the code is doing too many things at the same time. Many people end up overdoing it and compress code like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">max_len</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">list1</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">list2</span><span class="p">))</span>
 <span class="n">padded_list1</span> <span class="o">=</span> <span class="n">list1</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">max_len</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">list1</span><span class="p">))</span>
 <span class="n">padded_list2</span> <span class="o">=</span> <span class="n">list2</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">max_len</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">list2</span><span class="p">))</span>
@@ -504,7 +507,7 @@
 <p>That's concise, sure, but it's also awfully hard to read. Making code shorter is only a good idea if the code remains simple.</p>
 <p>Fortunately for us, there are some simple ways to shorten our code:</p>
 <ul class="simple">
-<li><p>All the <code class="docutils literal notranslate"><span class="pre">play_game</span></code> function does is to call another function 3 times. It's only 4 lines of code, but 3 of those lines are used for looping and counting to 3. We can do better than that - replacing the <code class="docutils literal notranslate"><span class="pre">while</span></code> loop with a <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">round_num</span> <span class="pre">in</span> <span class="pre">range(3):</span></code> saves 2 lines of code. But then there's another improvement to make: Since the <code class="docutils literal notranslate"><span class="pre">round_num</span></code> variable is never used for anything, it's best to rename it to <code class="docutils literal notranslate"><span class="pre">_</span></code>, a name conventionally used for throwaway variables.</p></li>
+<li><p>All the <code class="docutils literal notranslate"><span class="pre">play_game</span></code> function does is to call another function 3 times. It's only 4 lines of code, but 3 of those lines are used for looping and counting to 3. We can do better than that - replacing the <code class="docutils literal notranslate"><span class="pre">while</span></code> loop with a <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">round_num</span> <span class="pre">in</span> <span class="pre">range(3):</span></code> saves 2 lines of code. But then there's another improvement to make: Since the <code class="docutils literal notranslate"><span class="pre">round_num</span></code> variable is never used for anything, it's best to rename it to <code class="docutils literal notranslate"><span class="pre">_</span></code> (underscore), a name conventionally used for throwaway variables.</p></li>
 <li><p>In <code class="docutils literal notranslate"><span class="pre">play_games_forever</span></code> we compare the <code class="docutils literal notranslate"><span class="pre">play_again</span></code> variable to 4 different strings. 2 of those strings are actually the same except with different capitalization. So we can shorten this code just by normalizing the case of the user input.</p></li>
 <li><p>We always used a bunch of <code class="docutils literal notranslate"><span class="pre">or</span></code> clauses to compare a variable against multiple different values (e.g. in <code class="docutils literal notranslate"><span class="pre">input_player_hand</span></code> or <code class="docutils literal notranslate"><span class="pre">play_games_forever</span></code>), but the same thing could be achieved by storing all valid values in a container like a list or a set and performing a membership test on that container. For example, instead of writing <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">==</span> <span class="pre">1</span> <span class="pre">or</span> <span class="pre">x</span> <span class="pre">==</span> <span class="pre">2</span></code>, you can write <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">in</span> <span class="pre">{1,</span> <span class="pre">2}</span></code>.</p></li>
 </ul>
@@ -575,7 +578,31 @@
 </pre></div>
 </div>
 <p>And just like that, we transformed messy spagetthi code into beautiful python.</p>
+<p>Unfortunately I couldn't cram everything I wanted to address into this small Rock-Paper-Scissors game, so here's one more tip:</p>
 </div>
+<div class="section" id="improvement-8-name-your-values">
+<h3>Improvement #8: Name your values<a class="headerlink" href="#improvement-8-name-your-values" title="Permalink to this headline">¶</a></h3>
+<p>We've already used functions to give chunks of code a name, but values are another thing that benefits from having a name. This is mostly relevant when you're working with data structures, like lists or dicts. Instead of repeatedly accessing an element by its index or key like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_book_by_isbn</span><span class="p">(</span><span class="n">isbn</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">book_id</span> <span class="ow">in</span> <span class="n">books_by_id_dict</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">books_by_id_dict</span><span class="p">[</span><span class="n">book_id</span><span class="p">][</span><span class="s1">&#39;ISBN&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">isbn</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">books_by_id_dict</span><span class="p">[</span><span class="n">book_id</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>You should assign it to a variable like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_book_by_isbn</span><span class="p">(</span><span class="n">isbn</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">book_id</span> <span class="ow">in</span> <span class="n">books_by_id_dict</span><span class="p">:</span>
+        <span class="n">book</span> <span class="o">=</span> <span class="n">books_by_id_dict</span><span class="p">[</span><span class="n">book_id</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">book</span><span class="p">[</span><span class="s1">&#39;ISBN&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">isbn</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">book</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+<p>There are many ways to improve the readability of your code. Individually, each is only a minor improvement - but they quickly add up. Keeping your code readable while you're trying to be productive and write code that just gets the job done is probably going to be difficult at first. You're going to get sloppy. That's normal, it happens to everyone. As always, the key to mastering writing readable code is practice. A lot of it. In fact, writing readable code is so difficult that not a single person will <em>ever</em> master it. Just keep going at it, and you'll never stop getting better at it.</p>
 </div>
 </div>
 
@@ -587,6 +614,7 @@
       <div class="clearer"></div>
     </div>
         <div id="bottomnav">
+                <a class="prev-link" title="Aran-Fey&#39;s (Python) Programming Guides" href="index.html"><span>Aran-Fey's (Python) Programming Guides</span></a>
             <a class="homepage-link" title="home page" href="index.html"><span>Home</span></a>
                 <a class="next-link" title="Writing maintainable code" href="maintainable-code.html"><span>Writing maintainable code</span></a>
         </div>
