@@ -15,7 +15,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Understanding python&#39;s super function" href="super.html" />
-    <link rel="prev" title="Writing efficient code" href="efficient-code.html" /> 
+    <link rel="prev" title="Writing readable code" href="readable-code.html" /> 
   </head><body>
 
     <div id="sidebar">
@@ -50,6 +50,7 @@
 <li><p>It's not suitable for proper packaging and publishing. (This doesn't take much effort to fix, though.)</p></li>
 <li><p>The user is responsible for installing all required dependencies.</p></li>
 <li><p>You won't be able to import a project in another project. (At least not without modifying your <span class="target" id="index-0"></span><a class="reference external" href="https://docs.python.org/3/using/cmdline.html#envvar-PYTHONPATH" title="(in Python v3.8)"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PYTHONPATH</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/sys.html#sys.path" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">sys.path</span></code></a>.)</p></li>
+<li><p>If you want to write a test suite, you may have trouble importing your project.</p></li>
 </ul>
 </div>
 <div class="section" id="the-project-structure">
@@ -58,7 +59,7 @@
 <h3>The file hierarchy<a class="headerlink" href="#the-file-hierarchy" title="Permalink to this headline">¶</a></h3>
 <p>There are two key points to making the imports in your project work correctly:</p>
 <ol class="arabic simple">
-<li><p>Strict separation of files that are <em>imported</em> and files that are <em>executed</em> by the user.</p></li>
+<li><p>Strict separation of files that are <em>executed</em> by the user and files that are <em>imported</em> by your code.</p></li>
 <li><p>Putting the importable files in a place where python can find them.</p></li>
 </ol>
 <p>This can be achieved by organizing your files like this:</p>
@@ -175,7 +176,7 @@
       <div class="clearer"></div>
     </div>
         <div id="bottomnav">
-                <a class="prev-link" title="Writing efficient code" href="efficient-code.html"><span>Writing efficient code</span></a>
+                <a class="prev-link" title="Writing readable code" href="readable-code.html"><span>Writing readable code</span></a>
             <a class="homepage-link" title="home page" href="index.html"><span>Home</span></a>
                 <a class="next-link" title="Understanding python&#39;s super function" href="super.html"><span>Understanding python's <code class="docutils literal notranslate"><span class="pre">super</span></code> function</span></a>
         </div>

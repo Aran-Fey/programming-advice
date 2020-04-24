@@ -23,6 +23,7 @@ Disadvantages:
 * It's not suitable for proper packaging and publishing. (This doesn't take much effort to fix, though.)
 * The user is responsible for installing all required dependencies.
 * You won't be able to import a project in another project. (At least not without modifying your :envvar:`PYTHONPATH` or :data:`sys.path`.)
+* If you want to write a test suite, you may have trouble importing your project.
 
 The Project Structure
 =====================
@@ -32,7 +33,7 @@ The file hierarchy
 
 There are two key points to making the imports in your project work correctly:
 
-1. Strict separation of files that are *imported* and files that are *executed* by the user.
+1. Strict separation of files that are *executed* by the user and files that are *imported* by your code.
 2. Putting the importable files in a place where python can find them.
 
 This can be achieved by organizing your files like this::

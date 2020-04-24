@@ -181,7 +181,8 @@ li p:first-child {
 li p:last-child {
   margin-bottom: 0;
 }
-li + li {
+li + li,
+.toctree-wrapper + ul {
   margin-top: 0.3em;
 }
 .body p {

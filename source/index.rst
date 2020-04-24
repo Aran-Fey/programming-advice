@@ -2,7 +2,7 @@
 Aran-Fey's (Python) Programming Guides
 **************************************
 
-Hello, and welcome to my collection of programming-related guides.
+Hello and welcome to my collection of programming-related guides.
 I used to answer programming questions on StackOverflow, but after
 years of doing that I got tired of answering the same questions
 over and over again. So I decided to start writing guides instead.
@@ -23,8 +23,9 @@ Novice
       :maxdepth: 1
 
       readable-code.rst
-      maintainable-code.rst
-      efficient-code.rst
+
+  * Writing maintainable code (coming soon™)
+  * Writing efficient code (not coming anytime soon)
 
 .. toctree::
     :maxdepth: 1
