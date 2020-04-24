@@ -7,7 +7,7 @@ I used to answer programming questions on StackOverflow, but after
 years of doing that I got tired of answering the same questions
 over and over again. So I decided to start writing guides instead.
 
-Most of these guides are based on python, because that's the language I'm most familiar with and also because it's the language that's closest to pseudocode. So hopefully even people who aren't python programmers can benefit from some of my posts. Especially the "Writing good code" section should be interesting for beginners of any (imperative) language. If you've just learned a programming language and aren't sure where to go from there, please do check it out.
+Most of these guides are based on python 3, because that's the language I'm most familiar with and also because it's the language that's closest to pseudocode. So hopefully even people who aren't python programmers can benefit from some of my posts. Especially the "Writing good code" section should be interesting for beginners of any (imperative) language. If you've just learned a programming language and aren't sure where to go from there, please do check it out.
 
 Not everything here is aimed at beginners though. I've also covered some advanced python concepts like metaclasses, for the more experienced folks.
 
