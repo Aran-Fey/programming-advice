@@ -5,12 +5,6 @@ lightness_difference(color1, color2)
     return abs(l1 - l2)
 
 
-invert_color_aspect(color, aspect)
-    value = aspect(color)
-    value = 50% - (value - 50%)
-    return aspect(color, value)
-
-
 invert_font_color(font_color)
     light = lightness(font_color)
     
@@ -31,9 +25,10 @@ highest_lightness_difference(ref_color, color1, color2)
         return color2
 
 
-make_font_color_for_background(bg_color)
-    fg_color = font_color_regular
+make_font_color_for_background(bg_color, font_color_regular, bg_color_regular)
     threshold = lightness_difference(font_color_regular, bg_color_regular)
+    
+    fg_color = font_color_regular
     
     bg_light = lightness(bg_color)
     fg_light = lightness(fg_color)
@@ -47,87 +42,125 @@ make_font_color_for_background(bg_color)
     return lightness(fg_color, fg_light)
 
 
-bg_color_regular = #252525
-font_color_regular = #ccc
-accent_color = #a34da3
+hover_effect()
+    filter: brightness(1.1)
 
-@media (prefers-color-scheme: light)
-    bg_color_regular = #fff
-    font_color_regular = #000
-    accent_color = #714a71
 
 content_width = 40rem
 
 
-increments = 10%
-
-bg_color_dark4 = darken(bg_color_regular, 4*increments)
-bg_color_dark3 = darken(bg_color_regular, 3*increments)
-bg_color_dark2 = darken(bg_color_regular, 2*increments)
-bg_color_dark = darken(bg_color_regular, increments)
-bg_color_light = lighten(bg_color_regular, increments)
-bg_color_light2 = lighten(bg_color_regular, 2*increments)
+light_theme()
+    bg_color_regular = #fff
+    font_color_regular = #000
+    accent_color = #a34da3
     
-font_color_dark = darken(font_color_regular, increments)
-font_color_light = lighten(font_color_regular, increments)
-font_color_light2 = lighten(font_color_regular, 2*increments)
-        
-font_color_placeholder = #aaa
-        
-info_bg = #506977
-info_fg = font_color_light
-warning_bg = #c8ba70
-warning_fg = make_font_color_for_background(warning_bg)
-        
-border_color = accent_color
+    --bg_color_regular: bg_color_regular
+    --font_color_regular: font_color_regular
+    --accent_color: accent_color
+    
+    increments = 10%
+    
+    --textbox_bg: darken(bg_color_regular, 2*increments)
+    --button_bg: darken(bg_color_regular, increments)
+    
+    --placeholder_fg: #444
+    --less_important_fg: #333
+    --code_color: #572857
+    
+    --info_bg: #506977
+    --info_fg: var(--font_color_regular)
+    
+    --border_color: var(--accent_color)
 
-accent_color2 = darken(accent_color, 15%)
-accent_font_color = make_font_color_for_background(accent_color)
-
-accent_color_disabled = saturation(accent_color, 10%)
-accent_font_color_disabled = darken(accent_font_color, 3*increments)
+    --accent_font_color: make_font_color_for_background(accent_color, font_color_regular, bg_color_regular)
 
 
-hover_effect()
-    filter: brightness(1.1)
+dark_theme()
+    bg_color_regular = #252525
+    font_color_regular = #ccc
+    accent_color = #a34da3
+    
+    --bg_color_regular: bg_color_regular
+    --font_color_regular: font_color_regular
+    --accent_color: accent_color
+    
+    increments = 10%
+    
+    --textbox_bg: darken(bg_color_regular, increments)
+    --button_bg: lighten(bg_color_regular, 2*increments)
+    
+    --placeholder_fg: #aaa
+    --less_important_fg: darken(font_color_regular, increments)
+    --code_color: mix(font_color_regular, accent_color, 75%)
+    
+    --info_bg: #506977
+    --info_fg: var(--font_color_regular)
+    
+    --border_color: var(--accent_color)
 
+    --accent_font_color: make_font_color_for_background(accent_color, font_color_regular, bg_color_regular)
+
+
+/* ===================================
+ * === END OF VAR/FUNC DEFINITIONS ===
+ * ===================================
+ */
+
+// === COLOR THEME ===
+
+body
+body.light-theme
+    light_theme()
+
+body.dark-theme
+    dark_theme()
+
+@media (prefers-color-scheme: dark)
+    body
+        dark_theme()
+
+// === DESIGN ===
 
 html
     font-family: Verdana
     font-size: 1.1em
 
 body
-    background-color: bg_color_regular
-    color: font_color_regular
+    background-color: var(--bg_color_regular)
+    color: var(--font_color_regular)
 
 a
     &
     & code
-        color: accent_color
+        color: var(--accent_color)
         
         &:hover
         &:focus
-            color: accent_color
+            color: var(--accent_color)
             hover_effect()
 
 details > summary
-    background: accent_color
-    color: accent_font_color
+    background: var(--accent_color)
+    color: var(--accent_font_color)
     padding: 0 0.2em
 
 button
-    background: accent_color
-
-    &:hover 
+input[type="submit"]
+    background: var(--button_bg);
+    color: var(--font_color_regular);
+    
+    border-radius: 3px;
+    border: 1px solid var(--accent_color);
+    
+    &:hover
         hover_effect()
 
 input[type="text"]
 textarea
-.ace-github
 select
-    background: bg_color_dark !important
-    border: 1px solid accent_color !important
-    color: font_color_dark !important
+    background: var(--textbox_bg) !important
+    border: 1px solid var(--accent_color) !important
+    color: var(--less_important_fg) !important
 
 input[type="text"]:focus
 textarea:focus 
@@ -138,25 +171,10 @@ select:focus
 :-moz-placeholder
 ::-moz-placeholder
 :-ms-input-placeholder
-    color: font_color_placeholder
-
-.ace-github
-    .ace_gutter 
-        background: bg_color_light
-        color: font_color_dark
-    
-    .ace_marker-layer .ace_active-line 
-        background: bg_color_light
-    
-    .ace_print-margin 
-        background: bg_color_light
-    
-    .ace_cursor 
-        color: accent_color
-
+    color: var(--placeholder_fg)
 
 blockquote 
-    border-left: 5px solid bg_color_light2
+    border-left: 5px solid var(--button_bg)
     
 blockquote.epigraph
     p:first-child
@@ -166,21 +184,25 @@ blockquote.epigraph
             content: '"'
     
     .attribution
-        color: font_color_dark
+        color: var(--less_important_fg)
         font-style: italic
 
 
 code
-    color: mix(font_color_regular, accent_color, 75%)
+    color: var(--code_color)
     
     font-size: 1rem
-    
+
+
+// pygments' light themes usually don't specify a font color, so if the
+// site uses a dark theme, the code becomes unreadable. To solve this
+// problem, we'll simply set a default font color.
+div.highlight
+    color: #000
+
 
 pre 
-    background: bg_color_dark2
-    color: font_color_regular
-    
-    border: 1px solid border_color
+    border: 1px solid var(--border_color)
     padding: 0.5em
     
     overflow: auto
@@ -203,8 +225,6 @@ h3
     &
     code
         font-size: 1.3rem
-
-// === END OF GENERIC DARK STYLE ===
 
 // === SITE LAYOUT ===
 
@@ -237,12 +257,10 @@ default_layout_width = content_width + 7rem
 
     #sidebar
         #sidebar-content
+            position: sticky
+            top: 1.5em
+            
             float: right
-            height: 100%
-
-            a.homepage-link
-                position: sticky
-                top: 1.5em
 
 // If there isn't enough space for the default layout,
 // the navigation is moved to the top
@@ -301,6 +319,77 @@ default_layout_width = content_width + 7rem
         text-align: right
 
 // === END OF SITE LAYOUT ===
+
+// theme switcher
+
+#theme-switcher
+    margin-top: 1.5em
+    
+#syntax-themes-container
+    margin-top: 0.5em
+
+#theme-switcher
+    theme_button_size = 1.6rem
+    
+    .themes-container
+        display: grid
+        grid-column-gap: 0.3em
+        grid-auto-flow: column
+        justify-content: start
+        
+        .theme-button
+            background: unset
+            border: 1px solid var(--border_color)
+            border-radius: 5px
+            
+            width: theme_button_size
+            height: @width
+            
+            font-size: 1rem
+            padding: 0
+            
+            // The hover_effect changes how the ::before-element's position
+            // is calculated, so to prevent it from jumping around we need
+            // to apply a filter even when the user isn't hovering over the
+            // button
+            filter: brightness(1)
+            
+            &:hover
+                hover_effect()
+
+    // display little arrows above/below the currently active themes
+    arrow_height = 5px
+    arrow_width = 8px
+    arrow_color = var(--font_color_regular)
+    arrow_y_offset = -8px
+    
+    #site-themes-container .active::before
+        content: ""
+        
+        position: absolute
+        top: arrow_y_offset
+        left: "calc(%s / 2 - %s)" % (theme_button_size arrow_width)
+        
+        width: 0
+        height: 0
+        border-left: arrow_width solid transparent
+        border-right: arrow_width solid transparent
+        border-top: arrow_height solid arrow_color
+    
+    
+    #syntax-themes-container .active::before
+        content: ""
+        
+        position: absolute
+        bottom: arrow_y_offset
+        left: "calc(%s / 2 - %s)" % (theme_button_size arrow_width)
+        
+        width: 0
+        height: 0
+        border-left: arrow_width solid transparent
+        border-right: arrow_width solid transparent
+        border-bottom: arrow_height solid arrow_color
+    
 
 // reduce spacing between list items
 li

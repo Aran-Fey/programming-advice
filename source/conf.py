@@ -13,18 +13,44 @@ else:
     HOME = Path(r'D:/Users/Aran-Fey')
 
 
+DEFAULT_LIGHT_SYNTAX_THEME = 'friendly'
+DEFAULT_DARK_SYNTAX_THEME = 'monokai'
+
+
+def setup(app):
+    # Note: After enabling/disabling an augment, run sphinx with
+    #
+    #   sphinx-build -b html -a -E docs/source docs/build/html
+    #
+    # to suppress build output and rebuild all files.
+
+    import sphinx_utils
+
+    augment = sphinx_utils.augment(app, 'programming-guides')
+    augment.theme_switcher(
+        [
+            {'id': 'light', 'icon': '☼'},
+            {'id': 'dark', 'icon': '☽'},
+        ],
+        syntax_themes=[
+            DEFAULT_LIGHT_SYNTAX_THEME,
+            DEFAULT_DARK_SYNTAX_THEME,
+            'sphinx_utils.pygments_styles.cobalt2.Cobalt2Style',
+        ],
+        default_theme='window.matchMedia("(prefers-color-scheme: dark)").matches ? "{}" : "{}"'.format(DEFAULT_DARK_SYNTAX_THEME, DEFAULT_LIGHT_SYNTAX_THEME),
+        default_syntax_theme='siteThemeId === "dark" ? "{}" : "{}"'.format(DEFAULT_DARK_SYNTAX_THEME, DEFAULT_LIGHT_SYNTAX_THEME),
+    )
 
 # -- General configuration ------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
-#
-# needs_sphinx = '1.0'
+needs_sphinx = '3.0.0'
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.intersphinx'
+    'sphinx.ext.intersphinx',
 ]
 intersphinx_mapping = {'python': ('https://docs.python.org/3', None)}
 
@@ -82,7 +108,4 @@ html_theme_path = [HOME / "Desktop/folder/coding/python/sphinx_utils/sphinx_util
 html_show_copyright = False
 html_show_sphinx = False
 html_title = "Aran-Fey's (python) programming guides"
-html_favicon = "favicon.ico"
-# This css file can be generated with the command
-#   pygmentize -S STYLE_NAME -f html > _static/pygments-light.css
-# html_css_files = [('pygments-light.css', {'media': '(prefers-color-theme: light)'})]
+html_favicon = "favicon.png"

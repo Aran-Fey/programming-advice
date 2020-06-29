@@ -1,18 +1,21 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Writing readable code &#8212; Aran-Fey&#39;s (python) programming guides</title>
     <link rel="stylesheet" href="_static/advice.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="_static/pygments_dark.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/theme_switcher.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Project Structure for beginners" href="beginner-project-structure.html" />
@@ -22,6 +25,8 @@
     <div id="sidebar">
         <div id="sidebar-content">
                 <a class="homepage-link" title="home page" href="index.html"><span>Home</span></a>
+            
+            <div id="theme-switcher"></div>
         </div>
     </div>
 
@@ -418,7 +423,42 @@
 <p>This one's even more useless than the others. We can <em>see</em> that function call, thank you very much.</p>
 </li>
 </ol>
-<p>None of these comments make the code easier to understand. They only state the obvious. Good comments should explain <em>what</em> the code is doing or <em>why</em> it's doing what it's doing. Our Rock-Paper-Scissors code is actually so simple that it doesn't need any comments at all. So instead of writing comments, we're going to add <a class="reference external" href="https://www.python.org/dev/peps/pep-0257/#what-is-a-docstring">docstrings</a> to all our functions. Docstrings are pretty similar to comments: They explain what the code is doing in a way that's easy for humans to understand.</p>
+<p>None of these comments make the code easier to understand. They only state the obvious. Good comments should do (at least) one of four things:</p>
+<ol class="arabic">
+<li><p>Explain <strong>how</strong> the code is doing something, for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># The stylesheets for the theme switcher are created in 3 steps:</span>
+<span class="c1"># 1. The available themes are loaded.</span>
+<span class="c1"># 2. The default theme is determined and removed from the list.</span>
+<span class="c1"># 3. The remaining themes are converted to CSS files.</span>
+</pre></div>
+</div>
+</li>
+<li><p>Explain <strong>why</strong> the code is doing something, for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Because the create_theme_switcher_js function needs to read a</span>
+<span class="c1"># config value, we have to wait until the config has been processed</span>
+<span class="c1"># before we can call it.</span>
+<span class="n">app</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;config-parsed&#39;</span><span class="p">,</span> <span class="n">create_theme_switcher_js</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Give background information about something, for example to inform other programmers that a specific edge case has been accounted for and will work correctly:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Register our javascript file.</span>
+<span class="c1"># Even though this file will only be created later, the build system</span>
+<span class="c1"># doesn&#39;t care - it&#39;ll happily insert a link to the script even</span>
+<span class="c1"># if the file doesn&#39;t exist (yet).</span>
+<span class="n">app</span><span class="o">.</span><span class="n">add_js_file</span><span class="p">(</span><span class="n">theme_switcher_js</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Explain <strong>what</strong> a piece of code is doing. These are probably the worst kinds of comments - code should be self-explanatory if possible. Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># This looks up a style by its id, then converts it to CSS</span>
+<span class="n">style</span> <span class="o">=</span> <span class="n">sphinx</span><span class="o">.</span><span class="n">highlighting</span><span class="o">.</span><span class="n">PygmentsBridge</span><span class="o">.</span><span class="n">get_style</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">style_id</span><span class="p">)</span>
+<span class="k">return</span> <span class="n">pygments</span><span class="o">.</span><span class="n">HtmlFormatter</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">)</span><span class="o">.</span><span class="n">get_style_defs</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Our Rock-Paper-Scissors code is actually so simple that it doesn't need any comments at all. So instead of writing comments, we're going to add <a class="reference external" href="https://www.python.org/dev/peps/pep-0257/#what-is-a-docstring">docstrings</a> to all our functions. Docstrings are pretty similar to comments: They explain what the code is doing in a way that's easy for humans to understand.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">input_player_hand</span><span class="p">(</span><span class="n">player_name</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Asks the player to input &quot;Rock&quot;, &quot;Paper&quot;, or &quot;Scissors&quot;.</span>
@@ -608,6 +648,7 @@
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>

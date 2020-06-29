@@ -417,7 +417,34 @@ Let's take a look at the comments in the code and think about whether they add a
     
    This one's even more useless than the others. We can *see* that function call, thank you very much.
 
-None of these comments make the code easier to understand. They only state the obvious. Good comments should explain *what* the code is doing or *why* it's doing what it's doing. Our Rock-Paper-Scissors code is actually so simple that it doesn't need any comments at all. So instead of writing comments, we're going to add `docstrings <https://www.python.org/dev/peps/pep-0257/#what-is-a-docstring>`_ to all our functions. Docstrings are pretty similar to comments: They explain what the code is doing in a way that's easy for humans to understand.
+None of these comments make the code easier to understand. They only state the obvious. Good comments should do (at least) one of four things:
+
+1. Explain **how** the code is doing something, for example::
+
+      # The stylesheets for the theme switcher are created in 3 steps:
+      # 1. The available themes are loaded.
+      # 2. The default theme is determined and removed from the list.
+      # 3. The remaining themes are converted to CSS files.
+2. Explain **why** the code is doing something, for example::
+
+      # Because the create_theme_switcher_js function needs to read a
+      # config value, we have to wait until the config has been processed
+      # before we can call it.
+      app.connect('config-parsed', create_theme_switcher_js)
+3. Give background information about something, for example to inform other programmers that a specific edge case has been accounted for and will work correctly::
+
+      # Register our javascript file.
+      # Even though this file will only be created later, the build system
+      # doesn't care - it'll happily insert a link to the script even
+      # if the file doesn't exist (yet).
+      app.add_js_file(theme_switcher_js)
+4. Explain **what** a piece of code is doing. These are probably the worst kinds of comments - code should be self-explanatory if possible. Example::
+
+      # This looks up a style by its id, then converts it to CSS
+      style = sphinx.highlighting.PygmentsBridge.get_style(None, style_id)
+      return pygments.HtmlFormatter(style=style).get_style_defs()
+
+Our Rock-Paper-Scissors code is actually so simple that it doesn't need any comments at all. So instead of writing comments, we're going to add `docstrings <https://www.python.org/dev/peps/pep-0257/#what-is-a-docstring>`_ to all our functions. Docstrings are pretty similar to comments: They explain what the code is doing in a way that's easy for humans to understand.
 
 ::
 
