@@ -134,8 +134,8 @@ function createThemeSwitcher(){
 // === SITE THEME FUNCTIONS ===
 
 function applySiteTheme(themeId){
-    const oldTheme = [...document.body.classList].find(cls => cls.endsWith('-theme'));
-    if (oldTheme === themeId){
+    const oldThemeClass = [...document.body.classList].find(cls => cls.endsWith('-theme'));
+    if (oldThemeClass === themeId + '-theme'){
         return;
     }
     
@@ -143,8 +143,8 @@ function applySiteTheme(themeId){
 
     document.body.classList.add(themeId + '-theme');
     
-    if (oldTheme !== undefined){
-        document.body.classList.remove(oldTheme);
+    if (oldThemeClass !== undefined){
+        document.body.classList.remove(oldThemeClass);
     }
     
     const button = document.querySelector('#site-themes-container .theme-button.active');
