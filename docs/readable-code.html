@@ -104,19 +104,14 @@
             <span class="n">c1</span> <span class="o">=</span> <span class="nb">input</span> <span class="p">(</span><span class="s2">&quot;Player 1: Rock, Paper, or Scissors? &quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">c1</span> <span class="o">==</span> <span class="s1">&#39;Rock&#39;</span> <span class="ow">or</span> <span class="n">c1</span> <span class="o">==</span> <span class="s1">&#39;Paper&#39;</span> <span class="ow">or</span> <span class="n">c1</span> <span class="o">==</span><span class="s1">&#39;Scissors&#39;</span> <span class="p">:</span>
               <span class="k">break</span>  <span class="c1"># check passed</span>
-
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid input&quot;</span><span class="p">)</span>
-
         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">c2</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Player 2: Rock, Paper, or Scissors? &quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">c2</span> <span class="o">==</span> <span class="s1">&#39;Rock&#39;</span> <span class="ow">or</span> <span class="n">c2</span><span class="o">==</span><span class="s1">&#39;Paper&#39;</span> <span class="ow">or</span> <span class="n">c2</span> <span class="o">==</span> <span class="s1">&#39;Scissors&#39;</span><span class="p">:</span>
                 <span class="k">break</span>
-
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Invalid input&quot;</span><span class="p">)</span>
-
         <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># increment counter by 1</span>
         <span class="n">Outcome</span><span class="p">()</span>  <span class="c1"># call outcome function</span>
-
     <span class="n">Game</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Would you like to play again? &quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">Game</span> <span class="o">==</span> <span class="s1">&#39;n&#39;</span> <span class="ow">or</span> <span class="n">Game</span> <span class="o">==</span> <span class="s1">&#39;N&#39;</span><span class="ow">or</span> <span class="n">Game</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span> <span class="ow">or</span> <span class="n">Game</span> <span class="o">==</span> <span class="s1">&#39;No&#39;</span><span class="p">:</span>
       <span class="k">break</span>
@@ -125,7 +120,11 @@
 <p>This code works; you can try it if you want. But it's not <em>good</em> code, so let's change that.</p>
 <div class="section" id="improvement-1-consistent-formatting-and-pep-8">
 <h3>Improvement #1: Consistent formatting and PEP 8<a class="headerlink" href="#improvement-1-consistent-formatting-and-pep-8" title="Permalink to this headline">¶</a></h3>
-<p>If you take a closer look at the code, you'll notice how inconsistent its formatting is:</p>
+<p>The first thing you'll notice when you look at this code is that it's a giant block of text. Every single line is full of code, except
+the one after the function definition. Just looking at this feels suffocating. I'm not exaggerating when I say that it's <em>extremely</em> important
+to have plenty of empty lines in your code. Using some empty lines to split this massive chunk of text into smaller pieces will make it much
+easier to digest. Good places to insert empty lines are after loops and <code class="docutils literal notranslate"><span class="pre">if</span></code> statements.</p>
+<p>That's the most obvious issue. If you take a closer look at the code, you'll notice how inconsistent its formatting is:</p>
 <ul class="simple">
 <li><p>Sometimes there are spaces around operators (like in <code class="docutils literal notranslate"><span class="pre">c2</span> <span class="pre">==</span> <span class="pre">'Rock'</span></code>), sometimes there aren't (<code class="docutils literal notranslate"><span class="pre">c2=='Paper'</span></code>), and sometimes there's one (<code class="docutils literal notranslate"><span class="pre">c1</span> <span class="pre">=='Scissors'</span></code>).</p></li>
 <li><p>Sometimes there's a space after function names (<code class="docutils literal notranslate"><span class="pre">print</span> <span class="pre">('Player</span> <span class="pre">2</span> <span class="pre">wins!')</span></code>) and other times there's not (<code class="docutils literal notranslate"><span class="pre">Outcome()</span></code>).</p></li>

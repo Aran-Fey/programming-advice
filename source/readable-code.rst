@@ -81,19 +81,14 @@ We'll start with this code::
                 c1 = input ("Player 1: Rock, Paper, or Scissors? ")
                 if c1 == 'Rock' or c1 == 'Paper' or c1 =='Scissors' :
                   break  # check passed
-
                 print("Invalid input")
-
             while True:
                 c2 = input("Player 2: Rock, Paper, or Scissors? ")
                 if c2 == 'Rock' or c2=='Paper' or c2 == 'Scissors':
                     break
-
                 print("Invalid input")
-
             n += 1  # increment counter by 1
             Outcome()  # call outcome function
-
         Game = input("Would you like to play again? ")
         if Game == 'n' or Game == 'N'or Game == 'no' or Game == 'No':
           break
@@ -103,7 +98,12 @@ This code works; you can try it if you want. But it's not *good* code, so let's 
 Improvement #1: Consistent formatting and PEP 8
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you take a closer look at the code, you'll notice how inconsistent its formatting is:
+The first thing you'll notice when you look at this code is that it's a giant block of text. Every single line is full of code, except
+the one after the function definition. Just looking at this feels suffocating. I'm not exaggerating when I say that it's *extremely* important
+to have plenty of empty lines in your code. Using some empty lines to split this massive chunk of text into smaller pieces will make it much
+easier to digest. Good places to insert empty lines are after loops and ``if`` statements.
+
+That's the most obvious issue, but there's more. If you take a closer look at the code, you'll notice how inconsistent its formatting is:
 
 * Sometimes there are spaces around operators (like in ``c2 == 'Rock'``), sometimes there aren't (``c2=='Paper'``), and sometimes there's one (``c1 =='Scissors'``).
 * Sometimes there's a space after function names (``print ('Player 2 wins!')``) and other times there's not (``Outcome()``).

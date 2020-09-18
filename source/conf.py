@@ -4,13 +4,10 @@
 # This file is execfile()d with the current directory set to its
 # containing dir.
 
+import sphinx_utils
+
 import sys
 from pathlib import Path
-
-if sys.platform == 'linux':
-    HOME = Path.home()
-else:
-    HOME = Path(r'D:/Users/Aran-Fey')
 
 
 DEFAULT_LIGHT_SYNTAX_THEME = 'friendly'
@@ -23,8 +20,6 @@ def setup(app):
     #   sphinx-build -b html -a -E docs/source docs/build/html
     #
     # to suppress build output and rebuild all files.
-
-    import sphinx_utils
 
     augment = sphinx_utils.augment(app, 'programming-guides')
     augment.theme_switcher(
@@ -104,7 +99,7 @@ smartquotes = False
 # -- Options for HTML output ----------------------------------------------
 
 html_theme = "advice"
-html_theme_path = [HOME / "Desktop/folder/coding/python/sphinx_utils/sphinx_utils/themes"]
+html_theme_path = [sphinx_utils.HTML_THEMES_DIR]
 html_show_copyright = False
 html_show_sphinx = False
 html_title = "Aran-Fey's (python) programming guides"
