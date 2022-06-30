@@ -4,16 +4,17 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Project Structure for beginners &#8212; Aran-Fey&#39;s (python) programming guides</title>
-    <link rel="stylesheet" href="_static/advice.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/advice.css" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="_static/pygments_dark.css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <script src="_static/theme_switcher.js"></script>
     <link rel="shortcut icon" href="_static/favicon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
@@ -36,16 +37,16 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="project-structure-for-beginners">
-<h1>Project Structure for beginners<a class="headerlink" href="#project-structure-for-beginners" title="Permalink to this headline">¶</a></h1>
+  <section id="project-structure-for-beginners">
+<h1>Project Structure for beginners<a class="headerlink" href="#project-structure-for-beginners" title="Permalink to this heading">¶</a></h1>
 <p>Many people run into problems once their projects grow beyond just a single python script. When you work with multiple files, they need to be able to import each other - and python's import system is probably one of its most confusing aspects.</p>
 <p>Structuring your project properly helps avoid many of these problems. Unfortunately, the proper way to do this is pretty involved and not very suitable for beginners. The project structure I will be recommending here will work well enough for most beginners, but if you're planning to publish and distribute your project, you should look into how to create a <a class="reference external" href="https://www.python.org/dev/peps/pep-0518/">pyproject.toml</a> file and the <a class="reference external" href="https://python-poetry.org/docs/">poetry</a> project.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>I will not be covering the import system in detail. If you aren't familiar with it yet, you may want to read up on the <a class="reference external" href="https://docs.python.org/3/reference/simple_stmts.html#grammar-token-import-stmt">import statement</a> or the <a class="reference external" href="https://docs.python.org/3/reference/import.html">import system</a> in general first.</p>
 </div>
-<div class="section" id="pros-and-cons-of-this-setup">
-<h2>Pros and Cons of this setup<a class="headerlink" href="#pros-and-cons-of-this-setup" title="Permalink to this headline">¶</a></h2>
+<section id="pros-and-cons-of-this-setup">
+<h2>Pros and Cons of this setup<a class="headerlink" href="#pros-and-cons-of-this-setup" title="Permalink to this heading">¶</a></h2>
 <p>Advantages:</p>
 <ul class="simple">
 <li><p>It's simple.</p></li>
@@ -55,14 +56,14 @@
 <ul class="simple">
 <li><p>It's not suitable for proper packaging and publishing. (This doesn't take much effort to fix, though.)</p></li>
 <li><p>The user is responsible for installing all required dependencies.</p></li>
-<li><p>You won't be able to import a project in another project. (At least not without modifying your <span class="target" id="index-0"></span><a class="reference external" href="https://docs.python.org/3/using/cmdline.html#envvar-PYTHONPATH" title="(in Python v3.8)"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PYTHONPATH</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/sys.html#sys.path" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">sys.path</span></code></a>.)</p></li>
+<li><p>You won't be able to import a project in another project. (At least not without modifying your <span class="target" id="index-0"></span><a class="reference external" href="https://docs.python.org/3/using/cmdline.html#envvar-PYTHONPATH" title="(in Python v3.10)"><code class="xref std std-envvar docutils literal notranslate"><span class="pre">PYTHONPATH</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/sys.html#sys.path" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">sys.path</span></code></a>.)</p></li>
 <li><p>If you want to write a test suite, you may have trouble importing your project.</p></li>
 </ul>
-</div>
-<div class="section" id="the-project-structure">
-<h2>The Project Structure<a class="headerlink" href="#the-project-structure" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="the-file-hierarchy">
-<h3>The file hierarchy<a class="headerlink" href="#the-file-hierarchy" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="the-project-structure">
+<h2>The Project Structure<a class="headerlink" href="#the-project-structure" title="Permalink to this heading">¶</a></h2>
+<section id="the-file-hierarchy">
+<h3>The file hierarchy<a class="headerlink" href="#the-file-hierarchy" title="Permalink to this heading">¶</a></h3>
 <p>There are two key points to making the imports in your project work correctly:</p>
 <ol class="arabic simple">
 <li><p>Strict separation of files that are <em>executed</em> by the user and files that are <em>imported</em> by your code.</p></li>
@@ -81,13 +82,13 @@
 </pre></div>
 </div>
 <p>The names are only placeholders, of course (except for <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>) - what matters is the structure.</p>
-<p>All of the importable files are grouped in the <code class="docutils literal notranslate"><span class="pre">package_name</span></code> <a class="reference external" href="https://docs.python.org/3/tutorial/modules.html#packages">package</a>, and all executable files are on the same level as <code class="docutils literal notranslate"><span class="pre">package_name</span></code>. When a python script is executed by the user, the location of that script is automatically added to python's module search path (<a class="reference external" href="https://docs.python.org/3/library/sys.html#sys.path" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">sys.path</span></code></a>), so all of the executable files will be able to import <code class="docutils literal notranslate"><span class="pre">package_name</span></code> (and its submodules).</p>
+<p>All of the importable files are grouped in the <code class="docutils literal notranslate"><span class="pre">package_name</span></code> <a class="reference external" href="https://docs.python.org/3/tutorial/modules.html#packages">package</a>, and all executable files are on the same level as <code class="docutils literal notranslate"><span class="pre">package_name</span></code>. When a python script is executed by the user, the location of that script is automatically added to python's module search path (<a class="reference external" href="https://docs.python.org/3/library/sys.html#sys.path" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">sys.path</span></code></a>), so all of the executable files will be able to import <code class="docutils literal notranslate"><span class="pre">package_name</span></code> (and its submodules).</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> is required for python to recognize <code class="docutils literal notranslate"><span class="pre">package_name</span></code> as a package - its contents are not important, what matters is that it exists. You can leave it completely empty if you want, or you can learn more about it <a class="reference external" href="https://stackoverflow.com/questions/448271/what-is-init-py-for">here</a>.</p>
 <p>Of course, you don't necessarily have to put all your importable scripts directly into the <code class="docutils literal notranslate"><span class="pre">package_name</span></code> folder. You're free to organize your code into sub-packages, if you like.</p>
 <p>If you need any other files (e.g. <code class="docutils literal notranslate"><span class="pre">README</span></code>, <code class="docutils literal notranslate"><span class="pre">LICENSE</span></code>) or folders (e.g. <code class="docutils literal notranslate"><span class="pre">docs</span></code>, <code class="docutils literal notranslate"><span class="pre">tests</span></code>, <code class="docutils literal notranslate"><span class="pre">.git</span></code>), they should be placed directly in the <code class="docutils literal notranslate"><span class="pre">project-name</span></code> directory.</p>
-</div>
-<div class="section" id="imports">
-<h3>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="imports">
+<h3>Imports<a class="headerlink" href="#imports" title="Permalink to this heading">¶</a></h3>
 <p>Because all importable files are now submodules of <code class="docutils literal notranslate"><span class="pre">package_name</span></code>, your imports will have to look like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># importing the whole file</span>
 <span class="kn">import</span> <span class="nn">package_name.importable_file1</span>
@@ -100,25 +101,25 @@
 </div>
 <p>Inside of <code class="docutils literal notranslate"><span class="pre">package_name</span></code> you can also use <a class="reference external" href="https://docs.python.org/3/reference/import.html#package-relative-imports">relative imports</a>, if you're familiar with those.</p>
 <p>And just to make this extra clear: You should never import any of the executable files. Everything you want to import should be somewhere in <code class="docutils literal notranslate"><span class="pre">package_name</span></code>.</p>
-</div>
-<div class="section" id="running-the-code">
-<h3>Running the code<a class="headerlink" href="#running-the-code" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="running-the-code">
+<h3>Running the code<a class="headerlink" href="#running-the-code" title="Permalink to this heading">¶</a></h3>
 <p>All you need to do to run your code is start one of the executable files with the python interpreter. This can be done from the command line or from inside your IDE. Some IDEs (like PyCharm) have fancy &quot;configurations&quot; for executing stuff, but those sometimes get in the way, because this setup doesn't require any configuration. You tell python which file to run and it just <em>works</em>. So if your IDE is giving you trouble, ignore the convoluted configurations and look for a &quot;Run this file&quot; button.</p>
-</div>
-</div>
-<div class="section" id="common-mistakes">
-<h2>Common mistakes<a class="headerlink" href="#common-mistakes" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="common-mistakes">
+<h2>Common mistakes<a class="headerlink" href="#common-mistakes" title="Permalink to this heading">¶</a></h2>
 <p>For completeness' sake, I'm going to explain some of the problems that beginners often run into. This is only here to help people who had problems setting up their project understand what they were doing wrong. You can skip this part if you're not interested.</p>
-<div class="section" id="using-relative-imports-in-executable-files">
-<h3>Using relative imports in executable files<a class="headerlink" href="#using-relative-imports-in-executable-files" title="Permalink to this headline">¶</a></h3>
+<section id="using-relative-imports-in-executable-files">
+<h3>Using relative imports in executable files<a class="headerlink" href="#using-relative-imports-in-executable-files" title="Permalink to this heading">¶</a></h3>
 <p>Say you have an executable file <code class="docutils literal notranslate"><span class="pre">executable_file.py</span></code> with a relative import like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">.importable_file</span> <span class="kn">import</span> <span class="n">my_function</span>
 </pre></div>
 </div>
 <p>This will crash with an <code class="docutils literal notranslate"><span class="pre">ImportError</span></code>. Relative imports only work inside a package, and python doesn't consider <code class="docutils literal notranslate"><span class="pre">executable_file.py</span></code> to be a part of any package. When a file is executed directly by the user, python assigns that file the name &quot;__main__&quot; and thinks of it as its own module. That's why every file that can be executed by the user must use absolute imports.</p>
-</div>
-<div class="section" id="importing-the-file-that-the-user-executed">
-<h3>Importing the file that the user executed<a class="headerlink" href="#importing-the-file-that-the-user-executed" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="importing-the-file-that-the-user-executed">
+<h3>Importing the file that the user executed<a class="headerlink" href="#importing-the-file-that-the-user-executed" title="Permalink to this heading">¶</a></h3>
 <p>When the file that was executed by the user is involved in a circular import, really strange things can happen. For example, if you have an <code class="docutils literal notranslate"><span class="pre">importable_file.py</span></code> like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">executable_file</span>
 
@@ -150,9 +151,9 @@
 <p>Now, the problem is that when a file is executed by the user, python assigns that file the name &quot;__main__&quot;. So even though the file is named &quot;executable_file.py&quot;, python only knows it as &quot;__main__&quot;. When <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">executable_file</span></code> is executed, python can't find a module named &quot;executable_file&quot;, and decides to create that module by executing the code in <code class="docutils literal notranslate"><span class="pre">executable_file.py</span></code>. That's why <code class="docutils literal notranslate"><span class="pre">executable_file.py</span></code> is executed twice.</p>
 <p>In the end, we have a &quot;__main__&quot; module and an &quot;executable_file&quot; module. Even though they were created from the same file, python still considers them two different modules. And that applies to the contents of those modules as well: As far as python is concerned, <code class="docutils literal notranslate"><span class="pre">__main__.Foo</span></code> is not the same class as <code class="docutils literal notranslate"><span class="pre">executable_file.Foo</span></code>. That explains why <code class="docutils literal notranslate"><span class="pre">isinstance(obj,</span> <span class="pre">executable_file.Foo)</span></code> returns <code class="docutils literal notranslate"><span class="pre">False</span></code> - <code class="docutils literal notranslate"><span class="pre">obj</span></code> is an instance of <code class="docutils literal notranslate"><span class="pre">__main__.Foo</span></code>, not <code class="docutils literal notranslate"><span class="pre">executable_file.Foo</span></code>.</p>
 <p>Never ever import a file that's supposed to be executed by the user.</p>
-</div>
-<div class="section" id="directly-importing-a-submodule">
-<h3>Directly importing a submodule<a class="headerlink" href="#directly-importing-a-submodule" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="directly-importing-a-submodule">
+<h3>Directly importing a submodule<a class="headerlink" href="#directly-importing-a-submodule" title="Permalink to this heading">¶</a></h3>
 <p>Say you have a package like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">package_name</span><span class="o">/</span>
     <span class="n">executable_file</span><span class="o">.</span><span class="n">py</span>
@@ -170,9 +171,9 @@
 </div>
 <p>This code will crash with an <code class="docutils literal notranslate"><span class="pre">ImportError</span></code>, and it's all because of the <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">importable_file1</span></code>. The problem is that this import tells python to import a module named &quot;importable_file1&quot;, when in reality we're trying to import the module &quot;package_name.importable_file1&quot;. Because of this incorrect import, python creates a new &quot;importable_file1&quot; module that is <em>not</em> a submodule of <code class="docutils literal notranslate"><span class="pre">package_name</span></code>, and that causes the relative imports in <code class="docutils literal notranslate"><span class="pre">importable_file1.py</span></code> to crash.</p>
 <p>The only reason why the incorrect import works in the first place is because <code class="docutils literal notranslate"><span class="pre">executable_file.py</span></code> is in the same directory as <code class="docutils literal notranslate"><span class="pre">importable_file1.py</span></code>, so this problem can be avoided by moving <code class="docutils literal notranslate"><span class="pre">executable_file.py</span></code> out of <code class="docutils literal notranslate"><span class="pre">package_name</span></code>. That way you'll be forced to use the correct <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">package_name</span> <span class="pre">import</span> <span class="pre">importable_file1</span></code> import.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
             <div class="clearer"></div>

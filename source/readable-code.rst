@@ -134,6 +134,7 @@ Let's fix all of that by applying official PEP 8 styling::
               (c1 == 'Scissors' and c2 == 'Rock')):
             print('Player 2 wins!')
 
+
     while True:
         n = 0
         while n < 3:
@@ -185,6 +186,7 @@ Our code now looks like this::
               (player1_hand == 'Paper' and player2_hand == 'Scissors') or
               (player1_hand == 'Scissors' and player2_hand == 'Rock')):
             print('Player 2 wins!')
+
 
     while True:
         round_num = 0
@@ -238,6 +240,7 @@ This is our code now::
 
             print("Invalid input")
 
+
     def print_winner():
         # check all combinations
         if player1_hand == player2_hand:
@@ -250,6 +253,7 @@ This is our code now::
               (player1_hand == 'Paper' and player2_hand == 'Scissors') or
               (player1_hand == 'Scissors' and player2_hand == 'Rock')):
             print('Player 2 wins!')
+
 
     while True:
         round_num = 0
@@ -287,6 +291,7 @@ Readable code is code that clearly communicates its purpose to the reader. Funct
 
             print("Invalid input")
 
+
     def print_winner(player1_hand, player2_hand):
         # check all combinations
         if player1_hand == player2_hand:
@@ -299,6 +304,7 @@ Readable code is code that clearly communicates its purpose to the reader. Funct
               (player1_hand == 'Paper' and player2_hand == 'Scissors') or
               (player1_hand == 'Scissors' and player2_hand == 'Rock')):
             print('Player 2 wins!')
+
 
     while True:
         round_num = 0
@@ -352,6 +358,7 @@ Sounds like a plan. Here we go::
 
             print("Invalid input")
 
+
     def print_winner(player1_hand, player2_hand):
         # check all combinations
         if player1_hand == player2_hand:
@@ -365,12 +372,14 @@ Sounds like a plan. Here we go::
               (player1_hand == 'Scissors' and player2_hand == 'Rock')):
             print('Player 2 wins!')
 
+
     def play_round():
         player1_hand = input_player_hand('Player 1')
         player2_hand = input_player_hand('Player 2')
         
         # call print_winner function
         print_winner(player1_hand, player2_hand)
+
 
     def play_game():
         round_num = 0
@@ -379,6 +388,7 @@ Sounds like a plan. Here we go::
 
             round_num += 1
 
+
     def play_games_forever():
         while True:
             play_game()
@@ -386,7 +396,8 @@ Sounds like a plan. Here we go::
             play_again = input("Would you like to play again? ")
             if (play_again == 'n' or play_again == 'N' or
                 play_again == 'no' or play_again == 'No'):
-                breakak
+                break
+
 
     play_games_forever()
 
@@ -462,6 +473,7 @@ Our Rock-Paper-Scissors code is actually so simple that it doesn't need any comm
 
             print("Invalid input")
 
+
     def print_winner(player1_hand, player2_hand):
         """
         Takes two player hands as input and prints the winner (or "Tie").
@@ -478,6 +490,7 @@ Our Rock-Paper-Scissors code is actually so simple that it doesn't need any comm
               (player1_hand == 'Scissors' and player2_hand == 'Rock')):
             print('Player 2 wins!')
 
+
     def play_round():
         """
         Plays a single round of Rock-Paper-Scissors.
@@ -489,6 +502,7 @@ Our Rock-Paper-Scissors code is actually so simple that it doesn't need any comm
 
         print_winner(player1_hand, player2_hand)
 
+
     def play_game():
         """
         Plays 3 rounds of Rock-Paper-Scissors.
@@ -499,6 +513,7 @@ Our Rock-Paper-Scissors code is actually so simple that it doesn't need any comm
             play_round()
 
             round_num += 1
+
 
     def play_games_forever():
         """
@@ -513,6 +528,7 @@ Our Rock-Paper-Scissors code is actually so simple that it doesn't need any comm
             if (play_again == 'n' or play_again == 'N' or
                 play_again == 'no' or play_again == 'No'):
                 break
+
 
     play_games_forever()
 
@@ -558,6 +574,7 @@ After making these last few changes, our code looks like this::
 
             print("Invalid input")
 
+
     def print_winner(player1_hand, player2_hand):
         """
         Takes two player hands as input and prints the winner (or "Tie").
@@ -572,6 +589,7 @@ After making these last few changes, our code looks like this::
         else:
             print('Player 2 wins!')
 
+
     def play_round():
         """
         Plays a single round of Rock-Paper-Scissors.
@@ -583,6 +601,7 @@ After making these last few changes, our code looks like this::
 
         print_winner(player1_hand, player2_hand)
 
+
     def play_game():
         """
         Plays 3 rounds of Rock-Paper-Scissors.
@@ -590,6 +609,7 @@ After making these last few changes, our code looks like this::
     
         for _ in range(3):
             play_round()
+
 
     def play_games_forever():
         """
@@ -603,6 +623,7 @@ After making these last few changes, our code looks like this::
             play_again = input("Would you like to play again? ")
             if play_again.lower() in {'n', 'no'}:
                 break
+
 
     play_games_forever()
 

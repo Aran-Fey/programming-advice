@@ -6,7 +6,7 @@ pushd %~dp0
 set SPHINXOPTS=-a -E
 
 if "%SPHINXBUILD%" == "" (
-	set SPHINXBUILD=sphinx-build
+	set SPHINXBUILD=python3 -m sphinx
 )
 set BUILDDIR=build
 set ALLSPHINXOPTS=-d %BUILDDIR%/doctrees %SPHINXOPTS% source
@@ -60,7 +60,7 @@ goto sphinx_ok
 
 :sphinx_python
 
-set SPHINXBUILD=python -m sphinx.__init__
+set SPHINXBUILD=python -m sphinx
 %SPHINXBUILD% 2> nul
 if errorlevel 9009 (
 	echo.

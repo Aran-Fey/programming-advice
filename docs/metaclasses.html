@@ -4,16 +4,17 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Metaclasses &#8212; Aran-Fey&#39;s (python) programming guides</title>
-    <link rel="stylesheet" href="_static/advice.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/advice.css" />
     <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="_static/pygments_dark.css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <script src="_static/theme_switcher.js"></script>
     <link rel="shortcut icon" href="_static/favicon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
@@ -35,14 +36,14 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="metaclasses">
-<h1>Metaclasses<a class="headerlink" href="#metaclasses" title="Permalink to this headline">¶</a></h1>
+  <section id="metaclasses">
+<h1>Metaclasses<a class="headerlink" href="#metaclasses" title="Permalink to this heading">¶</a></h1>
 <p>Let me start by admitting that metaclasses are not useful very often. You can be a fine python programmer without ever using metaclasses. But at the same time, they're a very interesting concept and actually not too difficult to understand.</p>
 <p>So with that out of the way: What are metaclasses?</p>
 <p>The answer is: A metaclass is a class whose instances are classes. Or, to put it differently: The class of a class is a metaclass.</p>
 <p>That's confusing, I know. But let me explain. It's a really simple concept, I swear.</p>
-<div class="section" id="metaclasses-are-just-oop">
-<h2>Metaclasses are just OOP<a class="headerlink" href="#metaclasses-are-just-oop" title="Permalink to this headline">¶</a></h2>
+<section id="metaclasses-are-just-oop">
+<h2>Metaclasses are just OOP<a class="headerlink" href="#metaclasses-are-just-oop" title="Permalink to this heading">¶</a></h2>
 <p>One of the things that make python so great is its consistency. What I mean by that is that it has relatively few core concepts, and many parts of the language are built on those concepts. Metaclasses are one example of this - they're the natural consequence of these two core principles:</p>
 <ol class="arabic simple">
 <li><p>Everything in python is an object.</p></li>
@@ -71,9 +72,9 @@
 </pre></div>
 </div>
 <p>Neat, isn't it? Because classes are objects just like everything else, they behave in ways we're already familiar with. The term &quot;metaclass&quot; is something we use to refer to classes like <code class="docutils literal notranslate"><span class="pre">type</span></code>, i.e. classes that generate other classes. That's the only difference between a regular class and a metaclass: Instantiating a regular class creates a new object, but instantiating a metaclass creates a new class. A simple concept, don't you think?</p>
-</div>
-<div class="section" id="using-metaclasses">
-<h2>Using metaclasses<a class="headerlink" href="#using-metaclasses" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="using-metaclasses">
+<h2>Using metaclasses<a class="headerlink" href="#using-metaclasses" title="Permalink to this heading">¶</a></h2>
 <p>I already showed you one way of using metaclasses: Calling a metaclass with 3 arguments creates a new class. But there's another way: The <code class="docutils literal notranslate"><span class="pre">class</span></code> statement.</p>
 <p>As you know, the <code class="docutils literal notranslate"><span class="pre">class</span></code> statement lets us create classes, like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">Bar</span><span class="p">):</span>
@@ -114,9 +115,9 @@
 </pre></div>
 </div>
 <p>As far as I know, there is no metaclass in python's standard library that accepts these kinds of keyword arguments, but they can be useful if you write your own metaclass.</p>
-</div>
-<div class="section" id="writing-custom-metaclasses">
-<h2>Writing custom metaclasses<a class="headerlink" href="#writing-custom-metaclasses" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="writing-custom-metaclasses">
+<h2>Writing custom metaclasses<a class="headerlink" href="#writing-custom-metaclasses" title="Permalink to this heading">¶</a></h2>
 <p>Python has one builtin metaclass: <code class="docutils literal notranslate"><span class="pre">type</span></code>. Every class, metaclass or not, is an instance of <code class="docutils literal notranslate"><span class="pre">type</span></code>. In order to write your own metaclass, all you have to do is subclass <code class="docutils literal notranslate"><span class="pre">type</span></code>. That's how OOP works, after all. For example, here's a metaclass that adds a class attribute to each class and also implements a nicer <code class="docutils literal notranslate"><span class="pre">__str__</span></code> than the usual <code class="docutils literal notranslate"><span class="pre">&lt;class</span> <span class="pre">'Foo'&gt;</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">DemoMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
@@ -125,7 +126,7 @@
         <span class="bp">cls</span><span class="o">.</span><span class="n">class_attribute</span> <span class="o">=</span> <span class="s1">&#39;foo&#39;</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;&lt;</span><span class="si">{cls.__name__}</span><span class="s1">&gt;&#39;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;&lt;</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">&gt;&#39;</span>
 
 <span class="k">class</span> <span class="nc">DemoClass</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">DemoMeta</span><span class="p">):</span>
     <span class="k">pass</span>
@@ -179,10 +180,10 @@
 </pre></div>
 </div>
 <p>Now that you know how to write metaclasses, let me explain why you should think twice about doing so.</p>
-</div>
-<div class="section" id="the-problem-with-metaclasses">
-<h2>The problem with metaclasses<a class="headerlink" href="#the-problem-with-metaclasses" title="Permalink to this headline">¶</a></h2>
-<p>To begin with, many programmers aren't familiar with metaclasses. Using them in your code will often make it harder to understand and less readable for most people. If possible, you should consider finding another solution. For example, a class decorator or the <a class="reference external" href="https://docs.python.org/3/reference/datamodel.html#object.__init_subclass__" title="(in Python v3.8)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__init_subclass__</span></code></a> method can oftentimes be used instead of a metaclass.</p>
+</section>
+<section id="the-problem-with-metaclasses">
+<h2>The problem with metaclasses<a class="headerlink" href="#the-problem-with-metaclasses" title="Permalink to this heading">¶</a></h2>
+<p>To begin with, many programmers aren't familiar with metaclasses. Using them in your code will often make it harder to understand and less readable for most people. If possible, you should consider finding another solution. For example, a class decorator or the <a class="reference external" href="https://docs.python.org/3/reference/datamodel.html#object.__init_subclass__" title="(in Python v3.10)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__init_subclass__</span></code></a> method can oftentimes be used instead of a metaclass.</p>
 <p>Metaclasses can also cause more concrete problems, though: Metaclass conflicts.</p>
 <p>A metaclass conflict is what happens when you try to create a class and python fails to find a most derived metaclass. This can happen when your class inherits from 2 base classes with incompatible metaclasses. &quot;Incompatible&quot; means that neither metaclass is a subclass of the other. For example, <code class="docutils literal notranslate"><span class="pre">type</span></code> and <code class="docutils literal notranslate"><span class="pre">abc.ABCMeta</span></code> are compatible, because <code class="docutils literal notranslate"><span class="pre">ABCMeta</span></code> is a subclass of <code class="docutils literal notranslate"><span class="pre">type</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">abc</span>
@@ -228,8 +229,8 @@
 <dd><p>The <code class="docutils literal notranslate"><span class="pre">metaclass</span></code> argument behaves a little different from what you might expect. Python doesn't unconditionally use the metaclass you pass in; it simply adds your metaclass to its set of metaclasses and performs its usual algorithm to find the most derived metaclass.</p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>

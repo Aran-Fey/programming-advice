@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>The python import system &#8212; Aran-Fey&#39;s (python) programming guides</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/advice.css" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="_static/pygments_dark.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/theme_switcher.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+
+    <div id="sidebar">
+        <div id="sidebar-content">
+                <a class="homepage-link" title="home page" href="index.html"><span>Home</span></a>
+            
+            <div id="theme-switcher"></div>
+        </div>
+    </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="the-python-import-system">
+<h1>The python import system<a class="headerlink" href="#the-python-import-system" title="Permalink to this heading">¶</a></h1>
+<p>Python's import system is a common source of confusion for people who are new to the language. To make things worse, <em>a lot</em> of import-related advice on the internet is bad. There are tons of hacks and sketchy workarounds that may look like they &quot;work&quot;, but actually turn your code base into a huge mess. So this is my attempt to teach you everything you need to know about imports in python.</p>
+<section id="the-import-statement">
+<h2>The import statement<a class="headerlink" href="#the-import-statement" title="Permalink to this heading">¶</a></h2>
+<p>Let's start with the purpose of imports. Imports allow us to load and use code that's written by other people, or is located in a different python script. By <em>importing</em> a module, we gain access to all functions, classes, variables, etc. of that module. Here's an example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># import the &quot;os&quot; module</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># now we can use the functions that are defined in that module</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Simple enough. Python imports the <code class="docutils literal notranslate"><span class="pre">os</span></code> module, and then automatically stores it in a variable with the same name as the module. If we want, we can tell python to store the module in a different variable with the <code class="docutils literal notranslate"><span class="pre">as</span></code> keyword:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># import the &quot;os&quot; module and store it in the &quot;foo&quot; variable</span>
+<span class="kn">import</span> <span class="nn">os</span> <span class="k">as</span> <span class="nn">foo</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>  <span class="c1"># works</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>   <span class="c1"># throws NameError because there is no &quot;os&quot; variable</span>
+</pre></div>
+</div>
+<p>In both cases python creates a module object (that is, an instance of <a class="reference external" href="https://docs.python.org/3/library/types.html#types.ModuleType" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">types.ModuleType</span></code></a>) and stores it in a variable. We can then access the module's contents through that module object.</p>
+<p>There is another form of import which doesn't store the module in a variable at all, and instead creates variables for all the functions/classes/etc in the module: the <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">x</span> <span class="pre">import</span> <span class="pre">*</span></code> style import. Here's an example of that:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># import the &quot;os&quot; module and store all its functions in variables</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># now we can access the &quot;os&quot; module&#39;s functions directly:</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">getcwd</span><span class="p">())</span>     <span class="c1"># works</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">getlogin</span><span class="p">())</span>   <span class="c1"># also works</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>  <span class="c1"># throws NameError because there is no &quot;os&quot; variable</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">*</span></code> tells python to create variables for <em>all</em> attributes of the module. This should be used sparingly. It's usually better to explicitly list all attributes you need:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># import the &quot;os&quot; module and store the &quot;getcwd&quot; and &quot;chdir&quot; functions in variables</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">getcwd</span><span class="p">,</span> <span class="n">chdir</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">getcwd</span><span class="p">())</span>     <span class="c1"># works</span>
+<span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;/home&#39;</span><span class="p">)</span>      <span class="c1"># also works</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">getlogin</span><span class="p">())</span>   <span class="c1"># throws NameError because we didn&#39;t import this function</span>
+</pre></div>
+</div>
+<p>In all of these cases, we have imported the same module. The only thing that's different is how we access it and its attributes after the import.</p>
+</section>
+<section id="the-import-system">
+<h2>The import system<a class="headerlink" href="#the-import-system" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="how-files-become-modules">
+<h2>How files become modules<a class="headerlink" href="#how-files-become-modules" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="clearer"></div>
+    </div>
+        <div id="bottomnav">
+            <a class="homepage-link" title="home page" href="index.html"><span>Home</span></a>
+        </div>
+
+    <div class="footer" role="contentinfo">
+    </div>
+  </body>
+</html>
